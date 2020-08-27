@@ -1,0 +1,28 @@
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%=link_to @user.nickname,user_path(@user),class:'header-menu' %>
+  <%= simple_format @mlqda.f2 %>
+</h2>
+<% if @user.mlqdas.any? %>
+  <%= form_for @mlqda, url: user_mlqda_path(@user,@mlqda) do |f| %>
+    <p>
+      ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ
+      <%= f.date_select :a9, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now, :start_year => (Date.today.year-100), :end_year => (Date.today.year+100) %>
+      ~
+      <%= f.date_select :f9, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now.year + 5, :start_year => (Date.today.year-100), :end_year => (Date.today.year+100) %>
+    </p>
+    <p>
+      <%=f.text_area :a1,placeholder: '* ᠰᠤᠷᠭᠠᠭᠤᠯᠢ', :class=>"bgarea" %>
+      <%=f.text_area :f1,placeholder: '* ᠣᠷᠤᠨ', :class=>"bgarea" %>
+    </p>
+    <p>
+      <%=f.text_area :a2,placeholder: '* ᠬᠣᠲᠠ ᠪᠤᠶᠤ ᠠᠢᠮᠠᠭ', :class=>"bgarea" %>
+      <%=f.text_area :f2,placeholder: 'ᠬᠣᠰᠢᠭᠤ ᠰᠤᠮᠤ ᠭᠠᠴᠠᠭ᠎ᠠ', :class=>"bgarea" %>
+    </p>
+    <p>
+      <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+
+  <% end %>
+<% end %>

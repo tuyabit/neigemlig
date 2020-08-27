@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  a1: MyText
+  f1: MyText
+  f2: MyText
+  a2: MyText
+  f3: 1
+  f6: 2019-12-19 16:35:18
+  f7: 2019-12-19 16:35:18
+  mail: one
+
+two:
+  a1: MyText
+  f1: MyText
+  f2: MyText
+  a2: MyText
+  f3: 1
+  f6: 2019-12-19 16:35:18
+  f7: 2019-12-19 16:35:18
+  mail: two

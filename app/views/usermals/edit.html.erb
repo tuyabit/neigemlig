@@ -1,0 +1,25 @@
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @usermal.name1,user_usermal_path(@user,@usermal),class:'header-menu' %>&ensp;
+</h2>
+
+<% if @user.usermals.any? %>
+  <%= form_for @usermal, url: user_usermal_path(@user,@usermal) do |f| %>
+
+    <%= @usermal.name1 %>
+    <table>
+      <tr>
+        <td>
+          <p>
+            <%=f.text_area :name1,placeholder: '* ᠶᠠᠭᠤ', :class=>"bgarea" %>
+          </p>
+          <p>
+            <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+          </p>
+        </td>
+      </tr>
+    </table>
+
+  <% end %>
+<% end %>

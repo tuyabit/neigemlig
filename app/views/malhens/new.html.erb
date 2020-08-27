@@ -1,0 +1,51 @@
+
+<h2>
+  <%= link_to @usermal.name1,user_usermal_path(@user,@usermal),class:'header-menu' %>&ensp;
+</h2>
+
+<span class="text"><%= @usermal.name2 %></span>
+
+<div class="hidden_box">
+    <h2><label for="malcount1">ᠪᠦᠷᠢᠳᠭᠡᠬᠦ &ensp;</label></h2>
+    <input type="checkbox" id="malcount1" checked="checked"/>
+    <div class="hidden_show">
+
+    <% if @usermal.malcounts.any? %>
+    <ul>
+      <% @usermal.malcounts.each do |malcount| %>
+      <li>
+        <% if @malcount.id == malcount.id then %>
+            <%= malcount.count %><%= malcount.name1 %>\<%= malcount.name2 %>
+            <span class="mailfrom">
+              <%= malcount.countdt.strftime('%Y.%m.%d %H:%M') %>
+            </span>
+            <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                <%= form_for([@user,@usermal,@malcount, @malcount.malhens.build]) do |f| %>
+                    <p>
+                      <%=f.text_area :name1,placeholder: '* ᠶᠠᠮᠠᠷ ' + @usermal.name1, :class=>"bgarea" %>
+                      <br>
+                      <%=f.number_field :count, placeholder: '1',:size=>"200x10"%>
+                      <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                    </p>
+
+                <% end %>
+            <% end %>
+
+        <% else %>
+
+            <%= malcount.count %>
+            <%= link_to malcount.name1,user_usermal_malcount_malhen_path(@user,@usermal,@malcount,@malhen),class:'command' %>
+            \<%= malcount.name2 %>
+            <span class="mailfrom">
+              <%= malcount.countdt.strftime('%Y.%m.%d %H:%M') %>
+            </span>
+
+        <% end %>
+
+      </li>
+      <% end %>
+    </ul>
+    <% end %>
+
+</div>
+</div>

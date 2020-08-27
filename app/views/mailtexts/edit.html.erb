@@ -1,0 +1,88 @@
+
+
+<h2>
+  ᠵᠠᠬᠢᠲᠠᠯ ᠤᠨ ᠠᠭᠤᠯᠭ᠎ᠠ ᠵᠠᠰᠠᠬᠤ
+  <%=link_to 'ᠵᠠᠬᠢᠲᠠᠯ ᠤᠨ ᠠᠭᠤᠯᠭ᠎ᠠ',mail_path(@mail),class:'header-menu' %>
+</h2>
+
+<br>
+
+<table height=100%>
+  <tr>
+    <td height=10%>
+      <% if @mail.f3 then %>
+        <% if @mail.f3 == session[:user_id] then %>
+          <span class="mailadd">To:<%= @mail.a1 %></span>
+        <% else %>
+          <% if session[:user_id]==1 then %>
+              <span class="mailadd">From:<%= @userfrom.email %>&ensp;To:<%= @mail.a1 %></span>
+          <% else %>
+            <span class="mailadd">From:<%= @userfrom.email %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+
+    </td>
+    <td>
+      <h2><span class="mgltig"><%= @mail.f1 %></span></h2>
+      <p><span class="mgltig"><%= @mail.f2 %></span></p>
+      <p><span class="mgltig"><%= @mail.a2 %></span></p>
+    </td>
+  </tr>
+  <tr>
+    <td height=10%></td>
+    <td>
+
+      <% if @mail.mailtexts.any? %>
+              <% @mail.mailtexts.each do |mailtext| %>
+                  <% if @mailtext.id==mailtext.id %>
+                      <%= form_for @mailtext, url: mail_mailtext_path(@mail,@mailtext) do |f| %>
+                        <p>
+                          <%=f.text_area :tt,placeholder: ' ᠪᠠᠳᠠᠭ ', :size=>"100x15", :class=>"area" %>
+                        </p>
+                        <br>
+                        <p>
+                          <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+                        </p>
+                      <% end %>
+                  <% else %>
+                      <span class="text"><%= mailtext.tt %></span>
+                  <% end %>
+                  <br>
+              <% end %>
+              <br>
+              <% @mail.mailtexts.last(1).each do |mailtext| %>
+                <div class="mailfrom">
+                  ᠡᠭᠦᠨ᠎ᠡ&ensp;<%= @userfrom.nickname %>&ensp;ᠠ᠋ᠴᠠ
+                  <%= mailtext.updated_at.strftime('%Y.%m.%d') %>&ensp;
+                </div>
+              <% end %>
+
+      <% else %>
+        <br>
+      <% end %>
+      <br>
+      <% if @mail.f6 then %>
+          <div class="mailfrom">
+            <%= @mail.f6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃
+          </div>
+          <% if @mail.f7 then %>
+              <div class="mailfrom">
+                <%= @mail.f7.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠦᠵᠡᠪᠡ᠃
+              </div>
+          <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        <span class="text"><%= userangaar.name %></span><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

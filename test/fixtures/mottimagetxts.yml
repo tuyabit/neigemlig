@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  picga: MyText
+  picba: MyText
+  picda: MyText
+  viddga: MyText
+  vidba: MyText
+  vidda: MyText
+  adiddga: MyText
+  adiba: MyText
+  adida: MyText
+  mottimage: one
+
+two:
+  picga: MyText
+  picba: MyText
+  picda: MyText
+  viddga: MyText
+  vidba: MyText
+  vidda: MyText
+  adiddga: MyText
+  adiba: MyText
+  adida: MyText
+  mottimage: two

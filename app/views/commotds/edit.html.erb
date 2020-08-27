@@ -1,0 +1,42 @@
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @motd.f1,motd_path(@motd),class:'header-menu' %>&ensp;
+</h2>
+
+<h2>
+  <%= @motd.f1 %>
+</h2>
+<h2>
+  <%= @motd.mda %>
+</h2>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<%= @motd.f2 %></p>
+<h2><%= @motd.mdb %></h2>
+<% if @motd.commotds.any? %>
+  <% @motd.commotds.each do |commotd| %>
+
+    <% if @commotd.id==commotd.id %>
+        <%= form_for @commotd, url: motd_commotd_path(@motd,@commotd) do |f| %>
+            <p><%=f.text_area :td,placeholder: ' ᠪᠠᠳᠠᠭ ', :size=>"100x5", :class=>"mgltig" %></p>
+            <p><%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %></p>
+        <% end %>
+    <% else %>
+        &ensp;&ensp;<%= commotd.td %>
+    <% end %>
+    <br>
+  <% end %>
+<% end %>
+
+<br>
+<% if @motd.f3 == session[:user_id] or session[:user_id]==1 then %>
+    <section class="Ankhaaruulga">
+      <% if @userangaars.any? %>
+        <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+        <% @userangaars.each do |userangaar| %>
+          <% if userangaar.name.present? %>
+            &ensp;&ensp;<%= userangaar.name %><br>
+          <% end %>
+        <% end %>
+      <% end %>
+    </section>
+<% end %>

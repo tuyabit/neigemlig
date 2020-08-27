@@ -1,0 +1,51 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  a1: MyString
+  f1: MyString
+  a2: MyText
+  f2: MyText
+  a3: 1
+  f3: 1
+  a4: 1.5
+  f4: 1.5
+  a5: 9.99
+  f5: 9.99
+  a6: 
+  f6: 2019-12-01 04:53:48
+  a7: 2019-12-01 04:53:48
+  f7: 2019-12-01 04:53:48
+  a8: 2019-12-01 04:53:48
+  f8: 2019-12-01 04:53:48
+  a9: 2019-12-01
+  f9: 2019-12-01
+  a10: 
+  f10: 
+  a11: false
+  f11: false
+  user: one
+
+two:
+  a1: MyString
+  f1: MyString
+  a2: MyText
+  f2: MyText
+  a3: 1
+  f3: 1
+  a4: 1.5
+  f4: 1.5
+  a5: 9.99
+  f5: 9.99
+  a6: 
+  f6: 2019-12-01 04:53:48
+  a7: 2019-12-01 04:53:48
+  f7: 2019-12-01 04:53:48
+  a8: 2019-12-01 04:53:48
+  f8: 2019-12-01 04:53:48
+  a9: 2019-12-01
+  f9: 2019-12-01
+  a10: 
+  f10: 
+  a11: false
+  f11: false
+  user: two

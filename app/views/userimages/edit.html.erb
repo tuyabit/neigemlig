@@ -1,0 +1,25 @@
+<h2>
+  ᠰᠡᠭᠦᠳᠡᠷ ᠢ᠋ᠢᠡᠨ ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @user.nickname,user_path(@user),class:'header-menu' %>&ensp;
+</h2>
+
+<% if @user.userimages.any? %>
+  <%= form_for @userimage, url: user_userimage_path(@user,@userimage) do |f| %>
+    <table>
+      <tr>
+        <td>
+          <span class="img">
+            <%= image_tag @userimage.picture.url,:oncontextmenu=>"return false", :class => "img" %><br>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>
+      <%= f.file_field :picture, :type=>"file",:id=>"file", :class=>"command"  %>
+      <%=f.text_area :name,placeholder: 'ᠰᠡᠭᠦᠳᠡᠷ', :class=>"gaarea" %>
+    </p>
+    <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+
+
+  <% end %>
+<% end %>

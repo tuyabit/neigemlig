@@ -1,0 +1,296 @@
+
+
+<h2>
+  <%= @userto.nickname %> ᠳ᠋ᠤ ᠪᠢᠴᠢᠭᠰᠡᠨ ᠵᠠᠬᠢᠲᠠᠯ
+  <%=link_to 'ᠪᠤᠰᠤᠳ ᠵᠠᠬᠢᠲᠠᠯ',mails_path,class:'header-menu' %>
+</h2>
+
+<h2><span class="mgltig"><%= @mail.f1 %></span></h2>
+<p><span class="mgltig"><%= @mail.f2 %></span></p>
+<p><span class="mgltig"><%= @mail.a2 %></span></p>
+<% if @mail.mailtexts.any? %>
+        <% @mail.mailtexts.each do |mailtext| %>
+            <span class="text"><%= mailtext.tt %></span>
+            <% if @mail.f6 %>
+
+            <% else %>
+                <% if @mail.f3 == session[:user_id] or session[:user_id]==1 then %>
+                  <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_mail_mailtext_path(@mail,mailtext),class:'command' %>&ensp;
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                    mail_mailtext_path(@mail,mailtext),
+                    method: :delete,
+                    class: 'command',
+                    data: { confirm: 'are you sure you want to delete?'}%>
+                <% end %>
+            <% end %>
+            <br>
+        <% end %>
+        <br>
+      <% @mail.mailtexts.last(1).each do |mailtext| %>
+        <div class="mailfrom">
+          ᠡᠭᠦᠨ᠎ᠡ&ensp;<%= @userfrom.nickname %>&ensp;ᠠ᠋ᠴᠠ
+          <%= mailtext.updated_at.strftime('%Y.%m.%d') %>&ensp;
+        </div>
+      <% end %>
+      <br>
+      <% if @mail.f6 then %>
+          <div class="mailfrom">
+            <%= @mail.f6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃
+          </div>
+          <% if @mail.f7 then %>
+              <div class="mailfrom">
+                <%= @mail.f7.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠦᠵᠡᠪᠡ᠃
+              </div>
+          <% else %>
+              <% if @userto.id == session[:user_id] then %>
+                  <%= form_for @mail, url: mail_path(@mail) do |f| %>
+                    <%= f.hidden_field :f7, :value => Time.now %>
+                    <p><%= f.submit "ᠦᠵᠡᠯ᠎ᠡ", :class=>"btn",:autofocus=>"autofocus"  %></p>
+                  <% end %>
+              <% end %>
+          <% end %>
+      <% else %>
+          <% if @mail.f3 == session[:user_id] then %>
+              <%= form_for([@mail, @mail.mailtexts.build]) do |f| %>
+                <p>
+                <%= f.text_area :tt,placeholder: 'ᠪᠠᠳᠠᠭ', :size=>"100x15", :class=>"area" %>
+                </p>
+                <p>
+                <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn",:autofocus=>"autofocus" %>
+                </p>
+              <% end %>
+
+              <%= form_for @mail, url: mail_path(@mail) do |f| %>
+                <%= f.hidden_field :f6, :value => Time.now %>
+                <p>
+                  <br>
+                  <%= f.submit "ᠢᠯᠡᠭᠡᠬᠦ", :class=>"btn",:autofocus=>"autofocus"  %>
+                </p>
+              <% end %>
+          <% end %>
+      <% end %>
+<% else %>
+  <% if @mail.f6 then %>
+
+  <% else %>
+      <% if @mail.f3 == session[:user_id] then %>
+          <%= form_for([@mail, @mail.mailtexts.build]) do |f| %>
+              <p>
+                <%= f.text_area :tt,placeholder: 'ᠪᠠᠳᠠᠭ', :size=>"100x15", :class=>"area" %>
+              </p>
+              <p>
+                <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn",:autofocus=>"autofocus" %>
+              </p>
+          <% end %>
+
+      <% end %>
+  <% end %>
+<br>
+<% end %>
+
+<% if @mail.rmails.any? %>
+    <% @mail.rmails.each do |rmail| %>
+        <h2>
+          <% if rmail.ff3 == @mail.f3 then %>
+            <%= @userto.nickname %> ᠳ᠋ᠤ ᠢᠯᠡᠭᠡᠭᠰᠡᠨ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ
+          <% else %>
+            <%= @userfrom.nickname %> ᠳ᠋ᠤ ᠢᠯᠡᠭᠡᠭᠰᠡᠨ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ
+          <% end %>
+        </h2>
+        <h2><span class="mgltig"><%= rmail.ff1 %></span></h2>
+        <p><span class="mgltig"><%= rmail.ff2 %></span></p>
+        <p><span class="mgltig"><%= rmail.aa2 %></span></p>
+        <% if rmail.rmailtexts.any? %>
+            <% rmail.rmailtexts.each do |rmailtext| %>
+                <span class="text"><%= rmailtext.tt %></span>
+                <% if rmail.ff6 %>
+                  <% if session[:user_id]==1 then %>
+                    <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_mail_rmail_rmailtext_path(@mail,rmail,rmailtext),class:'command' %>&ensp;
+                    <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                      mail_rmail_rmailtext_path(@mail,rmail,rmailtext),
+                      method: :delete,
+                      class: 'command',
+                      data: { confirm: 'are you sure you want to delete?'}%>
+                  <% end %>
+                <% else %>
+                    <% if rmail.ff3 == session[:user_id] or session[:user_id]==1 then %>
+                      <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_mail_rmail_rmailtext_path(@mail,rmail,rmailtext),class:'command' %>&ensp;
+                      <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                        mail_rmail_rmailtext_path(@mail,rmail,rmailtext),
+                        method: :delete,
+                        class: 'command',
+                        data: { confirm: 'are you sure you want to delete?'}%>
+                    <% end %>
+                <% end %>
+                <br>
+            <% end %>
+            <br>
+            <div class="mailfrom">
+              <% if rmail.ff3 == @mail.f3 then %>
+                  ᠡᠭᠦᠨ᠎ᠡ&ensp;<%= @userfrom.nickname %>&ensp;ᠠ᠋ᠴᠠ
+              <% else %>
+                  ᠡᠭᠦᠨ᠎ᠡ&ensp;<%= @userto.nickname %>&ensp;ᠠ᠋ᠴᠠ
+              <% end %>
+              <% rmail.rmailtexts.last(1).each do |rmailtext| %>
+                  <%= rmailtext.updated_at.strftime('%Y.%m.%d') %>&ensp;
+              <% end %>
+            </div>
+            <br>
+            <% if rmail.ff6 then %>
+                <div class="mailfrom">
+                  <%= rmail.ff6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃
+                </div>
+                <% if rmail.ff7 then %>
+                    <div class="mailfrom">
+                      <%= rmail.ff7.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠦᠵᠡᠪᠡ᠃
+                    </div>
+                <% else %>
+                    <% if rmail.ff3 == session[:user_id] then %>
+                    <% else %>
+                        <% if @userfrom.id == session[:user_id] or @userto.id == session[:user_id] then %>
+                            <%= form_for rmail, url: mail_rmail_path(@mail,rmail) do |f| %>
+                              <%= f.hidden_field :ff7, :value => Time.now %>
+                              <p><%= f.submit "ᠦᠵᠡᠯ᠎ᠡ", :class=>"btn",:autofocus=>"autofocus" %></p>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <% if rmail.ff3 == session[:user_id] then %>
+                    <%= form_for([@mail,rmail, rmail.rmailtexts.build]) do |f| %>
+                        <p>
+                          <%= f.text_area :tt,placeholder: 'ᠪᠠᠳᠠᠭ', :size=>"100x15", :class=>"area" %>
+                        </p>
+                        <p>
+                          <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn",:autofocus=>"autofocus" %>
+                        </p>
+                    <% end %>
+                    <%= form_for rmail, url: mail_rmail_path(@mail,rmail) do |f| %>
+                      <%= f.hidden_field :ff6, :value => Time.now %>
+                      <p>
+                        <br>
+                        <%= f.submit "ᠢᠯᠡᠭᠡᠬᠦ", :class=>"btn",:autofocus=>"autofocus" %>
+                      </p>
+                    <% end %>
+                <% end %>
+
+            <% end %>
+        <% else %>
+            <% if rmail.ff6 then %>
+            <% else %>
+              <% if rmail.ff3 == session[:user_id] then %>
+                  <%= form_for([@mail,rmail, rmail.rmailtexts.build]) do |f| %>
+                      <p>
+                        <%= f.text_area :tt,placeholder: 'ᠪᠠᠳᠠᠭ', :size=>"100x15", :class=>"area" %>
+                      </p>
+                      <p>
+                        <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn",:autofocus=>"autofocus" %>
+                      </p>
+                  <% end %>
+                <% end %>
+            <% end %>
+          <br>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+<% if @mail.rmails.any? %>
+    <% @mail.rmails.last(1).each do |rmail| %>
+        <% if rmail.ff7 then %>
+            <% if @userfrom.id == session[:user_id] or @userto.id == session[:user_id] then %>
+
+                <% if @mail.f3 == session[:user_id] then %>
+                    <h2><%= @userto.nickname %> ᠳ᠋ᠤ ᠢᠯᠡᠭᠡᠬᠦ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ</h2>
+                <% else %>
+                    <h2><%= @userfrom.nickname %> ᠳ᠋ᠤ ᠢᠯᠡᠭᠡᠬᠦ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ</h2>
+                <% end %>
+
+                <%= form_for([@mail, @mail.rmails.build]) do |f| %>
+
+                    <% if @mail.f3 == session[:user_id] then %>
+                        <%= f.hidden_field :aa1, :value => @userto.email %>
+                    <% else %>
+                        <%= f.hidden_field :aa1, :value => @userfrom.email %>
+                    <% end %>
+
+                    <p>
+                      <%=f.text_area :ff1,placeholder: 'ᠭᠠᠷᠴᠠᠭ', :size=>"100x3", :class=>"gaarea" %>
+                      <% if @mail.errors.messages[:ff1].any? %>
+                      <span class="error"><%=@mail.errors.messages[:ff1][0] %></span>
+                      <% end %>
+                    </p>
+                    <p>
+                      <%=f.text_area :ff2,placeholder: 'ᠬᠦᠨᠳᠦᠲᠦ ᠬᠠᠢᠷᠠᠲᠤ             ᠳᠠᠭᠠᠨ', :size=>"100x3", :class=>"gaarea" %>
+                      <% if @mail.errors.messages[:ff2].any? %>
+                      <span class="error"><%=@mail.errors.messages[:ff2][0] %></span>
+                      <% end %>
+                    </p>
+                    <p>
+                      <%=f.text_area :aa2,placeholder: 'ᠰᠠᠢᠨ ᠪᠠᠢᠨᠤᠤ', :size=>"100x4", :class=>"gaarea" %>
+                      <% if @mail.errors.messages[:aa2].any? %>
+                      <span class="error"><%=@mail.errors.messages[:aa2][0] %></span>
+                      <% end %>
+                    </p>
+                    <p>
+                      <%= f.hidden_field :ff3, :value => session[:user_id] %>
+                      <%=f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ ", :class=>"btn",:autofocus=>"autofocus" %>
+                    </p>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% else %>
+    <% if @userfrom.id == session[:user_id] or @userto.id == session[:user_id] then %>
+      <% if @mail.f7 then %>
+            <h2>
+                <% if @mail.f3 == session[:user_id] then %>
+                    <h2><%= @userto.nickname %> ᠳ᠋ᠤ ᠢᠯᠡᠭᠡᠬᠦ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ</h2>
+                <% else %>
+                    <h2><%= @userfrom.nickname %> ᠳ᠋ᠤ ᠢᠯᠡᠭᠡᠬᠦ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ</h2>
+                <% end %>
+            </h2>
+            <%= form_for([@mail, @mail.rmails.build]) do |f| %>
+                <% if @mail.f3 == session[:user_id] then %>
+                    <%= f.hidden_field :aa1, :value => @userto.email %>
+                <% else %>
+                    <%= f.hidden_field :aa1, :value => @userfrom.email %>
+                <% end %>
+
+                <p>
+                  <%=f.text_area :ff1,placeholder: 'ᠭᠠᠷᠴᠠᠭ', :size=>"100x3", :class=>"gaarea" %>
+                  <% if @mail.errors.messages[:ff1].any? %>
+                  <span class="error"><%=@mail.errors.messages[:ff1][0] %></span>
+                  <% end %>
+                </p>
+                <p>
+                  <%=f.text_area :ff2,placeholder: 'ᠬᠦᠨᠳᠦᠲᠦ ᠬᠠᠢᠷᠠᠲᠤ             ᠳᠠᠭᠠᠨ', :size=>"100x3", :class=>"gaarea" %>
+                  <% if @mail.errors.messages[:ff2].any? %>
+                  <span class="error"><%=@mail.errors.messages[:ff2][0] %></span>
+                  <% end %>
+                </p>
+                <p>
+                  <%=f.text_area :aa2,placeholder: 'ᠰᠠᠢᠨ ᠪᠠᠢᠨᠤᠤ', :size=>"100x4", :class=>"gaarea" %>
+                  <% if @mail.errors.messages[:aa2].any? %>
+                  <span class="error"><%=@mail.errors.messages[:aa2][0] %></span>
+                  <% end %>
+                </p>
+                <p>
+                  <%= f.hidden_field :ff3, :value => session[:user_id] %>
+                  <%=f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ ", :class=>"btn",:autofocus=>"autofocus" %>
+                </p>
+            <% end %>
+          <% end %>
+    <% end %>
+<% end %>
+
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        <span class="text"><%= userangaar.name %></span><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

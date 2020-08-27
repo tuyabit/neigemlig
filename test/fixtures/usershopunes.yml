@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  une1: 1
+  une2: 1.5
+  une3: 9.99
+  dune: 2020-01-20
+  usershop: one
+
+two:
+  name: MyText
+  une1: 1
+  une2: 1.5
+  une3: 9.99
+  dune: 2020-01-20
+  usershop: two

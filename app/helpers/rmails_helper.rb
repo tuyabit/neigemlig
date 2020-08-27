@@ -1,0 +1,2 @@
+module RmailsHelper
+end

@@ -1,0 +1,36 @@
+<%= form_for @motd do |f| %>
+  <p>
+    <%=f.text_area :f1,placeholder: '*ᠭᠠᠷᠴᠠᠭ',autocomplete: 'off', :class=>"gaarea" %>
+    <% if @motd.errors.messages[:f1].any? %>
+      <span class="error"><%=@motd.errors.messages[:f1][0] %></span>
+    <% end %>
+
+    <%=f.text_area :f2,placeholder: 'ᠠᠭᠤᠯᠭ᠎ᠠ', :size=>"100x10", :class=>"gaarea" %>
+    <% if @motd.errors.messages[:f2].any? %>
+      <span class="error"><%=@motd.errors.messages[:f2][0] %></span>
+    <% end %>
+  </p>
+  <p>
+    <% if session[:user_id]!=1 then %>
+        <%= f.hidden_field :f3, :value => session[:user_id] %>
+        <%= f.hidden_field :fname, :value => session[:user_fname] %>
+        <%= f.hidden_field :funame, :value => session[:user_funame] %>
+    <% end %>
+    <%=f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ ", :class=>"btn" %>
+  </p>
+<% end %>
+
+<br>
+<% if @motd.f3 == session[:user_id] or session[:user_id]==1 then %>
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        &ensp;&ensp;<%= userangaar.name %><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>
+
+<% end %>

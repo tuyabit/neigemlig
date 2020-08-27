@@ -1,0 +1,107 @@
+
+<h2>
+  <%= @user.nickname %>
+</h2>
+
+<%= form_for(@user) do |f| %>
+
+  <p>
+    <%=f.text_area :nickname,placeholder: 'ᠨᠡᠷ᠎ᠡ',autocomplete: 'off' , :class=>"gaarea" %>
+    <% if @user.errors.messages[:nickname].any? %>
+    <span class="error"><%=@user.errors.messages[:nickname][0] %></span>
+    <% end %>
+
+    <%=f.text_area :introduce,:class=>"gaarea" %>
+    <% if @user.errors.messages[:introduce].any? %>
+    <span class="error"><%=@user.errors.messages[:introduce][0] %></span>
+    <% end %>
+</p>
+<p>
+    <%=f.number_field :age , :size=>"5x5" %>
+    <% if @user.errors.messages[:age].any? %>
+      <span class="error"><%=@user.errors.messages[:age][0] %></span>
+    <% end %>
+    <%=f.label :age, ' ᠨᠠᠰᠤᠲᠠᠢ᠃' %>&ensp;
+
+    <%= f.radio_button :sex, :ᠡᠷᠡᠭᠲᠡᠢ, checked: "checked" %>
+    <%= f.label :sex, ' ᠡᠷᠡᠭᠲᠡᠢ' %>&ensp;
+    <%= f.radio_button :sex, :ᠡᠮᠡᠭᠲᠡᠢ %>
+    <%= f.label :sex, ' ᠡᠮᠡᠭᠲᠡᠢ' %>
+</p>
+    <table height=100%>
+      <tr>
+        <td height=15%>
+          <%= f.label :email, '＠ ᠬᠠᠶᠠᠭ' %>
+        </td>
+        <td height=15%>
+          <%= f.label :password, 'ᠨᠢᠭᠤᠭᠴᠢ ᠦᠭᠡ' %>
+        </td>
+        <td height=30%>
+          <%= f.label :password_confirmation, 'ᠬᠢᠨᠠᠬᠤ ᠨᠢᠭᠤᠭᠴᠢ ᠦᠭᠡ' %>
+        </td>
+        <td height=40%>
+          <%= f.label :address, 'ᠰᠠᠭᠤᠭ᠎ᠠ ᠭᠠᠵᠠᠷ' %>
+        </td>
+      </tr>
+    </table>
+
+    <table height=100%>
+      <tr>
+        <td height=15%>
+          <%= f.email_field :email,placeholder: 'sample@sample.com', :style=>"ime-mode: disabled" %>
+          <% if @user.errors.messages[:email].any? %>
+          <span class="error"><%=@user.errors.messages[:email][0] %></span>
+          <% end %>
+        </td>
+        <td height=15%>
+          <%= f.password_field :password,placeholder: 'password' %>
+          <% if @user.errors.messages[:password].any? %>
+          <span class="error"><%=@user.errors.messages[:password][0] %></span>
+          <% end %>
+        </td>
+        <td height=30%>
+          &ensp;
+          <%= f.password_field :password_confirmation,placeholder: 'password confirmation' %>
+          <% if @user.errors.messages[:password_confirmation].any? %>
+          <span class="error"><%=@user.errors.messages[:password_confirmation][0] %></span>
+          <% end %>
+        </td>
+        <td height=40%>
+          <%=f.text_area :address,placeholder: 'address:〒1300014 china,neimenggu...', :size=>"20x6" %>
+          <br>
+          <% if @user.errors.messages[:address].any? %>
+          <span class="error"><%=@user.errors.messages[:address][0] %></span>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+
+    <% if session[:user_id]==1 then %>
+      <p>
+        <%= f.radio_button :fname, :ᠭᠡᠰᠢᠭᠦᠨ, checked: "checked" %>
+        <%= f.label :fname, 'ᠭᠡᠰᠢᠭᠦᠨ' %>
+        <%= f.radio_button :fname, :ᠬᠡᠤᠬᠡᠳ %>
+        <%= f.label :fname, 'ᠬᠡᠤᠬᠡᠳ' %>
+        <%= f.radio_button :fname, :ᠰᠤᠷᠤᠭᠴᠢ %>
+        <%= f.label :fname, 'ᠰᠤᠷᠤᠭᠴᠢ' %>
+        <%= f.radio_button :fname, :ᠨᠠᠰᠦᠲᠠᠨ %>
+        <%= f.label :fname, 'ᠨᠠᠰᠦᠲᠠᠨ' %>
+        <%= f.radio_button :fname, :ᠦᠵᠡᠭᠡᠴᠢ %>
+        <%= f.label :fname, 'ᠦᠵᠡᠭᠡᠴᠢ' %>
+        <%= f.radio_button :fname, :ᠬᠠᠤᠯᠢᠴᠢ %>
+        <%= f.label :fname, 'ᠬᠠᠤᠯᠢᠴᠢ' %>
+        <%= f.radio_button :fname, :ᠡᠮᠴᠢ %>
+        <%= f.label :fname, 'ᠡᠮᠴᠢ' %>
+        <%= f.radio_button :fname, :ᠪᠠᠭᠰᠢ %>
+        <%= f.label :fname, 'ᠪᠠᠭᠰᠢ' %>
+        <%= f.radio_button :fname, :ᠬᠢᠨᠠᠭᠴᠢ %>
+        <%= f.label :fname, 'ᠬᠢᠨᠠᠭᠴᠢ' %>
+
+      </p>
+
+
+    <% end %>
+    <p>
+      <%= f.submit ' ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ', class: 'btn' %>
+    </p>
+<% end %>

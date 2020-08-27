@@ -1,0 +1,2 @@
+module MlqdesHelper
+end

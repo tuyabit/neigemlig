@@ -1,0 +1,74 @@
+
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @mott.f1,motd_mott_path(@motd,@mott),class:'header-menu' %>&ensp;&ensp;
+</h2>
+
+<% if @mottimage.picture.present? %>
+
+    <table height="100%">
+      <tr>
+        <td>
+          <h2>ᠵᠢᠷᠤᠭ</h2>
+          <div class="img">
+            <%= image_tag @mottimage.picture.url, :class => "img"%>
+          </div>
+          <br>
+        </td>
+        <td>
+          <% if @mottimage.mottpictxts.any? %>
+              <% @mottimage.mottpictxts.each do |mottpictxt| %>
+                  <% if @mottpictxt.id==mottpictxt.id %>
+                      <%= form_for @mottpictxt, url: motd_mott_mottimage_mottpictxt_path(@motd,@mott,@mottimage,@mottpictxt) do |ff| %>
+                          <p>
+
+                            ᠭᠠᠷᠴᠠᠭ
+                            <%=ff.text_area :picga,:size=>"100x2", :class=>"gaarea" %>
+                          </p>
+                          <p>
+                            ᠪᠠᠳᠠᠭ
+                            <%=ff.text_area :picba,:size=>"100x2", :class=>"area" %>
+                          </p>
+                          <p>
+                            ᠳᠠᠬᠢᠯᠲᠠ
+                            <%=ff.text_area :picda,:size=>"100x2", :class=>"gaarea" %>
+                          </p>
+                          <p>
+                            <%= ff.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn",:autofocus=>"autofocus"  %>
+                          </p>
+                      <% end %>
+                  <% else %>
+
+                      <% if mottpictxt.picga.present? %>
+                        <h2><%= mottpictxt.picga %></h2>
+                      <% end %>
+                      <% if mottpictxt.picba.present? %>
+                        <%= mottpictxt.picba %>
+                      <% end %>
+                      <% if mottpictxt.picda.present? %>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<%= mottpictxt.picda %>&nbsp;
+                      <% end %>
+                      <br>
+                  <% end %>
+                <% end %>
+            <% end %>
+          </td>
+        </tr>
+    </table>
+
+<% end %>
+
+
+
+<br>
+<section class="Ankhaaruulga">
+  <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>ᠶᠡᠷᠦᠩᠬᠡᠢ ᠡᠷᠬᠢᠯᠡᠭᠴᠢ
+  ᠤᠯᠤᠰ ᠦᠨᠳᠦᠰᠦᠲᠡᠨ ᠨᠠᠮ ᠲᠥᠷᠦ ᠪᠠ ᠪᠤᠰᠤᠳ ᠤ᠋ᠨ ᠥᠪᠡᠷ ᠤ᠋ᠨ ᠦᠢᠯᠡ ᠠᠵᠢᠯᠯᠠᠭ᠎ᠠ ᠶ᠋ᠢ ᠰᠢᠭᠦᠮᠵᠢᠯᠡᠬᠦ ᠬᠠᠷᠢᠶᠠᠬᠤ ᠭᠤᠲᠤᠭᠠᠬᠤ ᠬᠣᠷᠤᠰᠬᠤ ᠵᠢᠮᠯᠡᠬᠦ ᠬᠠᠭᠠᠴᠠᠭᠠᠬᠤ ᠢᠯᠭᠠᠬᠤ ᠲᠤᠬᠠᠢ ᠦᠭᠡ ᠥᠭᠦᠯᠡᠪᠦᠷᠢ ᠪᠠ ᠵᠢᠷᠤᠭ ᠢ᠋ ᠡᠷᠡᠰ ᠴᠠᠭᠠᠵᠢᠯᠠᠨ᠎ᠠ᠃ <br>
+  ᠬᠥᠮᠦᠨ ᠤ᠋ ᠪᠡᠶ᠎ᠡ ᠰᠡᠳᠭᠢᠯ ᠢᠯᠠᠩᠭᠤᠶ᠎ᠠ ᠬᠡᠤᠬᠡᠳ ᠪᠠᠭᠠᠴᠤᠳ ᠤ᠋ᠨ ᠡᠷᠡᠭᠦᠯ ᠳ᠋ᠤ ᠬᠥᠨᠦᠭᠡᠯ ᠲᠠᠢ ᠦᠭᠡ ᠥᠭᠦᠯᠡᠪᠦᠷᠢ ᠪᠠ ᠵᠢᠷᠤᠭ ᠢ᠋ ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠦᠭᠡᠢ᠃ <br>
+  ᠤᠯᠠᠮᠵᠢᠯᠠᠯᠲᠤ ᠵᠠᠩ ᠵᠠᠩᠰᠢᠯ ᠪᠠ ᠡᠴᠢᠭᠡ ᠡᠪᠦᠭᠡᠳ ᠤ᠋ᠨ ᠤᠯᠠᠮᠵᠢᠯᠠᠯᠲᠤ ᠰᠤᠷᠭᠠᠯ ᠢ᠋ ᠵᠥᠷᠢᠴᠡᠬᠦ ᠦᠭᠡᠢ᠃ <br>
+  ᠶᠠᠮᠠᠷᠪᠠ ᠬᠤᠪᠢ ᠢ᠋ᠢᠨ ᠦᠵᠡᠯ ᠰᠠᠨᠠᠯ ᠰᠢᠭᠦᠮᠵᠢᠯᠡᠯ ᠪᠠ ᠲᠣᠭᠲᠠᠭᠠᠯ ᠵᠡᠷᠭᠡ ᠶ᠋ᠢ᠋ ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠦᠭᠡᠢ᠃ <br>
+  ᠪᠤᠰᠤᠳ ᠤ᠋ᠨ ᠪᠦᠲᠦᠭᠡᠯ ᠢ᠋ ᠵᠢᠭᠡᠯᠡᠬᠦ ᠳ᠋ᠤ ᠭᠡᠰᠢᠭᠦᠨ ᠢ᠋ᠢᠨ ᠵᠥᠪᠰᠢᠶᠡᠷᠡᠯ ᠢ᠋ ᠠᠪᠬᠤ ᠭᠠᠷ ᠭᠦᠢᠴᠡᠳᠭᠡᠯ ᠢ᠋ ᠪᠦᠷᠢᠨ ᠬᠢᠭᠡᠭᠡᠷᠠᠢ᠃ <br>
+  ᠮᠡᠳᠡᠭᠡᠯᠡᠯ ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠳ᠋ᠤ ᠠᠭᠤᠯᠭ᠎ᠠ ᠴᠠᠭ ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ ᠵᠢᠷᠤᠭ ᠨᠢ ᠦᠨᠡᠨ ᠪᠤᠲᠠᠲᠠᠢ  ᠪᠠᠢᠬᠤ ᠶ᠋ᠢ ᠪᠠᠲᠤᠯᠠᠭᠠᠷᠠᠢ᠃ <br>
+  ᠬᠤᠳᠤᠯᠳᠠᠭ᠎ᠠ ᠵᠡᠷᠭᠡ ᠰᠣᠯᠢᠯᠴᠠᠭᠠᠨ ᠤ᠋ ᠲᠤᠬᠠᠢ ᠮᠡᠳᠡᠭᠡ ᠢᠯᠠᠩᠭᠤᠶ᠎ᠠ ᠢᠳᠡᠭᠡᠨ ᠤᠮᠳᠠᠭᠠᠨ ᠤ᠋ ᠠᠭᠤᠯᠤᠭᠳᠠᠭᠴᠢ ᠦᠢᠯᠡᠳᠦᠯ ᠢ᠋ᠢᠨ ᠲᠤᠬᠠᠢ ᠬᠤᠳᠠᠯ ᠪᠤᠶᠤ ᠬᠡᠢᠰᠪᠦᠷᠢ ᠠᠭᠤᠯᠭ᠎ᠠ ᠶ᠋ᠢ ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠦᠭᠡᠢ᠃ <br><br>
+</section>

@@ -1,0 +1,18 @@
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to 'ᠮᠢᠨᠦ ᠳᠡᠯᠭᠡᠭᠦᠷ',user_usershop_path(@user,@usershop),class:'header-menu' %>&ensp;
+</h2>
+
+<%= form_for @usershopimg, url: user_usershop_usershopimg_path(@user,@usershop,@usershopimg) do |f| %>
+  <span class="img">
+    <%= image_tag @usershopimg.picture.url,:oncontextmenu=>"return false", :class => "img" %><br>
+  </span>
+  <p>
+    <%= f.file_field :picture, :type=>"file",  :id=>"file", :class=>"command"  %>
+    <%=f.text_area :name,placeholder:'ᠰᠡᠭᠦᠳᠡᠷ', :class=>"gaarea" %>
+  </p>
+  <p>
+    <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+  </p>
+
+<% end %>

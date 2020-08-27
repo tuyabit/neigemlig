@@ -1,0 +1,41 @@
+<h2>
+  ᠮᠡᠳᠡᠭᠳᠡᠯ ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @user.nickname,user_path(@user),class:'header-menu' %>&ensp;
+</h2>
+
+<section class="Ankhaaruulga">
+<% if @user.usermdegdels.any? %>
+    <ul>
+    <% @user.usermdegdels.each do |usermdegdel| %>
+      <li>
+      <% if @usermdegdel.id==usermdegdel.id %>
+          <%= form_for @usermdegdel, url: user_usermdegdel_path(@user,@usermdegdel) do |f| %>
+            <p>
+              ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ<br>
+              <%= f.datetime_select :f4, class: "datetimet", :use_month_numbers => true, minute_step: 10, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+              <br>~<br>
+              <%= f.datetime_select :f5, class: "datetimet", :use_month_numbers => true, minute_step: 10, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+            </p>
+            <p>
+              <%=f.text_area :ga1,placeholder: 'ᠴᠢᠬᠤᠯᠠ', :class=>"gaarea" %>
+              <%=f.text_area :ga2,placeholder: 'ᠭᠠᠷᠴᠠᠭ', :class=>"gaarea" %>
+            </p>
+            <p>
+              <%=f.text_area :name,placeholder: 'ᠮᠡᠳᠡᠭᠳᠡᠯ', :class=>"area" %>
+            </p>
+            <p>
+              <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+            </p>
+          <% end %>
+      <% else %>
+        <% if usermdegdel.name? %>
+          <label><%= usermdegdel.ga1 %></label><br>
+          <%= usermdegdel.ga2 %><br>
+          <span class="text"><%= usermdegdel.name %></span>
+        <% end %>
+      <% end %>
+      </li>
+    <% end %>
+    </ul>
+<% end %>
+</section>

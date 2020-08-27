@@ -1,0 +1,243 @@
+
+<% joba1="" %>
+<% jobf1="" %>
+<% joba2="" %>
+<% jah=0 %>
+<% if session[:user_id]  %>
+    <br>
+    <div class="hidden_box">
+    <label for="job">ᠮᠢᠨᠦ ᠠᠵᠢᠯ</label>
+    <input type="checkbox" id="job" checked="checked"/>
+    <div class="hidden_show">
+
+      <% if @user.userjobs.any? %>
+          <% @user.userjobs.each do |userjob| %>
+            <% if userjob.name.present? %>
+                <br>
+                <table height="100%">
+                  <tr>
+                    <% if userjob.picture? %>
+                    <td>
+                        <span class="img">
+                          <%= image_tag userjob.picture.url,:oncontextmenu=>"return false", :class => "img" %>
+                        </span>
+                        <br>
+                    </td>
+                    <% end %>
+                    <td>
+                      <%= userjob.f9.strftime('%Y.%m.%d') %>ー
+                      <%= userjob.ff9.strftime('%Y.%m.%d') %><br>
+                      <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob),class:'command' %>
+                      <br> <%= userjob.from %><br>
+                      ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠤᠭ:<br><%= userjob.f4 %><%= userjob.unit %> ᠵᠣᠭᠤᠰ᠃
+                      <% if userjob.job.present? %>
+                        <br><br><%= userjob.job %>
+                      <% end %>
+                      <span class="mailfrom">
+                        <%= userjob.updated_at.strftime('%Y.%m.%d') %>&ensp;
+                      </span>
+                      <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                          <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userjob_path(@user,userjob),class:'command' %>&ensp;
+                          <% if userjob.userjobpjs.any? %>
+                          <% else %>
+                            <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                            user_userjob_path(@user,userjob),
+                            method: :delete,
+                            class: 'command',
+                            data: { confirm: 'are you sure you want to delete?'}%>
+                          <% end %>
+                      <% end %>
+
+                      <br>
+                    </td>
+                  </tr>
+                </table>
+              <% end %>
+          <% end %>
+      <% end %>
+
+      <% if @mymlqdbs.any? %>
+        <% @mymlqdbs.each do |mymlqdb| %>
+
+          <% if mymlqdb.a9.present? %>
+            <% if mymlqdb.a9<Time.now and mymlqdb.f9>Time.now %>
+              <% joba1=mymlqdb.a1.strip %>
+              <% jobf1=mymlqdb.f1.strip %>
+              <% joba2=mymlqdb.a2.strip %>
+              <% jah=1 %>
+            <% end %>
+          <% end %>
+
+        <% end %>
+      <% end %>
+
+      <% if jah==1 and @user.sex=="ᠡᠷᠡᠭᠲᠡᠢ" and @user.age>=20 %>
+
+        <div class="hidden_box">
+        <label for="newjob">
+          <span style="color:#ff0000;font-weight:bold;">
+          &ensp;ᠠᠵᠢᠯ ᠨᠡᠮᠡᠬᠦ
+          </span>
+        </label>
+        <input type="checkbox" id="newjob"/>
+        <div class="hidden_show">
+        <%= form_for([@user, @user.userjobs.build]) do |f| %>
+            <table>
+              <tr colspan="2">
+                <td colspan="2">
+                    <%=f.text_area :name,placeholder: '* ᠶᠠᠮᠠᠷ ᠠᠵᠢᠯ', :class=>"gaarea" %>
+                    <%=f.text_area :from,placeholder: '* ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+                </td>
+              </tr>
+              <tr colspan="2">
+                <td colspan="2">
+                  <p>
+                    <%= f.file_field :picture, :type=>"file", :id=>"file", :class=>"command"  %>
+                    <%=f.text_area :job,placeholder: 'ᠲᠠᠨᠢᠯᠴᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠤᠭ<br>
+                    <%=f.number_field :f4, step:0.001,placeholder: '1000' %>
+                    <br>
+                    <%=f.text_area :unit,placeholder: '* ᠤᠯᠤᠰ', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+                </td>
+                <td>
+                    ᠠᠵᠢᠯᠯᠠᠬᠤ ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ<br>
+                    <%= f.date_select :f9, class: "datet", :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now+1.month %>
+                    ~
+                    <%= f.date_select :ff9, class: "datet", :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now+2.month %>
+                </td>
+              </tr>
+
+            </table>
+            <p>
+              <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+            </p>
+        <% end %>
+        </div>
+        </div>
+      <% end %>
+
+    </div>
+    </div>
+
+    <% if @userjobpjhunjahs.any? %>
+      <br>
+      <div class="hidden_box">
+      <label for="myjah">ᠮᠢᠨᠦ ᠵᠠᠬᠢᠶᠠᠯᠠᠯᠭ᠎᠎ᠠ</label>
+      <input type="checkbox" id="myjah" checked="checked"/>
+      <div class="hidden_show">
+        <ul>
+        <% @userjobpjhunjahs.each do |userjobpjhunjah| %>
+          <% if userjobpjhunjah.jahdt.present? %>
+          <li>
+
+            <% if userjobpjhunjah.name.present? %>
+              <%= userjobpjhunjah.name %><br>
+            <% end %>
+            <% if userjobpjhunjah.pjname.present? %>
+              <h2><%= userjobpjhunjah.pjname %></h2>
+            <% end %>
+            <% if userjobpjhunjah.hname.present? %>
+              <%= userjobpjhunjah.hname %><br>
+            <% end %>
+            <% if userjobpjhunjah.jstartdate.present? %>
+              <%= userjobpjhunjah.jstartdate %>ᠠ᠋ᠴᠠ<%= userjobpjhunjah.jenddate %><br>
+            <% else %>
+              <% if userjobpjhunjah.hstartdate.present? %>
+                <%= userjobpjhunjah.hstartdate %>ᠠ᠋ᠴᠠ<%= userjobpjhunjah.henddate %><br>
+              <% end %>
+            <% end %>
+            <% if userjobpjhunjah.junit.present? %>
+              ᠰᠠᠷ᠎ᠠ ᠪᠦᠷᠢ:<%= userjobpjhunjah.june %><%= userjobpjhunjah.junit %> ᠵᠣᠭᠤᠰ᠃<br>
+            <% end %>
+            <span class="mailfrom">
+              <% if userjobpjhunjah.jahdt.present? %>
+                <%= link_to 'ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ',user_userjob_path(userjobpjhunjah.user_id,userjobpjhunjah.userjob_id),class:'command' %>:
+                <%= userjobpjhunjah.jahdt.strftime('%Y.%m.%d') %>&ensp;<br>
+              <% end %>
+              <% if userjobpjhunjah.mddt.present? %>
+                ᠮᠠᠳᠡᠯ᠎ᠡ:<%= userjobpjhunjah.mddt.strftime('%Y.%m.%d') %>&ensp;<br>
+              <% end %>
+              <% if userjobpjhunjah.get1dt.present? %>
+                ᠲᠣᠭᠲᠠᠪᠠ:<%= userjobpjhunjah.get1dt.strftime('%Y.%m.%d') %>&ensp;<br>
+              <% end %>
+            </span>
+          </li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+      </div>
+    <% end %>
+<% end %>
+
+<% if @alljobs.any? %>
+  <br>
+  <div class="hidden_box">
+  <label for="alljob">ᠠᠵᠢᠯ</label>
+  <input type="checkbox" id="alljob" checked="checked"/>
+  <div class="hidden_show">
+
+      <% @alljobs.each do |userjob| %>
+
+        <% alla1="" %>
+        <% allf1="" %>
+        <% alla2="" %>
+        <% alljah=0 %>
+
+        <% if @allmlqdbs.any? %>
+          <% @allmlqdbs.each do |mlqdb| %>
+            <% if userjob.user_id== mlqdb.user_id %>
+              <% if mlqdb.a9.present? %>
+                <% if mlqdb.a9<Time.now and mlqdb.f9>Time.now %>
+                  <% alla1=mlqdb.a1.strip %>
+                  <% allf1=mlqdb.f1.strip %>
+                  <% alla2=mlqdb.a2.strip %>
+                  <% if alla1==joba1 and allf1==jobf1 and alla2==joba2 %>
+                    <% alljah=1 %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if userjob.name.present? and userjob.user_id!=session[:user_id] and alljah==1 %>
+            <br>
+            <table height="100%">
+              <tr>
+                <% if userjob.picture? %>
+                <td>
+                    <span class="img">
+                      <%= image_tag userjob.picture.url,:oncontextmenu=>"return false", :class => "img" %>
+                    </span>
+                    <br>
+                </td>
+                <% end %>
+                <td>
+                  <%= userjob.f9.strftime('%Y.%m.%d') %>ー
+                  <%= userjob.ff9.strftime('%Y.%m.%d') %><br>
+                  <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob),class:'command' %>
+                  <br> <%= userjob.from %><br>
+                  <% if userjob.job.present? %>
+                    <br><%= userjob.job %>
+                  <% end %>
+                  \<%= userjob.user_id %>ᠳ᠋ᠤᠭᠠᠷ
+                  <%= link_to ' ᠳᠡᠯᠭᠡᠭᠦᠷ',user_path(userjob.user_id),class:'command' %>
+                  <span class="mailfrom">
+                    <%= userjob.updated_at.strftime('%Y.%m.%d') %>&ensp;
+                  </span>
+                  <br>
+
+                </td>
+              </tr>
+            </table>
+          <% end %>
+      <% end %>
+    </div>
+    </div>
+  <% end %>

@@ -1,0 +1,28 @@
+<h2>
+  ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ ᠢ᠋ᠢᠡᠨ ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @user.nickname,user_path(@user),class:'header-menu' %>&ensp;
+</h2>
+
+<section class="Ankhaaruulga">
+<% if @user.userangaars.any? %>
+    <% @user.userangaars.each do |userangaar| %>
+
+      <% if @userangaar.id==userangaar.id %>
+          <%= form_for @userangaar, url: user_userangaar_path(@user,@userangaar) do |f| %>
+            <p>
+              <%=f.text_area :name,placeholder: 'ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ', :class=>"area" %>
+            </p>
+            <p>
+              <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+            </p>
+          <% end %>
+      <% else %>
+        <% if userangaar.name? %>
+            <span class="text"><%= userangaar.name %></span>
+            <br>
+        <% end %>
+      <% end %>
+
+    <% end %>
+<% end %>
+</section>

@@ -1,0 +1,127 @@
+<br>
+<% if session[:user_id] %>
+
+  <% if @myuser.id == session[:user_id] and session[:user_id] != 1 then %>
+    <div class="hidden_box">
+    <label for="arilja">ᠮᠢᠨᠤ ᠳᠡᠯᠭᠡᠭᠦᠷ</label>
+    <input type="checkbox" id="arilja" checked="checked"/>
+    <div class="hidden_show">
+      <% if @myuser.usershops.any? %>
+          <ul>
+          <% @myuser.usershops.each do |usershop| %>
+                <li>
+                  <span class="text"><%= link_to usershop.name2,user_usershop_path(@user,usershop),class:'command' %>\<%= usershop.name1 %></span>
+                  <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                      <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_usershop_path(@user,usershop),class:'command' %>&ensp;
+                      <% if usershop.usershopimgs.any? or usershop.usershopunes.any? %>
+                      <% else %>
+                        <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                        user_usershop_path(@user,usershop),
+                        method: :delete,
+                        class: 'command',
+                        data: { confirm: 'are you sure you want to delete?'}%>
+                      <% end %>
+
+                  <% end %>
+                  <br>
+                </li>
+            <% if usershop.name1? %>
+
+            <% end %>
+          <% end %>
+          </ul>
+      <% else %>
+        &ensp;&ensp;&ensp;
+      <% end %>
+
+      <% if @myuser.sex=="ᠡᠷᠡᠭᠲᠡᠢ" and @myuser.age>=20 %>
+        <div class="hidden_box">
+        <label for="newarilja">
+          <span style="color:#ff0000;font-weight:bold;">
+          &ensp;&ensp;ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ ᠨᠡᠮᠡᠬᠦ
+          </span>
+        </label>
+        <input type="checkbox" id="newarilja"/>
+        <div class="hidden_show">
+          <%= form_for([@myuser, @myuser.usershops.build]) do |f| %>
+            <p>
+              <%=f.text_area :name2,placeholder: '* ᠦᠢᠯᠡᠳᠦᠯ', autocomplete: 'off', :class=>"gaarea" %>
+              <%=f.text_area :name1,placeholder: '* ᠨᠡᠷ᠎ᠡ', autocomplete: 'off', :class=>"gaarea" %>
+            </p>
+            <p>
+              <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+            </p>
+          <% end %>
+        </div>
+        </div>
+      <% end %>
+    </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @allshops.any? %>
+  <% mini=0 %>
+  <% @allshops.each do |usershop| %>
+    <% if usershop.usershopunes.any? %>
+      <% usershop.usershopunes.each do |usershopune| %>
+        <% if usershopune.usershopunejahs.any? %>
+          <% usershopune.usershopunejahs.each do |usershopunejah| %>
+    <% if usershopunejah.userid==session[:user_id] %>
+      <% if mini==0 then %>
+        <br>
+        <div class="hidden_box">
+        <label for="minijah">ᠮᠢᠨᠦ ᠵᠠᠬᠢᠶᠠᠯᠯᠠᠭ᠎ᠠ</label>
+        <input type="checkbox" id="minijah" checked="checked"/>
+        <div class="hidden_show">
+        <ul>
+        <% mini=1 %>
+      <% end %>
+      <li>
+      <% if usershop.name2.present? %>
+        <%= usershop.name2 %>\
+      <% end %>
+      <% if usershop.name1.present? %>
+        <%= usershop.name1 %>\
+      <% end %>
+      <% if usershopune.name.present? %>
+        <%= link_to usershopune.name,user_usershop_path(usershop.user_id,usershop.id),class:'command' %>
+      <% end %>
+      <% if usershopunejah.dune.present? %>
+        <span class="mailfrom">
+          ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃<%= usershopunejah.dune.strftime('%Y.%m.%d %H:%M') %>
+        </span>
+      <% end %>
+      </li>
+    <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if mini!=0 %>
+    </ul>
+    </div>
+    </div>
+  <% end %>
+<% end %>
+
+<br>
+<% if @allshops.any? %>
+<div class="hidden_box">
+<label for="bsdarilja">ᠳᠡᠯᠭᠡᠭᠦᠷ</label>
+<input type="checkbox" id="bsdarilja" checked="checked"/>
+<div class="hidden_show">
+  <ul>
+  <% @allshops.each do |usershop| %>
+    <% if usershop.user_id!=session[:user_id] %>
+      <li>
+      <%= link_to usershop.name2,user_usershop_path(usershop.user_id,usershop.id),class:'command'  %>
+      <%= link_to usershop.name1,user_usershop_path(usershop.user_id,usershop.id),class:'command'  %>\
+      </li>
+    <% end %>
+  <% end %>
+  </ul>
+</div>
+</div>
+<% end %>

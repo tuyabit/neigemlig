@@ -1,0 +1,32 @@
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @user.nickname,user_path(@user),class:'header-menu' %>&ensp;
+</h2>
+
+<%= @userpay.uname %><br>
+<%= @user.nickname %> ᠲᠤ ᠲᠤᠰᠢᠶᠠᠭᠠᠰᠠᠨ ᠳᠠᠩᠰᠠ
+
+<%= form_for @userpay, url: user_userpay_path(@user,@userpay) do |f| %>
+  <table>
+    <tr>
+      <td>
+        <p>
+        ᠨᠡᠢᠲᠡ&ensp;
+          <%=f.number_field :f4, step:0.001,placeholder: '*' %><br>
+          <%=f.text_area :unit,placeholder: '* ᠤᠯᠤᠰ', :class=>"bgarea" %>
+          <br> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃ <br>
+           <%= session[:user_funame] %> 
+           (<%= session[:user_id] %>)ᠠ᠋ᠴᠠ
+        </p>
+      </td>
+      <td>
+        <%= f.file_field :picture, :type=>"file", :id=>"file", :class=>"command"  %>
+        <%=f.text_area :name,placeholder: '', :class=>"gaarea" %>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <%= f.hidden_field :f7, :value => Time.now %>
+    <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+  </p>
+<% end %>

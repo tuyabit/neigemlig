@@ -1,0 +1,2 @@
+module RemailtextsHelper
+end

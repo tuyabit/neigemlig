@@ -1,0 +1,20 @@
+<% if @motd.motts.any? %>
+  <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
+
+    <p>
+      <%=f.text_area :f1,placeholder: '*ᠭᠠᠷᠴᠠᠭ', :class=>"gaarea" %>
+
+      <% if @mott.errors.messages[:f1].any? %>
+      <span class="error"><%=@mott.errors.messages[:f1][0] %></span>
+      <% end %>
+      <%=f.text_area :f2,placeholder: '*ᠠᠭᠤᠯᠭ᠎ᠠ', :size=>"100x30", :class=>"gaarea" %>
+      <% if @mott.errors.messages[:f2].any? %>
+        <span class="error"><%=@mott.errors.messages[:f2][0] %></span>
+      <% end %>
+    </p>
+    <p>
+      <%=f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+
+  <% end %>
+<% end %>

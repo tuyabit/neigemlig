@@ -1,0 +1,556 @@
+
+<h2>
+  <%= @motd.f1 %>
+  <% if @motd.f3 == session[:user_id] then %>
+      <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_path(@motd),class:'command' %>
+  <% else %>
+    <% if session[:user_id]==1 then %>
+        <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_path(@motd),class:'command' %>
+    <% end %>
+  <% end %>
+  <%= link_to 'ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ',users_path,class:'header-menu' %>&ensp;
+</h2>
+
+<span class="text"><%= @motd.f2 %></span>
+
+<% bgs=0 %>
+<% if session[:user_fname]=='ᠪᠠᠭᠰᠢ' then %>
+  <% if @mymlqdbs.any? %>
+    <% @mymlqdbs.each do |mymlqdb| %>
+      <% if mymlqdb.a9<Time.now and mymlqdb.f9>Time.now %>
+
+        <% if @motdf3mlqdbs.any? %>
+          <% @motdf3mlqdbs.each do |mlqdb| %>
+            <% if mlqdb.a9<Time.now and mlqdb.f9>Time.now %>
+
+              <% if mymlqdb.a1.strip==mlqdb.a1.strip and mymlqdb.f1.strip==mlqdb.f1.strip and mymlqdb.a2.strip==mlqdb.a2.strip %>
+                  <% bgs=1 %>
+              <% end %>
+
+            <% end %>
+          <% end %>
+        <% end %>
+
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if session[:user_id]==1 or session[:user_fname]=='ᠬᠢᠨᠠᠭᠴᠢ' %>
+    <% bgs=1 %>
+  <% end %>
+<% end %>
+
+<% sumbu1=[] %>
+<% sumunitbu1=[] %>
+
+<% if @motd.motts.any? %>
+  <ul>
+  <% @motd.motts.each do |mott| %>
+    <li>
+    <% if @motd.f3 == session[:user_id] or bgs==1 %>
+      <%= link_to mott.f1,motd_mott_path(@motd,mott),class:'command' %>
+    <% else %>
+      <%= mott.f1 %>
+    <% end %>
+    <span class="johiogq">
+      <%= mott.updated_at.strftime('%Y.%m.%d') %>
+    </span>
+    <% if @motd.f3 == session[:user_id] or session[:user_id]==1 then %>
+        <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_path(@motd,mott),class:'command' %>&ensp;
+        <% if mott.payunits.any? %>
+        <% else %>
+          <% if mott.mottimages.any? %>
+          <% else %>
+            <%= link_to 'ᠬᠠᠰᠤᠬᠤ',motd_mott_path(@motd,mott),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                         "class" => "mgltig"} %>
+          <% end %>
+        <% end %>
+    <% end %>
+
+    <% if session[:user_id] then %>
+      <% if mott.payunits.any? %>
+        <ul>
+        <% mott.payunits.each do |payunit| %>
+          <% if !payunit.f4.present? %>
+              <% if payunit.f7.present? %>
+                <li>
+                <% if payunit.f7.strftime('%Y%m%d%H%M').to_i>=Time.now.strftime('%Y%m%d%H%M').to_i then %>
+                  <span class="mailfrom">
+                   <%= payunit.f6.strftime('%Y.%m.%d %H:%M') %> ᠠ᠋ᠴᠠ <%= payunit.f7.strftime('%Y.%m.%d %H:%M') %>
+                  </span>
+                <% else %>
+                  <span class="mailfrom" style="color:gray;">
+                   <%= payunit.f6.strftime('%Y.%m.%d %H:%M') %> ᠠ᠋ᠴᠠ <%= payunit.f7.strftime('%Y.%m.%d %H:%M') %>
+                  </span>
+                <% end %>
+              <% end %>
+              <% if @motd.f3 == session[:user_id] or session[:user_id]==1 then %>
+                <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_payunit_path(@motd,mott,payunit),class:'command' %>&ensp;
+                <% if payunit.payunitjahs.any? %>
+                <% else %>
+                  <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                  motd_mott_payunit_path(@motd,mott,payunit),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+                  <br>
+                <% end %>
+              <% end %>
+              </li>
+          <% else %>
+            <% if payunit.f4>=0 %>
+              <li>
+              <span class="mailfrom" style="background-color:#FFE4E1;">
+                <%= payunit.f4.round(1) %><%= payunit.name %> ᠵᠣᠭᠤᠰ᠃
+              </span>
+              <% if payunit.f7.strftime('%Y%m%d%H%M').to_i>=Time.now.strftime('%Y%m%d%H%M').to_i then %>
+                <span class="mailfrom">
+                 <%= payunit.f6.strftime('%Y.%m.%d %H:%M') %> ᠠ᠋ᠴᠠ <%= payunit.f7.strftime('%Y.%m.%d %H:%M') %>
+                </span>
+              <% else %>
+                <span class="mailfrom" style="color:gray;">
+                 <%= payunit.f6.strftime('%Y.%m.%d %H:%M') %> ᠠ᠋ᠴᠠ <%= payunit.f7.strftime('%Y.%m.%d %H:%M') %>
+                </span>
+              <% end %>
+              <% if @motd.f3 == session[:user_id] or session[:user_id]==1 then %>
+                <% if payunit.payunitjahs.any? %>
+                <% else %>
+                  <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_payunit_path(@motd,mott,payunit),class:'command' %>&ensp;
+                  <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                  motd_mott_payunit_path(@motd,mott,payunit),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+                  <br>
+                <% end %>
+              <% end %>
+
+              <table height="100%" bgcolor="#F5F5F5">
+                <tr>
+                  <td>
+              <% isjah = 0 %>
+              <% if payunit.payunitjahs.any? %>
+                  <ul>
+                  <% payunit.payunitjahs.each do |payunitjah| %>
+                      <% if payunitjah.userid == session[:user_id] %>
+                        <% isjah = 1 %>
+                      <% end %>
+                      <% if payunitjah.userid == session[:user_id] or @motd.f3 == session[:user_id] or session[:user_id] == 1 %>
+                        <li>
+  <% if payunitjah.jf7.present? %>
+    <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i<DateTime.now.strftime('%Y%m%d%H%M').to_i then %>
+      <div class="hidden_box">
+      <label for="jhend<%=payunitjah.id%>">
+        <span class="mailfrom" style="color:gray;font-weight:bold;">
+          ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃
+          <% if payunitjah.uname.present? %>
+            <%= payunitjah.uname %>
+          <% else %>
+            <% if payunitjah.userid.present? %>
+              <%= payunitjah.userid %>ᠳ᠋ᠤᠭᠠᠷ ᠳᠡᠯᠭᠡᠭᠦᠷ
+            <% end %>
+          <% end %>
+           ᠠ᠋ᠴᠠ
+          <% if payunitjah.jff6.present? %>
+              <%= payunitjah.jff6.strftime('%Y.%m.%d %H:%M') %>
+          <% end %>
+        </span>
+      </label>
+      <input type="checkbox" id="jhend<%=payunitjah.id%>"/>
+      <div class="hidden_show">
+    <% end %>
+  <% end %>
+                            ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃
+                            <% if payunitjah.uname.present? %>
+                              <%= link_to payunitjah.uname,user_path(payunitjah.userid),class:'command' %>
+                            <% else %>
+                              <% if payunitjah.userid.present? %>
+                                <%= link_to payunitjah.userid,user_path(payunitjah.userid),class:'command' %>
+                              <% end %>
+                            <% end %>
+                             ᠠ᠋ᠴᠠ
+                            <% if payunitjah.jff6.present? %>
+                              <span class="mailfrom">
+                                <%= payunitjah.jff6.strftime('%Y.%m.%d %H:%M') %>
+                              </span>
+                            <% end %>
+                            <% if payunitjah.jff7.present? %>
+                                  <table height="100%" bgcolor="#E6E6FA">
+                                    <tr>
+                                      <td>
+                                  ᠮᠡᠳᠡᠯ᠎ᠡ᠃
+                                  <span class="mailfrom">
+                                    <%= payunitjah.jff7.strftime('%Y.%m.%d %H:%M') %>
+                                  </span>
+
+                                  <% payf4f5=0 %>
+                                  <% payf10=0 %>
+                                  <% payf6="" %>
+
+                                  <% if @user.userpays.any? %>
+                                    <% @user.userpays.each do |userpay| %>
+
+                                        <% if userpay.userid.present? %>
+                                            <% if userpay.userid == payunitjah.userid and userpay.unit.strip== payunitjah.jname.strip %>
+
+                                                <% if userpay.f4.present? %>
+                                                  <% payf4f5=payf4f5 + userpay.f4 %>
+                                                <% end %>
+
+                                                <% if userpay.f5.present? %>
+                                                    <% payf4f5=payf4f5 - userpay.f5 %>
+
+                                                    <% if userpay.typeid.present? %>
+                                                      <% if userpay.f10=="mott" and userpay.typeid == payunitjah.id %>
+                                                        <% payf10=userpay.typeid %>
+                                                        <% payf6=userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                                                      <% end %>
+                                                    <% end %>
+
+                                                <% end %>
+
+                                            <% end %>
+                                        <% end %>
+
+                                    <% end %>
+                                  <% end %>
+
+                                  <% if payf10 != payunitjah.id and  @motd.f3 == session[:user_id] then %>
+                                    <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_payunit_payunitjah_path(@motd,mott,payunit,payunitjah),class:'command' %>&ensp;
+                                  <% end %>
+
+                                  <% if payf10 != payunitjah.id%>
+                                    <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                                    motd_mott_payunit_payunitjah_path(@motd,mott,payunit,payunitjah),
+                                    method: :delete,
+                                    class: 'command',
+                                    data: { confirm: 'are you sure you want to delete?'}%>
+                                  <% end %>
+
+                                  <% if payunit.f6 != payunitjah.jf6 or payunit.f7 != payunitjah.jf7 %>
+                                      <br>
+                                      <span class="mailfrom">
+                                      <%= payunitjah.jf6.strftime('%Y.%m.%d %H:%M') %> ᠠ᠋ᠴᠠ <%= payunitjah.jf7.strftime('%Y.%m.%d %H:%M') %> ᠳ᠋ᠤ
+                                      </span>
+                                      <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i>DateTime.now.strftime('%Y%m%d%H%M').to_i then %>
+                                        ᠨᠡᠢᠲᠡᠯᠡᠨ᠎ᠡ᠃
+                                      <% else %>
+                                        ᠨᠡᠢᠲᠡᠯᠡᠪᠠ᠃
+                                      <% end %>
+                                  <% end %>
+
+                                  <% if payf10 != payunitjah.id%>
+                                      <br>
+                                      <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i>DateTime.now.strftime('%Y%m%d%H%M').to_i then %>
+                                          <%= payunitjah.jf4.round(1) %><%= payunitjah.jname.strip %> ᠵᠣᠭᠤᠰ ᠬᠤᠷᠢᠶᠠᠨ᠎ᠠ᠃
+                                      <% end %>
+                                  <% end %>
+
+                                  <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i>Time.now.strftime('%Y%m%d%H%M').to_i then %>
+                                      <% if payf10 != payunitjah.id and  @motd.f3 == session[:user_id] then %>
+                                          <% strname="ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ:" %>
+                                          <% strname=strname + mott.f1 %>
+                                          <% strname=strname + " ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ " %>
+                                          <%= form_for([@user, @user.userpays.build]) do |fff| %>
+                                                <%= fff.hidden_field :name, :value =>strname %>
+                                                <%= fff.hidden_field :f5, :value =>payunitjah.jf4 %>
+                                                <%= fff.hidden_field :unit, :value =>payunitjah.jname.strip %>
+                                                <%= fff.hidden_field :userid, :value =>payunitjah.userid %>
+                                                <%= fff.hidden_field :uname, :value =>payunitjah.uname %>
+                                                <%= fff.hidden_field :f6, :value => Time.now %>
+                                                <%= fff.hidden_field :f7, :value => Time.now %>
+                                                <%= fff.hidden_field :f10, :value => 'mott' %>
+                                                <%= fff.hidden_field :typeid, :value => payunitjah.id %>
+                                                <p>
+                                                  <%= fff.submit 'ᠬᠤᠳᠠᠯᠳᠠᠬᠤ', :class=>"btn" %>
+                                                </p>
+                                          <% end %>
+                                      <% end %>
+                                  <% else %>
+                                      <table height="100%" bgcolor="#999999">
+                                        <tr>
+                                          <td>
+                                          </td>
+                                        </tr>
+                                      </table>
+
+                                  <% end %>
+
+                                  <% if payf10 == payunitjah.id%>
+                                    <table height="100%" bgcolor="#B0C4DE">
+                                      <tr>
+                                        <td>
+                                      <%= payunitjah.jf4.round(1) %><%= payunitjah.jname.strip %> ᠵᠣᠭᠤᠰ ᠬᠤᠷᠢᠶᠠᠪᠠ᠃
+
+                                      <% sumbu1.push(payunitjah.jf4.round(1)) %>
+                                      <% sumunitbu1.push(payunitjah.jname.strip) %>
+
+                                      <span class="mailfrom">
+                                        <%= payf6 %>
+                                      </span>
+                                      <% if payunitjah.jf6.strftime('%Y%m%d%H%M').to_i<=Time.now.strftime('%Y%m%d%H%M').to_i and payunitjah.jf7.strftime('%Y%m%d%H%M').to_i>=Time.now.strftime('%Y%m%d%H%M').to_i then %>
+                                          <br>
+                                          <% if mott.f7.present? %>
+                                            <%= link_to mott.f1,motd_mott_path(@motd,mott),class:'command' %>
+                                          <% else %>
+                                            <%= mott.f1 %>
+                                          <% end %>
+                                      <% else %>
+                                          <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i<Time.now.strftime('%Y%m%d%H%M').to_i then %>
+                                            <table height="100%" bgcolor="#999999">
+                                              <tr>
+                                                <td>
+                                                  ᠳᠠᠭᠤᠰᠤᠪᠠ᠃
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          <% else %>
+                                            <br>ᠳᠡᠭᠡᠷᠡᠬᠢ ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠬᠤᠭᠤᠴᠠᠭᠠᠨ ᠳ᠋ᠤ ᠦᠵᠡᠭᠡᠷᠠᠢ᠃
+                                          <% end %>
+                                      <% end %>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  <% end %>
+
+                                </td>
+                              </tr>
+                            </table>
+                            <% else %>
+                                <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                                motd_mott_payunit_payunitjah_path(@motd,mott,payunit,payunitjah),
+                                method: :delete,
+                                class: 'command',
+                                data: { confirm: 'are you sure you want to delete?'}%>
+
+                                <% if @motd.f3 == session[:user_id] %>
+                                    <%= form_for payunitjah, url: motd_mott_payunit_payunitjah_path(@motd,mott,payunit,payunitjah) do |ff| %>
+                                        <%= ff.hidden_field :jf4, :value =>payunit.f4.round(1) %>
+                                        <%= ff.hidden_field :jname, :value =>payunit.name.strip %>
+                                        <%= ff.hidden_field :jf6, :value =>payunit.f6 %>
+                                        <%= ff.hidden_field :jf7, :value =>payunit.f7 %>
+                                        <%= ff.hidden_field :jf10, :value =>payunit.id %>
+                                        <%= ff.hidden_field :jff7, :value =>Time.now %>
+                                        <p>
+                                          <%= ff.submit "ᠮᠡᠳᠡᠯ᠎ᠡ", :class=>"btn" %>
+                                        </p>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+<% if payunitjah.jf7.present? then %>
+  <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i<DateTime.now.strftime('%Y%m%d%H%M').to_i then %>
+    </div>
+    </div>
+  <% end %>
+<% end %>
+                        </li>
+                        <% end %>
+                    <% end %>
+                </ul>
+
+                <% end %>
+                <% if isjah != 1 %>
+                    <% if session[:user_id]!=1 and @motd.f3 != session[:user_id] and payunit.f7.strftime('%Y%m%d%H%M').to_i>=Time.now.strftime('%Y%m%d%H%M').to_i then %>
+                        <%= form_for([@motd,mott,payunit,payunit.payunitjahs.build]) do |ff| %>
+                            <%= ff.hidden_field :userid, :value => session[:user_id] %>
+                            <%= ff.hidden_field :uname, :value => session[:user_funame] %>
+                            <%= ff.hidden_field :jff6, :value =>Time.now %>
+                            <%= ff.hidden_field :jname, :value =>payunit.name.strip %>
+                            <p>
+                              <%= ff.submit "ᠵᠠᠬᠢᠶᠠᠯᠠᠨ᠎ᠠ", :class=>"btn" %>
+                            </p>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                  </td>
+                </tr>
+                </table>
+               </li>
+             <% end %>
+          <% end %>
+
+       <% end %>
+       </ul>
+     <% end %>
+
+     <% if @motd.f3 == session[:user_id] and mott.f7.present? then %>
+       <div class="hidden_box">
+       <label for="mottune<%=mott.id%>">
+         <span style="color:#ff0000;font-weight:bold;">
+         &ensp;ᠨᠡᠢᠲᠡᠯᠡᠬᠦ
+         </span>
+       </label>
+       <input type="checkbox" id="mottune<%=mott.id%>"/>
+       <div class="hidden_show">
+
+        <%= form_for([@motd,mott,mott.payunits.build]) do |f| %>
+            <table>
+              <tr>
+                <td>
+                  <p>
+                    <%=f.number_field :f4, step:0.1,placeholder: '1.0' %>
+                    <br>
+                    <%=f.text_area :name,placeholder: 'ᠤᠯᠤᠰ', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+                  </p>
+                </td>
+                <td>
+                  <br>
+                  <p>
+                    ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ<br>
+                    <%= f.datetime_select :f6, class: "datetimet", :use_month_numbers => true, minute_step: 10, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+                    <br>~<br>
+                    <%= f.datetime_select :f7, class: "datetimet", :use_month_numbers => true, minute_step: 10, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+            <p>
+              <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+            </p>
+       <% end %>
+       <br>
+      </div>
+      </div>
+     <% end %>
+
+   <% end %>
+   </li>
+  <% end %>
+</ul>
+<% end %>
+<h2>
+  <% if @motd.f3 == session[:user_id] then %>
+    &ensp;<%=link_to 'ᠭᠠᠷᠴᠠᠭ ᠨᠡᠮᠡᠬᠦ' ,new_motd_mott_path(@motd),class:'header-menu',style:"color:#ff0000;font-weight:bold;" %>
+  <% end %>
+</h2>
+<div class="johiogq">
+  <%= link_to @motd.nickname,user_path(@motd.f3),class:'command' %> ᠵᠣᠬᠢᠶᠠᠪᠠ᠃
+  <%= @motd.updated_at.strftime('%Y.%m.%d') %><br>
+</div>
+
+
+<% if session[:user_id] then %>
+  <% if @motd.f3 == session[:user_id] or session[:user_id]==1 then %>
+
+    <% if sumunitbu1.any? %>
+
+        <% unitbune="" %>
+        <% bune=0 %>
+
+        <% unitbu=[] %>
+        <% bu=[] %>
+
+        <% sumunitbu1.each_with_index do |bu1, i| %>
+
+          <% if unitbune !=bu1 then %>
+
+            <% if unitbune !="" %>
+              <% unitbu.push(unitbune) %>
+              <% bu.push(bune) %>
+            <% end %>
+
+            <% unitbune = bu1 %>
+            <% bune = sumbu1[i] %>
+          <% else %>
+            <% bune = bune + sumbu1[i] %>
+          <% end %>
+        <% end %>
+
+        <% unitbu.push(unitbune) %>
+        <% bu.push(bune.round(0)) %>
+
+        <% payf4f5=0 %>
+        <% payf10=0 %>
+        <% payf6="" %>
+
+        <table height="100%" bgcolor="#D3D3D3">
+            <tr>
+              <td>
+                <ul>
+                  <% unitbu.each_with_index do |buu, i| %>
+                  <li>
+                      ᠠᠰᠢᠭ:<%= bu[i] %><%= unitbu[i] %> ᠵᠣᠭᠤᠰ᠃
+                      <br>
+                      <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ:
+                      <% bune=bu[i]*0.18 %>
+                      <%= bune.round(0) %><%= unitbu[i] %> ᠵᠣᠭᠤᠰ ᠤ᠋ᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠡ᠃
+
+                      <% payf4f5=0 %>
+                      <% payf5=0 %>
+                      <% payf6="" %>
+
+                      <% if @f10userpays.any? %>
+                        <% @f10userpays.each do |userpay| %>
+
+                          <% if userpay.user_id.present? %>
+
+                              <% if userpay.userid==@motd.f3 and userpay.unit.strip== unitbu[i].strip %>
+
+                                  <% if userpay.f4.present? %>
+                                      <% payf4f5=payf4f5 + userpay.f4 %>
+                                  <% end %>
+
+                                  <% if userpay.f5.present? %>
+                                      <% payf4f5=payf4f5 - userpay.f5 %>
+                                      <% if userpay.typeid.present? %>
+                                        <% if userpay.f10=="site" and userpay.typeid == @motd.id %>
+                                          <% payf5=payf5 + userpay.f5 %>
+                                          <% payf6=userpay.f6 %>
+                                        <% end %>
+                                      <% end %>
+                                  <% end %>
+
+                              <% end %>
+                          <% end %>
+
+                        <% end %>
+                      <% end %>
+
+                      <% payf4f5 = payf4f5.round(0) %>
+                      <% payf5 = payf5.round(0) %>
+
+                      <% if payf5.round(0) > 0 %>
+                          <br>
+                          <%= payf5.round(0) %><%= unitbu[i] %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
+                          <span class="mailfrom">
+                            <%= payf6.strftime('%Y.%m.%d %H:%M') %>
+                          </span>
+                      <% end %>
+                      <% if bune.round(0)>payf5.round(0)  %>
+                          <span class="Ankhaaruulga">
+                            <br><%= bune.round(0)-payf5.round(0) %><%= unitbu[i] %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
+                          </span>
+                      <% end %>
+
+                      <% if payf5.round(0) < bune.round(0) %>
+                        <% if session[:user_id]==1 then %>
+                          <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
+                            <p>
+                              <%= fff.hidden_field :name, :value => 'ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ:' + @motd.f1+' ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ ᠳ᠋ᠤ ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                              <%= fff.hidden_field :f5, :value => bune.round(0)-payf5.round(0) %>
+                              <%= fff.hidden_field :unit, :value => unitbu[i] %>
+                              <%= fff.hidden_field :userid, :value => @motd.f3 %>
+                              <%= fff.hidden_field :uname, :value => @user.nickname %>
+                              <%= fff.hidden_field :f6, :value => Time.now %>
+                              <%= fff.hidden_field :f7, :value => Time.now %>
+                              <%= fff.hidden_field :f10, :value => 'site' %>
+                              <%= fff.hidden_field :typeid, :value => @motd.id %>
+                            </p>
+                            <p>
+                              <%= fff.submit 'ᠬᠠᠰᠤᠬᠤ', :class=>"btn" %>
+                            </p>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+          </table>
+    <% end %>
+  <% end %>
+<% end %>

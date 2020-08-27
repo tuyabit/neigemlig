@@ -1,0 +1,36 @@
+<h2>
+  <%=link_to 'ᠭᠡᠰᠢᠭᠦᠨ ᠨᠡᠮᠡᠬᠦ',signup_path,class:'header-menu' %>
+</h2>
+<%= form_with url: login_path, method: :post do |f| %>
+  <table height=50% >
+    <tr>
+      <td height=5%></td>
+      <td height=20%>
+        <span class="command"><%= f.label :email, '＠ ᠬᠠᠶᠠᠭ' %></span>
+      </td>
+      <td height=5%></td>
+      <td height=30%>
+        <span class="command"><%= f.label :password, 'ᠨᠢᠭᠤᠭᠴᠢ ᠦᠭᠡ' %></span>
+      </td>
+      <td height=30%>
+      </td>
+      <td height=10%></td>
+    </tr>
+    <tr>
+      <td height=5%></td>
+      <td height=20%>
+        <%= f.email_field :email,placeholder: 'sample@sample.com' %>
+      </td>
+      <td height=5%></td>
+      <td height=30%>
+        <%= f.password_field :password,placeholder: 'password' %>
+      </td>
+      <td height=30%>
+        <%= f.submit "ᠬᠢᠨᠠᠭᠤᠯᠬᠤ", class: "btn" %>
+      </td>
+      <td height=10%></td>
+    </tr>
+  </table>
+
+<% end %>
+<br>

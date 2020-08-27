@@ -1,0 +1,182 @@
+<h2>
+  <%= @userjuud.rotate %>
+  <%= link_to 'ᠠᠰᠠᠭᠤᠯᠲᠠ',user_userjuuds_path(@user),class:'header-menu' %>&ensp;
+</h2>
+<h2>
+  <span class="text"><%= @userjuud.name %></span>
+</h2>
+<span class="text"><%= @userjuud.txt %></span>
+<div class="mailfrom">
+  <%= @user.nickname %>
+  <%= @userjuud.juuddt.strftime('%Y.%m.%d') %>
+</div>
+
+<% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+  <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userjuud_path(@user,@userjuud),class:'command' %>&ensp;
+<% end %>
+
+<% if @userjuud.rotate=='ᠵᠡᠭᠦᠳᠤ' %>
+    <% if session[:user_fname]=='ᠦᠵᠡᠭᠡᠴᠢ' then %>
+      <h2>
+        ᠵᠡᠭᠦᠳᠦ ᠵᠠᠳᠠᠯᠠᠬᠤ
+      </h2>
+      <div class="mailfrom">
+        <%= session[:user_fname] %>:<%= @loginuser.nickname %>
+        <%= Time.now.strftime('%Y.%m.%d') %>
+      </div>
+        <%= form_for([@loginuser, @loginuser.userjuudjdls.build]) do |f| %>
+          <p>
+            <%=f.text_area :jyamar,placeholder: '* ᠵᠡᠭᠦᠳᠦ', autocomplete: 'off', :class=>"gaarea" %>
+            <%=f.text_area :jyaah,placeholder: '*ᠶᠠᠭᠠᠬᠢᠪᠠᠯ ᠲᠠᠭᠠᠷᠠᠨ᠎ᠠ', autocomplete: 'off', :class=>"gaarea" %>
+          </p>
+          <p>
+            ᠰᠦᠢᠳᠭᠡᠯ <br>
+            <%=f.number_field :june, step:0.001,placeholder: '*10' %><br>
+            <%=f.text_area :junit,placeholder: '*ᠤᠯᠤᠰ', autocomplete: 'off', :class=>"bgarea" %>
+            <br>ᠵᠣᠭᠤᠰ <br>
+          </p>
+            <%=f.hidden_field :jname, :value => @userjuud.name %>
+            <%=f.hidden_field :jtxt, :value => @userjuud.txt %>
+            <%=f.hidden_field :jymrdt, :value => Time.now %>
+            <%=f.hidden_field :jrotate, :value =>@userjuud.rotate %>
+          <p>
+            <%=f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+          </p>
+        <% end %>
+    <% end %>
+<% end %>
+
+<% if @userjuud.rotate=='ᠪᠤᠬᠢᠨᠢᠲᠤᠯ' %>
+    <% if session[:user_fname]=='ᠬᠠᠤᠯᠢᠴᠢ' then %>
+      <h2>
+        ᠬᠠᠤᠯᠢ ᠵᠠᠳᠠᠯᠠᠬᠤ
+      </h2>
+      <div class="mailfrom">
+        <%= session[:user_fname] %>:<%= @loginuser.nickname %>
+        <%= Time.now.strftime('%Y.%m.%d') %>
+      </div>
+      <%= form_for([@loginuser, @loginuser.userjuudjdls.build]) do |f| %>
+        <p>
+          <%=f.text_area :jyamar,placeholder: '* ᠪᠤᠬᠢᠨᠢᠳᠤᠯ', autocomplete: 'off', :class=>"gaarea" %>
+          <%=f.text_area :jyaah,placeholder: '*ᠶᠠᠭᠠᠬᠢᠪᠠᠯ ᠲᠠᠭᠠᠷᠠᠨ᠎ᠠ', autocomplete: 'off', :class=>"gaarea" %>
+        </p>
+        <p>
+          ᠰᠦᠢᠳᠭᠡᠯ <br>
+          <%=f.number_field :june, step:0.001,placeholder: '*10' %><br>
+          <%=f.text_area :junit,placeholder: '*ᠤᠯᠤᠰ', autocomplete: 'off', :class=>"bgarea" %>
+          <br>ᠵᠣᠭᠤᠰ <br>
+        </p>
+          <%=f.hidden_field :jname, :value => @userjuud.name %>
+          <%=f.hidden_field :jtxt, :value => @userjuud.txt %>
+          <%=f.hidden_field :jymrdt, :value => Time.now %>
+          <%=f.hidden_field :jrotate, :value => @userjuud.rotate %>
+        <p>
+          <%=f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+        </p>
+      <% end %>
+
+    <% end %>
+<% end %>
+
+<% if @userjuud.rotate=='ᠡᠷᠡᠭᠦᠯ' %>
+    <% if session[:user_fname]=='ᠡᠮᠴᠢ' then %>
+      <h2>
+        ᠡᠪᠡᠳᠴᠢᠨ ᠵᠠᠳᠠᠯᠠᠬᠤ
+      </h2>
+      <div class="mailfrom">
+        <%= session[:user_fname] %>:<%= @loginuser.nickname %>
+        <%= Time.now.strftime('%Y.%m.%d') %>
+      </div>
+      <%= form_for([@loginuser, @loginuser.userjuudjdls.build]) do |f| %>
+        <p>
+          <%=f.text_area :jyamar,placeholder: '* ᠡᠪᠡᠳᠴᠢᠨ', autocomplete: 'off', :class=>"gaarea" %>
+          <%=f.text_area :jyaah,placeholder: '*ᠶᠠᠭᠠᠬᠢᠪᠠᠯ ᠲᠠᠭᠠᠷᠠᠨ᠎ᠠ', autocomplete: 'off', :class=>"gaarea" %>
+        </p>
+        <p>
+          ᠰᠦᠢᠳᠭᠡᠯ <br>
+          <%=f.number_field :june, step:0.001,placeholder: '*10' %><br>
+          <%=f.text_area :junit,placeholder: '*ᠤᠯᠤᠰ', autocomplete: 'off', :class=>"bgarea" %>
+          <br>ᠵᠣᠭᠤᠰ <br>
+        </p>
+          <%=f.hidden_field :jname, :value => @userjuud.name %>
+          <%=f.hidden_field :jtxt, :value => @userjuud.txt %>
+          <%=f.hidden_field :jymrdt, :value => Time.now %>
+          <%=f.hidden_field :jrotate, :value => @userjuud.rotate %>
+        <p>
+          <%=f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+        </p>
+      <% end %>
+
+    <% end %>
+<% end %>
+
+<% if @userjuud.rotate=='ᠦᠭᠡᠰ' %>
+    <% if session[:user_fname]=='ᠪᠠᠭᠰᠢ' then %>
+      <h2>
+        ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠲᠠᠢᠯᠪᠤᠷᠢ
+      </h2>
+      <div class="mailfrom">
+        <%= session[:user_fname] %>:<%= @loginuser.nickname %>
+        <%= Time.now.strftime('%Y.%m.%d') %>
+      </div>
+      <%= form_for([@loginuser, @loginuser.userjuudjdls.build]) do |f| %>
+          <p>
+            <%=f.text_area :jyamar,placeholder: '*ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠤᠳᠭ᠎ᠠ', autocomplete: 'off', :class=>"gaarea" %>
+            <%=f.text_area :jyaah,placeholder: '*ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠲᠠᠢᠯᠪᠤᠷᠢ', autocomplete: 'off', :class=>"gaarea" %>
+          </p>
+          <p>
+            ᠰᠦᠢᠳᠭᠡᠯ <br>
+            <%=f.number_field :june, step:0.001,placeholder: '*10' %><br>
+            <%=f.text_area :junit,placeholder: '*ᠤᠯᠤᠰ', autocomplete: 'off', :class=>"bgarea" %>
+            <br>ᠵᠣᠭᠤᠰ <br>
+          </p>
+            <%=f.hidden_field :jname, :value => @userjuud.name %>
+            <%=f.hidden_field :jtxt, :value => @userjuud.txt %>
+            <%=f.hidden_field :jymrdt, :value => Time.now %>
+            <%=f.hidden_field :jrotate, :value => @userjuud.rotate %>
+          <p>
+            <%=f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+          </p>
+      <% end %>
+    <% end %>
+<% end %>
+
+<% if @alluserjuudjdls.any? %>
+
+  <% if @userjuud.rotate=='ᠵᠡᠭᠦᠳᠤ' %>
+      <h2>
+        ᠵᠡᠭᠦᠳᠦ ᠵᠠᠳᠠᠯᠠᠭᠰᠠᠨ
+      </h2>
+  <% end %>
+  <% if @userjuud.rotate=='ᠪᠤᠬᠢᠨᠢᠲᠤᠯ' %>
+      <h2>
+        ᠬᠠᠤᠯᠢ ᠵᠠᠳᠠᠯᠠᠭᠰᠠᠨ
+      </h2>
+  <% end %>
+  <% if @userjuud.rotate=='ᠡᠷᠡᠭᠦᠯ' %>
+      <h2>
+        ᠡᠪᠡᠳᠴᠢᠨ ᠵᠠᠳᠠᠯᠠᠭᠰᠠᠨ
+      </h2>
+  <% end %>
+  <% if @userjuud.rotate=='ᠦᠭᠡᠰ' %>
+      <h2>
+        ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠲᠠᠢᠯᠪᠤᠷᠢ
+      </h2>
+  <% end %>
+
+  <ul>
+  <% @alluserjuudjdls.each do |userjuudjdl| %>
+    <li>
+      <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl),class:'command' %>
+      <% if userjuudjdl.june.present? and userjuudjdl.junit.present? %>
+        \
+        <span class="mailfrom" style="background-color:#FFE4E1;">
+          <%= userjuudjdl.june %><%= userjuudjdl.junit %> ᠵᠣᠭᠤᠰ
+        </span>
+      <% end %>
+      <span class="mailfrom">
+        <%= userjuudjdl.jymrdt.strftime('%Y.%m.%d') %>
+      </span>
+    </li>
+  <% end %>
+<% end %>

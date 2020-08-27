@@ -1,0 +1,12 @@
+<h2>
+  <%= link_to 'ᠬᠦᠰᠡᠯ ᠰᠠᠭᠠᠷᠳᠠᠯᠭ᠎ᠠ',user_usergets_path(@user),class:'command' %>
+</h2>
+<%= @userget.yuu %>:
+<span class="text"><%= @userget.name %></span>
+<br>
+<span class="text"><%= @userget.txt %></span>
+<br>
+<div class="johiogq">
+  <%= link_to @user.nickname,user_path(@user),class:'command' %> ᠠ᠋ᠴᠠ
+  <%= @userget.created_at.strftime('%Y.%m.%d') %>
+</div>

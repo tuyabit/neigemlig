@@ -1,0 +1,35 @@
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @userjuud.name,user_userjuud_path(@user,@userjuud),class:'header-menu' %>&ensp;
+</h2>
+
+<% if @user.userjuuds.any? %>
+  <%= form_for @userjuud, url: user_userjuud_path(@user,@userjuud) do |f| %>
+    <table>
+      <tr>
+        <td>
+          <%= f.radio_button :rotate, :ᠵᠡᠭᠦᠳᠤ, checked: "checked" %>
+          <%= f.label :rotate, 'ᠵᠡᠭᠦᠳᠤ' %><br>
+          <%= f.radio_button :rotate, :ᠪᠤᠬᠢᠨᠢᠲᠤᠯ %>
+          <%= f.label :rotate, 'ᠪᠤᠬᠢᠨᠢᠲᠤᠯ' %><br>
+          <%= f.radio_button :rotate, :ᠡᠷᠡᠭᠦᠯ %>
+          <%= f.label :rotate, 'ᠡᠷᠡᠭᠦᠯ' %><br>
+          <%= f.radio_button :rotate, :ᠦᠭᠡᠰ %>
+          <%= f.label :rotate, 'ᠦᠭᠡᠰ' %><br>
+        </td>
+        <td>
+          ᠬᠡᠵᠢᠶ᠎ᠡ <br>
+          <%= f.date_select :juuddt, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+        </td>
+      </tr>
+    </table>
+    <p>
+      <%=f.text_area :name,placeholder: '*ᠠᠰᠠᠭᠤᠯᠲᠠ', autocomplete: 'off', :class=>"gaarea" %>
+      <%=f.text_area :txt,placeholder: '*ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', autocomplete: 'off', :class=>"gaarea" %>
+    </p>
+    <p>
+      <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+  <% end %>
+<% end %>

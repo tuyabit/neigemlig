@@ -1,0 +1,37 @@
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @mott.f1,motd_mott_path(@motd,@mott),class:'header-menu' %>&ensp;&ensp;
+</h2>
+
+３ᠦᠭᠡ ᠦᠯᠡᠳᠡᠭᠡᠬᠦ᠃
+<% if @motd.motts.any? %>
+  <% if @mott.comments.any? %>
+      <% @mott.comments.each do |comment| %>
+        <% if @comment.id==comment.id %>
+          <%= form_for @comment, url: motd_mott_comment_path(@motd,@mott,@comment) do |f| %>
+              <p>
+                <%=f.text_area :tt,:size=>"100x2", :class=>"area" %>
+                <%=f.hidden_field :ttb, :value =>Time.now.strftime('%Y.%m.%d %H:%M') %>
+              </p>
+              <p>
+                <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+              </p>
+          <% end %>
+        <% else %>
+            <span class="text"><%= comment.tt %></span>
+        <% end %>
+        <br>
+      <% end %>
+  <% end %>
+<% end %>
+
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        &ensp;&ensp;<%= userangaar.name %><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

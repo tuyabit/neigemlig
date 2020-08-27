@@ -1,0 +1,2 @@
+module UserjuudsHelper
+end

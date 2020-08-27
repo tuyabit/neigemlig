@@ -1,0 +1,37 @@
+<% if @user.fname.strip=="ᠨᠠᠰᠦᠲᠠᠨ" %>
+
+  <%= mlqdb.a9 %>ー
+  <%= mlqdb.f9 %><br>
+  <%= mlqdb.a1 %>\
+  <%= mlqdb.f1 %>\
+  <%= mlqdb.a2 %>\
+  <%= mlqdb.f2 %>&ensp;<br>
+  <% @user.fname.strip %>:
+  <label><%= @user.nickname %></label>ᠭᠤᠸᠠᠢ ᠠ᠋ᠴᠠ
+  <br>
+  <label> ᠲᠤᠰ ᠨᠤᠲᠤᠭ ᠤ᠋ᠨ ᠶᠣᠰᠤ ᠰᠤᠷᠲᠠᠬᠤᠨ ᠪᠤᠶᠤ ᠴᠡᠭᠡᠷ</label>
+
+  <% if @mlqdbcheers.any? %>
+    <ul>
+      <% @mlqdbcheers.each do |mlqdbceer| %>
+        <li>
+            <%= mlqdbceer.text1 %>
+            <% if session[:user_id] == mlqdb.user_id %>
+              &ensp;<%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqdb_mlqdfceer_path(@user,mlqdb,mlqdbceer),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                           "class" => "mgltig"} %>
+            <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_for([@user,@mlqdb,@mlqdbcheers.build]) do |f| %>
+    <p>
+      <%=f.text_area :text1,placeholder: 'ᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %><br>
+    </p>
+    <p>
+      <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+    </p>
+  <% end %>
+
+<% end %>

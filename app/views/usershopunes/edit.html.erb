@@ -1,0 +1,65 @@
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to 'ᠮᠢᠨᠦ ᠳᠡᠯᠭᠡᠭᠦᠷ',user_usershop_path(@user,@usershop),class:'header-menu' %>&ensp;
+</h2>
+<span :class="text"><%= @usershop.name2 %>\<%= @usershop.name1%><span>
+
+<%= form_for @usershopune, url: user_usershop_usershopune_path(@user,@usershop,@usershopune) do |f| %>
+    <table>
+      <tr>
+        <td>
+          ᠠᠭᠤᠯᠠᠭᠳᠠᠭᠴᠢ ᠬᠡᠮᠵᠢᠶ᠎ᠡ (ᠵᠢᠰᠢᠶᠡᠯᠡᠪᠡᠯ120ml)
+        </td>
+        <td>
+          ᠣᠷᠤᠭᠤᠯᠤᠭᠰᠠᠨ ᠭᠠᠵᠠᠷ
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%=f.text_area :name,placeholder:'', :class=>"bgarea" %>
+        </td>
+        <td>
+          <%=f.text_area :from,placeholder:'', :class=>"bgarea" %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          １ᠤᠤᠯ ᠦᠨ᠎ᠡ<br>
+          ２ᠬᠤᠳᠠᠯᠳᠠᠬᠤ ᠦᠨ᠎ᠡ <br>
+          ３ᠪᠤᠰᠤᠳ ᠰᠦᠢᠳᠬᠡᠯ <br>
+        </td>
+        <td>
+          ４ᠬᠠᠷᠢᠴᠠᠯ<br>
+          ５ᠨᠡᠢᠲᠡ
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>
+          <%=f.number_field :une1, step:0.001,placeholder: '*1' %>
+          <%=f.number_field :bay1, step:0.001,placeholder: '*2' %>
+          <%=f.number_field :jah1, step:0.001,placeholder: '3' %>
+          </p>
+         </td>
+        <td>
+          <%=f.number_field :une3, step:0.001,placeholder: '4=(5÷(2+3))', :size=>"100x10" %>
+          <%=f.number_field :une2, step:0.001 ,placeholder: '*5=(4×(2+3))', :size=>"100x10" %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%=f.text_area :unit1,placeholder: 'ᠤᠯᠤᠰ１*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+        </td>
+        <td>
+          <%=f.text_area :unit2,placeholder: 'ᠤᠯᠤᠰ２*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+        </td>
+      </tr>
+    </table>
+
+    <%= f.hidden_field :dune, :value =>Time.now %>
+    <p>
+    <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    &ensp;&ensp;<span class="Ankhaaruulga">* ᠵᠠᠪᠠᠯ ᠪᠢᠴᠢᠬᠦ ᠠᠭᠤᠯᠭ᠎ᠠ</span>
+    </p>
+
+<% end %>

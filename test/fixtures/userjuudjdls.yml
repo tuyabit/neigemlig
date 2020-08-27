@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jname: MyString
+  jtxt: MyText
+  jyamar: MyText
+  jyaah: MyText
+  jymrdt: 2020-03-06
+  june: 9.99
+  junit: MyString
+  jrotate: MyString
+  yuu: MyString
+  juud: 1
+  user: one
+
+two:
+  jname: MyString
+  jtxt: MyText
+  jyamar: MyText
+  jyaah: MyText
+  jymrdt: 2020-03-06
+  june: 9.99
+  junit: MyString
+  jrotate: MyString
+  yuu: MyString
+  juud: 1
+  user: two

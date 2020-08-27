@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>malchid.com</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <style>
+      .body {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+    </style>
+  </head>
+  <body>
+    <section class="container">
+
+      <div id="target1" class="box">
+
+        <table>
+          <tr>
+            <td rowspan="2">
+              <%= link_to image_tag('mlchid_logo.png',class:'logo'),motds_path %>
+            </td>
+            <td>
+              <%= link_to 'ᠮᠠᠯᠴᠢᠳ',motds_path,class:'command' %>&nbsp;
+
+              <% if session[:user_id]==1 %>
+                &nbsp;<%= link_to 'ᠪᠦᠬᠦ ᠭᠡᠰᠢᠭᠦᠨ',users_path,class:'command' %>&nbsp;
+              <% end %>
+
+              <% if session[:user_id] %>
+                  <% if session[:user_id]!=1 %>
+                    &nbsp;<%= link_to 'ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ',users_path,class:'command' %>&nbsp;
+                    &nbsp;<%= link_to 'ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ',user_usershops_path(session[:user_id]),class:'command' %>
+                    &nbsp;<%= link_to 'ᠠᠵᠢᠯ',user_userjobs_path(session[:user_id]),class:'command' %>
+                    &nbsp;<%= link_to 'ᠠᠰᠠᠭᠤᠯᠲᠠ',user_userjuuds_path(session[:user_id]),class:'command' %>
+                    &nbsp;<%= link_to 'ᠪᠦᠷᠢᠳᠭᠡᠯ',user_usermals_path(session[:user_id]),class:'command' %>
+                    &nbsp;<%= link_to 'ᠶᠠᠷᠢᠯᠴᠠᠬᠤ',user_mlqdfs_path(session[:user_id]),class:'command' %>
+                  <% end %>
+                  &nbsp;<%=link_to 'ᠬᠦᠰᠡᠯ',user_usergets_path(session[:user_id]),class:'command' %>
+                  &nbsp;<%= link_to 'ᠵᠠᠬᠢᠲᠠᠯ',mails_path,class:'command' %>&nbsp;
+                  &nbsp;<%= link_to 'ᠳᠠᠬᠢᠵᠤ ᠬᠢᠨᠠᠭᠤᠯᠠᠬᠤ',logout_path,class:'command'%>&nbsp;
+                  &nbsp;<% if session[:user_fname] %>
+                    <span class="Ankhaaruulga"><%= session[:user_fname] %>:</span>
+                  <% end %>
+                  <%= link_to session[:user_funame],user_path(session[:user_id]),class:'command' %>
+              <% else %>
+                  &nbsp;<%= link_to 'ᠬᠢᠨᠠᠭᠤᠯᠠᠬᠤ',logout_path,class:'command'%>&nbsp;
+              <% end %>
+            </td>
+          </tr>
+        </table>
+
+        <script>
+          'use strict';
+          target1.addEventListener('click',function(){
+            target1.classList.toggle('win');
+            })
+        </script>
+        <h3></h3>
+
+      </div>
+
+      <%= yield %>
+
+      <section class="mgltig">
+
+      </section>
+
+    </section>
+    <footer>
+      <table width="310px">
+        <tr>
+          <td>
+            <p>&nbsp;&copy; malchid.com</p>
+          </td>
+        </tr>
+      </table>　　
+    </footer>
+  </body>
+</html>

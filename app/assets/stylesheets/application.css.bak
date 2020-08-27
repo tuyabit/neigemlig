@@ -1,0 +1,1180 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+ @-moz-document url-prefix(){
+  .sample{
+    background: #cccccc;
+  }
+}
+
+@font-face {
+    font-family: 'myfontaa';
+    src: local('Menk Qimed Tig');
+    /* src: local('Menk Hawang Tig'); */
+    /* src: local('Menk Qagan Tig'); */
+
+    /* src: url('/assets/MQD8103.ttf'); */
+    /* src: url('/assets/MQG8103.ttf'); */
+    /* src: url('/assets/MHW8103.ttf'); */
+    /* src: url('/assets/MGQ8103.ttf'); */
+
+    /* src: url('/assets/mnglwritingaat-webfont.woff2') format('woff2'),
+         url('/assets/mnglwritingaat-webfont.woff') format('woff'); */
+         /* src: local('/assets/mnglwritingaat-webfont.woff2') format('woff2'),
+              local('/assets/mnglwritingaat-webfont.woff') format('woff'); */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* safari */
+ @media screen and (-webkit-min-device-pixel-ratio:0){
+
+     body {
+         font-family: "myfontaa";
+         oncontextmenu: "return false";
+         font-size: 54pt;
+         height: 90%;
+         margin-top: 30px;
+     }
+
+     .mgltig {
+       font-family: myfontaa;
+       text-orientation: sideways-right;
+       -webkit-text-orientation: sideways-right;
+       text-combine-upright: sideways-right;
+       -webkit-text-combine-upright: sideways-right;
+       -webkit-writing-mode: vertical-lr;
+       -webkit-writing-mode: tb-lr;
+       -ms-writing-mode: vertical-lr;
+       -ms-writing-mode: tb-lr;
+       writing-mode: tb-lr;
+       writing-mode: vertical-lr;
+       height: 99%;
+       font-size: 54pt;
+     }
+
+     .box {
+       width: 300px;
+       height: 100%;
+
+       background: white;
+       cursor: pointer;
+       transition: 0.8s;
+       margin: 0 5px 5px 0;
+       text-align: center;
+       /* line-height: 50px; */
+       boder:5px solid white;
+       box-shadow: 5px 5px 5px gray;
+     }
+
+     .win {
+       background: white;
+       border-radius: 50%;
+       transform: rotate(360deg);
+       boder:5px solid white;
+       box-shadow: 5px 5px 5px gray;
+     }
+
+     .videobox {
+       max-width: 600px;
+       max-height: 600px;
+       cursor: pointer;
+       transition: 0.8s;
+       margin: 0 5px 5px 0;
+       text-align: center;
+     }
+
+     .win90 {
+       max-width: 600px;
+       max-height: 600px;
+       width: 100%;
+       height:100%;
+       cursor: pointer;
+       transition: 0.8s;
+       margin: 0 5px 5px 0;
+       text-align: center;
+       transform: rotate(90deg);
+       margin-top: 0px;
+       margin-left: 0px;
+     }
+
+     .win180 {
+       max-width: 600px;
+       max-height: 600px;
+       width: 100%;
+       height:100%;
+       cursor: pointer;
+       transition: 0.8s;
+       margin: 0 5px 5px 0;
+       text-align: center;
+       transform: rotate(180deg);
+       margin-top: 0px;
+       margin-left: 0px;
+     }
+
+     .win270 {
+       max-width: 600px;
+       max-height: 600px;
+       width: 100%;
+       height:100%;
+       cursor: pointer;
+       transition: 0.8s;
+       margin: 0 5px 5px 0;
+       text-align: center;
+       transform: rotate(270deg);
+       margin-top: 0px;
+       margin-left: 0px;
+
+     }
+
+     .container {
+       height: 95%;
+       margin-left:0;
+       margin-top:auto;
+       font-family: "myfontaa";
+       text-orientation: sideways-right;
+       -webkit-text-orientation: sideways-right;
+       -webkit-writing-mode: vertical-lr;
+       -webkit-writing-mode: tb-lr;
+       -ms-writing-mode: vertical-lr;
+       -ms-writing-mode: tb-lr;
+       writing-mode: tb-lr;
+       writing-mode: vertical-lr;
+       /* Text-conbine-upright:all;*/
+     }
+
+     .text {
+       white-space: pre-wrap;
+       text-decoration: none;
+     }
+
+     .header-menu{
+       font-size: 54pt;
+       font-weight: normal;
+       float:right;
+       margin-right: 0;
+       text-decoration: none;
+     }
+
+     ul {
+       margin-top: 0;
+       margin-bottom: 5px;
+     }
+
+     .initialtext {
+       writing-mode:initial;
+       font-family: "myfontaa";
+       -webkit-writing-mode: vertical-lr;
+     }
+
+
+     h2 {
+       font-size: 58pt;
+       padding-bottom: 10px;
+       margin-bottom: 10px;
+       margin-top: 10px;
+     }
+
+
+     .container h3 {
+       font-size: 54pt;
+       /* color: yellow; */
+       font-style:italic;
+       /* text-shadow: 2px 2px 2px #000, 2px 2px 3px #000; */
+       /* border-right: 1px solid lightgray; */
+       text-align:left;
+     }
+
+     .logo {
+       margin-top: 10px;
+       margin-left: 5px;
+<<<<<<< Updated upstream
+       width: 60px;
+       height: 240px;
+=======
+       width: 80px;
+       height: 300px;
+>>>>>>> Stashed changes
+       margin: 0 5px 5px 0;
+       text-align: center;
+       border-radius: 100px;
+       boder:3px solid gray;
+       box-shadow:  3px 3px 3px #000, 3px 3px 3px #000;
+
+     }
+
+     .inputfield {
+       height: 30%;
+       width: 30%;
+       writing-mode:initial;
+       transform:rotate(90deg);
+       transform-origin: top left;
+       margin-right: 0;
+       margin-top: 0;
+       margin-left: height;
+       font-family: "myfontaa";
+       background: #FAFAD2;
+
+     }
+
+     .infield {
+       font-family: "myfontaa";
+       text-orientation: sideways-right;
+       -webkit-text-orientation: sideways-right;
+       text-combine-upright: sideways-right;
+       -webkit-text-combine-upright: sideways-right;
+
+       font-size: 54pt;
+       height: 30%;
+       width: 30%;
+
+     }
+
+     .btn {
+
+       font-size: 50pt;
+
+       width: 350px;
+       height: 350px;
+       background: #F0E68C;
+       text-align: center;
+       text-decoration: none;
+
+       font-family: myfontaa;
+
+       -webkit-appearance: none;
+       transform:rotate(90deg);
+       border-radius: 50%;
+       border: 1px solid #000;
+       box-shadow: 5px 5px 5px gray;
+       -webkit-writing-mode: vertical-lr;
+        writing-mode: vertical-lr;
+        /* margin-top: 10px;
+        margin-right: -150px;
+        margin-left: -150px; */
+     }
+
+     .btn:hover {
+       opacity: 1.0;
+       boder:3px solid white;
+       box-shadow: 3px 3px 3px gray;
+       background: #FFD700;
+     }
+
+     input[type="text"] {
+       box-sizing:border-box;
+       font-size: 50pt;;
+       padding:5px;
+
+       width: 450px;
+       height: 450px;
+
+       font-family: "myfontaa";
+
+       -webkit-appearance: none;
+       border: 1px solid #000;
+       transform:rotate(90deg);
+       -webkit-writing-mode: vertical-lr;
+        writing-mode: vertical-lr;
+
+     }
+
+     .area {
+       box-sizing:border-box;
+       font-size: 50pt;;
+       padding:5px;
+
+       width: 750px;
+       height: 750px;
+
+       font-family: "myfontaa";
+
+       -webkit-appearance: none;
+       border: 1px solid #000;
+       transform:rotate(90deg);
+       -webkit-writing-mode: vertical-lr;
+        writing-mode: vertical-lr;
+        margin-top: 10px;
+        margin-right: -50px;
+        margin-left: -50px;
+     }
+
+
+     .gaarea {
+       box-sizing:border-box;
+       font-size: 50pt;;
+       padding:5px;
+
+       width: 550px;
+       height: 550px;
+
+       font-family: "myfontaa";
+
+       -webkit-appearance: none;
+       border: 1px solid #000;
+       transform:rotate(90deg);
+       -webkit-writing-mode: vertical-lr;
+        writing-mode: vertical-lr;
+     }
+
+     .bgarea {
+       box-sizing:border-box;
+       font-size: 50pt;;
+       padding:5px;
+
+       width: 350px;
+       height: 350px;
+
+       font-family: "myfontaa";
+
+       -webkit-appearance: none;
+       border: 1px solid #000;
+       transform:rotate(90deg);
+       -webkit-writing-mode: vertical-lr;
+        writing-mode: vertical-lr;
+     }
+
+     input[type="file"] {
+       box-sizing:border-box;
+       font-size: 24pt;;
+       padding:5px;
+
+       width: 550px;
+       height: 120px;
+
+       border: 1px solid #000;
+       background: url("photos.jpg");
+
+     }
+
+     .datet {
+       font-size: 50pt;
+       width: 400px;
+     }
+
+     .datetimet {
+       font-size: 50pt;
+       width: 700px;
+     }
+
+     input[type="password"] {
+       box-sizing:border-box;
+       font-size: 50pt;
+       padding:5px;
+       width: 700px;
+       height: 120px;
+       /* background: #FAFAD2; */
+       ime-mode: auto!important;
+     }
+
+     input[type="email"] {
+       box-sizing:border-box;
+       font-size: 50pt;
+       padding:5px;
+       width: 700px;
+       height: 120px;
+       /* background: #FAFAD2; */
+       ime-mode: inactive;
+
+     }
+
+     input[type="number"] {
+       box-sizing:border-box;
+       font-size: 50pt;
+       padding:5px;
+       width: 300px;
+       height: 150px;
+       ime-mode: disabled;
+       text-align: right;
+     }
+
+     textarea {
+         font-size: 50pt;
+         /* background: #FAFAD2; */
+         resize: horizontal;
+     }
+
+     .error {
+       font-size: 50pt;
+       font-weight: bold;
+       color: tomato;
+     }
+
+     .command {
+       font-size: 50pt;
+       font-family: "myfontaa";
+       text-orientation: sideways-right;
+       -webkit-text-orientation: sideways-right;
+       -webkit-writing-mode: vertical-lr;
+       -webkit-writing-mode: tb-lr;
+       -ms-writing-mode: vertical-lr;
+       -ms-writing-mode: tb-lr;
+       writing-mode: tb-lr;
+       writing-mode: vertical-lr;
+       text-decoration: none;
+     }
+
+     .mailadd {
+       writing-mode: lr-tb;
+       box-sizing:border-box;
+       font-size: 40pt;;
+       padding:5px;
+       width: 60px;
+       height: 15px%;
+     }
+
+     .Ankhaaruulga {
+       font-family: myfontaa;
+       text-orientation: sideways-right;
+       -webkit-text-orientation: sideways-right;
+       -webkit-writing-mode: vertical-lr;
+       -webkit-writing-mode: tb-lr;
+       -ms-writing-mode: vertical-lr;
+       -ms-writing-mode: tb-lr;
+       writing-mode: tb-lr;
+       writing-mode: vertical-lr;
+       height: 100%;
+       font-size: 44pt;
+       color: red;
+       background: #FFFFE0;
+       border-color: red;
+
+     }
+
+     .johiogq {
+       font-family: "myfontaa";
+       text-orientation: sideways-right;
+       -webkit-text-orientation: sideways-right;
+       -webkit-writing-mode: vertical-lr;
+       -webkit-writing-mode: tb-lr;
+       -ms-writing-mode: vertical-lr;
+       -ms-writing-mode: tb-lr;
+       writing-mode: tb-lr;
+       writing-mode: vertical-lr;
+       height: 100%;
+       font-size: 40pt;
+       color: silver;
+       text-align: right;
+       text-decoration: none;
+     }
+
+     .mailfrom {
+       font-family: myfontaa;
+       text-orientation: sideways-right;
+       -webkit-text-orientation: sideways-right;
+       -webkit-writing-mode: vertical-lr;
+       -webkit-writing-mode: tb-lr;
+       -ms-writing-mode: vertical-lr;
+       -ms-writing-mode: tb-lr;
+       writing-mode: tb-lr;
+       writing-mode: vertical-lr;
+       height: 100%;
+       font-size: 40pt;
+       text-align: right;
+       text-decoration: none;
+     }
+
+     .hinagq {
+
+       width: 100px;
+       height: 100%;
+       background: white;
+       cursor: pointer;
+       transition: 0.8s;
+       margin: 0 5px 5px 0;
+       text-align: center;
+       border-radius: 50%;
+       boder:5px solid white;
+       box-shadow: 5px 5px 5px gray;
+
+     }
+
+     footer {
+       width: 100%;
+       height: 1%;
+       /* margin: 30 auto 60px;
+       border-top: 1px solid lightgray; */
+     }
+
+     footer ul {
+       margin: 0;
+       list-style-type: none;
+       padding-left: 0;
+     }
+
+     footer li {
+       display: inline-block;
+     }
+
+     footer li > a:hover {
+       opacity: 0.6;
+     }
+
+     footer p {
+       color: lightgray;
+       font-size: 34px;
+     }
+
+     .iconBox {
+       boder:3px solid white;
+       box-shadow: 3px 3px 3px gray;
+     }
+
+     .current {
+       border-bottom: 4px solid royalblue;
+     }
+
+     .indeximg {
+       width: auto;
+       min-height: 600px;
+       max-height:600px;
+       float:left;
+       margin-left: 0;
+     }
+
+     .bigimg {
+       width:200px;
+       height: auto;
+       float:center;
+       margin-left: 0;
+       /* border-radius: 50%; */
+       boder:5px solid white;
+       box-shadow: 5px 5px 5px gray;
+     }
+
+     .bigimg:hover {
+       opacity: 1.0;
+       boder:3px solid white;
+       box-shadow: 3px 3px 3px gray;
+       opacity : 0.6;
+     }
+
+     .indextext {
+       width: auto;
+       max-height:100%;
+       float:left;
+     }
+
+     .img {
+       width: auto;
+       min-height: 600px;
+       max-height:600px;
+       float:left;
+       margin-bottom: 10px;
+       text-align: left;
+     }
+
+
+     .payimg {
+       width: auto;
+       min-height: 320px;
+       max-height: 320px;
+       float:left;
+       margin-bottom: 10px;
+     }
+
+     .auto {
+       min-width: 600px;
+       min-height: 600px;
+       max-height: 600px;
+       float:left;
+       margin-bottom: 10px;
+     }
+
+
+     .video {
+       /* max-width: 480px;
+       max-height: 480px; */
+       height: 600px;
+       width: 600px;
+       max-width: 600px;
+       max-height: 600px;
+
+       float:left;
+       margin-bottom: 10px;
+     }
+
+ }
+
+ @media all and (-ms-high-contrast: none){
+
+body {
+  oncontextmenu: "return false";
+  font-family: "myfontaa";
+  /* -webkit-text-size-adjust: 100%; */
+  font-size: 18pt;
+  /* height: 550px; */
+  height: 95%;
+
+  margin-top: 5px;
+}
+
+.mgltig {
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  text-combine-upright: sideways-right;
+  -webkit-text-combine-upright: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+  height: 95%;
+  font-size: 18pt;
+}
+
+.box {
+  width: 100px;
+  height: 99%;
+  background: white;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  /* line-height: 50px; */
+  boder:5px solid white;
+  box-shadow: 5px 5px 5px gray;
+}
+
+.win {
+  background: white;
+  border-radius: 50%;
+  transform: rotate(360deg);
+  boder:5px solid white;
+  box-shadow: 5px 5px 5px gray;
+}
+
+.videobox {
+  max-width: 260px;
+  max-height: 260px;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 5px 5px 0;
+  text-align: center;
+}
+
+.win90 {
+  max-width: 260px;
+  max-height: 260px;
+  width: 100%;
+  height:100%;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  transform: rotate(90deg);
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+.win180 {
+  max-width: 260px;
+  max-height: 260px;
+  width: 100%;
+  height:100%;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  transform: rotate(180deg);
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+.win270 {
+  max-width: 260px;
+  max-height: 260px;
+  width: 100%;
+  height:100%;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  transform: rotate(270deg);
+  margin-top: 0px;
+  margin-left: 0px;
+
+}
+
+.infield {
+  font-family: myfontaa;
+  /* text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  text-combine-upright: sideways-right;
+  -webkit-text-combine-upright: sideways-right; */
+  -webkit-writing-mode: vertical-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+
+  font-size: 18pt;
+  height: 99%;
+
+}
+
+.inputfield {
+  font-family: myfontaa;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+  height: 99%;
+  font-size: 18pt;
+}
+
+.text {
+  white-space: pre-wrap;
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 18pt;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.header-menu{
+  font-size: 18pt;
+  font-weight: normal;
+  float:right;
+  margin-right: 0;
+  text-decoration: none;
+}
+
+ul {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.container {
+  height: 99%;
+  margin-left:0;
+  margin-top:auto;
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+  /* Text-conbine-upright:all;*/
+}
+
+
+.container h3 {
+  font-size: 18pt;
+  /* color: yellow; */
+  font-style:italic;
+  /* text-shadow: 2px 2px 2px #000, 2px 2px 3px #000; */
+  /* border-right: 1px solid lightgray; */
+  text-align:left;
+}
+
+.logo {
+  margin-top: 10px;
+  margin-left: 5px;
+<<<<<<< Updated upstream
+  width:18px;
+  height: 80px;
+=======
+  width: 20px;
+  height: 85px;
+>>>>>>> Stashed changes
+  margin: 0 5px 5px 0;
+  text-align: center;
+  border-radius: 100px;
+  boder:3px solid gray;
+  box-shadow:  3px 3px 3px #000, 3px 3px 3px #000;
+
+}
+
+.area {
+  box-sizing:border-box;
+  font-size: 18pt;
+  padding:5px;
+  width: 300px;
+  height: 98%;
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+}
+
+
+.gaarea {
+  box-sizing:border-box;
+  font-size: 18pt;
+  padding:5px;
+  width: 180px;
+  height: 48%;
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+
+}
+
+.bgarea {
+  box-sizing:border-box;
+  font-size: 18pt;;
+  padding:5px;
+
+  width: 150px;
+  height: 150px;
+
+  /* margin-right: 130px; */
+
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+}
+
+input[type="file"] {
+  box-sizing:border-box;
+  font-size: 10pt;
+  padding:5px;
+
+  width: 40px;
+  /* height: 220px; */
+  height: 48%;
+  background: #FAFAD2;
+}
+
+.datet {
+  font-size: 18px;
+  width: 120px;
+}
+
+.datetimet {
+  font-size: 18px;
+  width: 300px;
+}
+
+/* input[type="text"] {
+  box-sizing:border-box;
+  font-size: 54pt;
+  padding:5px;
+  width: 550px;
+  height: 550px;
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+} */
+
+input[type="password"] {
+  box-sizing:border-box;
+  font-size: 18pt;
+  padding:5px;
+  width: 300px;
+  height: 60px;
+  /* background: #FAFAD2; */
+  ime-mode: auto!important;
+}
+
+input[type="email"] {
+  box-sizing:border-box;
+  font-size: 18pt;
+  padding:5px;
+  width: 300px;
+  height: 60px;
+  /* background: #FAFAD2; */
+  ime-mode: inactive;
+
+}
+
+input[type="number"] {
+  box-sizing:border-box;
+  font-size: 18pt;
+  padding:5px;
+  width: 120px;
+  height: 50px;
+  ime-mode: disabled;
+  text-align: right;
+}
+
+textarea {
+    font-size: 18pt;
+    /* background: #FAFAD2; */
+    resize: horizontal;
+}
+
+.error {
+  font-size: 18pt;
+  font-weight: bold;
+  color: tomato;
+}
+
+.command {
+  font-size: 18pt;
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+  text-decoration: none;
+}
+
+.mailadd {
+  writing-mode: lr-tb;
+  box-sizing:border-box;
+  font-size: 14pt;;
+  padding:5px;
+  width: 60px;
+  height: 15px%;
+}
+
+.Ankhaaruulga {
+  font-family: myfontaa;
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+  height: 100%;
+  font-size: 16pt;
+  color: red;
+  background: #FFFFE0;
+  border-color: red;
+
+}
+
+.johiogq {
+  font-family: "myfontaa";
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+  height: 100%;
+  font-size: 12pt;
+  color: silver;
+  text-align: right;
+  text-decoration: none;
+}
+
+.mailfrom {
+  font-family: myfontaa;
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+  -webkit-writing-mode: vertical-lr;
+  -webkit-writing-mode: tb-lr;
+  -ms-writing-mode: vertical-lr;
+  -ms-writing-mode: tb-lr;
+  writing-mode: tb-lr;
+  writing-mode: vertical-lr;
+  height: 100%;
+  font-size: 12pt;
+  text-align: right;
+  text-decoration: none;
+}
+
+.hinagq {
+  width: 100px;
+  height: 100%;
+  background: white;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  border-radius: 50%;
+  boder:5px solid white;
+  box-shadow: 5px 5px 5px gray;
+}
+
+.btn {
+   font-size: 16pt;
+
+   width: 60px;
+   height: 120px;
+   background: #F0E68C;
+   text-align: center;
+   text-decoration: none;
+
+   /* border-radius: 50%; */
+   boder:5px solid white;
+   box-shadow: 5px 5px 5px gray;
+
+   font-family: myfontaa;
+    text-orientation: sideways-right;
+    -webkit-text-orientation: sideways-right;
+    -webkit-writing-mode: vertical-lr;
+    -webkit-writing-mode: tb-lr;
+    -ms-writing-mode: vertical-lr;
+    -ms-writing-mode: tb-lr;
+    writing-mode: tb-lr;
+    writing-mode: vertical-lr;
+
+
+
+}
+
+
+.btn:hover {
+  opacity: 1.0;
+  boder:3px solid white;
+  box-shadow: 3px 3px 3px gray;
+  background: #FFD700;
+}
+
+footer {
+  width: 100%;
+  height: 2%;
+  /* margin: 30 auto 60px;
+  border-top: 1px solid lightgray; */
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14pt;
+}
+
+.iconBox {
+  boder:3px solid white;
+  box-shadow: 3px 3px 3px gray;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+.indeximg {
+  width: auto;
+  min-height: 260px;
+  /* max-width: 260px; */
+  max-height:260px;
+  float:left;
+  margin-left: 0;
+
+}
+
+.bigimg {
+  width:60px;
+  height: auto;
+  float:center;
+  margin-left: 0;
+  /* border-radius: 50%; */
+  boder:5px solid white;
+  box-shadow: 5px 5px 5px gray;
+}
+
+.bigimg:hover {
+  opacity: 1.0;
+  boder:3px solid white;
+  box-shadow: 3px 3px 3px gray;
+  opacity : 0.6;
+}
+
+.indextext {
+  width: auto;
+  max-height:100%;
+  float:left;
+}
+
+.img {
+  width: auto;
+  min-height: 260px;
+  /* max-width: 260px; */
+  max-height:260px;
+  float:left;
+  margin-bottom: 10px;
+  text-align: left;
+
+}
+
+
+.payimg {
+  width: auto;
+  max-height: 120px;
+  float:left;
+  margin-bottom: 10px;
+
+}
+
+.auto {
+  width: auto;
+  min-height: 260px;
+  min-width: 260px;
+  max-height: 260px;
+  float:left;
+  margin-bottom: 10px;
+
+}
+
+
+.video {
+  /* max-width: 480px;
+  max-height: 480px; */
+  width: 260px;
+  height: 260px;
+  max-width: 260px;
+  max-height: 260px;
+
+  float:left;
+  margin-bottom: 10px;
+}
+
+}

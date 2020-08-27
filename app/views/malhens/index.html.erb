@@ -1,0 +1,38 @@
+
+<h2>
+  <%=link_to @usermal.name1 ,user_usermal_path(@user,@usermal),class:'command' %>
+</h2>
+
+<h2><%= @malcount.name1 %>&ensp;ᠪᠦᠷᠢᠳᠭᠡᠬᠦ </h2>
+
+<%=  @malcount.count %><%= @malcount.name1 %>᠃ ᠡᠭᠦᠨ ᠤ᠋ ᠲᠤᠲᠤᠷ᠎ᠠ:
+
+
+<% if @malcount.malhens.any? %>
+<ul>
+  <% @malcount.malhens.each do |malhen| %>
+
+    <li>
+      <%= malhen.name1 %><%= malhen.count %>
+      <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_usermal_malcount_malhen_path(@user,@usermal,@malcount,malhen),class:'command' %>&ensp;
+      <%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_usermal_malcount_malhen_path(@user,@usermal,@malcount,malhen),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                     "class" => "mgltig"} %>
+
+    </li>
+  <% end %>
+</ul>
+<% end %>
+
+<% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+    <%= form_for([@user,@usermal,@malcount, @malcount.malhens.build]) do |f| %>
+
+      <p>
+        <%=f.text_area :name1,placeholder: '* ᠶᠠᠮᠠᠷ ' + @malcount.name1, :class=>"bgarea" %>
+        <br>
+        <%=f.number_field :count, placeholder: '1',:size=>"200x10"%>
+        <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+      </p>
+
+
+    <% end %>
+<% end %>

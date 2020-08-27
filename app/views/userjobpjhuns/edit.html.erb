@@ -1,0 +1,54 @@
+
+<h2>
+  ᠠᠵᠢᠯ ᠤ᠋ᠨ ᠰᠦᠢᠳᠭᠡᠯ ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @userjob.name,user_userjob_path(@userjob.user_id,@userjob),class:'header-menu' %>
+</h2>
+<h2>
+<%=  @userjobpj.name %>
+</h2>
+<%= form_for @userjobpjhun, url: user_userjob_userjobpj_userjobpjhun_path(@user,@userjob,@userjobpj,@userjobpjhun) do |f| %>
+    <table>
+      <tr colspan="3">
+        <td colspan="3">
+          <p>
+            <%=f.text_area :hname,placeholder: '* ᠶᠠᠮᠠᠷ ᠰᠦᠢᠳᠭᠡᠯ', :class=>"gaarea" %>
+            <%=f.text_area :hfrom,placeholder: 'ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ<br>
+          <%= f.date_select :hstartdate, :use_month_numbers => true,  datetime_separator:' ',:time_separator => ' ' %>
+          ~
+          <%= f.date_select :henddate, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ' %>
+        </td>
+        <% if @userjobpjhun.hcount.present? %>
+            <% if @userjobpjhun.hcount>0 %>
+              <td>
+                ᠲᠣᠭ᠎ᠠ<br>
+                  <%=f.number_field :hcount, placeholder: '1' %><br> ᠬᠥᠮᠦᠨ
+              </td>
+              <td>
+                   ᠬᠥᠮᠦᠨ ᠪᠦᠷᠢ ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ<br>&ensp;
+                  <%=f.number_field :hune, step:0.001,placeholder: '1000' %><br>&ensp;<%= @userjob.unit %> ᠵᠣᠭᠤᠰ ᠣᠷᠤᠨ᠎ᠠ᠃
+              </td>
+            <% else %>
+              <td>
+                   ᠰᠠᠷ᠎ᠠ ᠪᠦᠷᠢ<br>&ensp;
+                  <%=f.number_field :hune, step:0.001,placeholder: '1000' %><br>&ensp;<%= @userjob.unit %> ᠵᠣᠭᠤᠰ ᠣᠷᠤᠨ᠎ᠠ᠃
+              </td>
+            <% end %>
+        <% else %>
+          <td>
+            ᠨᠡᠢᠲᠡ<br>&ensp;
+            <%=f.number_field :hune, step:0.001,placeholder: '1000' %><br>&ensp;<%= @userjob.unit %> ᠵᠣᠭᠤᠰ ᠣᠷᠤᠨ᠎ᠠ᠃
+          </td>
+        <% end %>
+      </tr>
+    </table>
+    <p>
+      <%= f.hidden_field :hunit, :value => @userjob.unit %>
+      <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+<% end %>

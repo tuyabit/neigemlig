@@ -1,0 +1,44 @@
+class AddColumnToMalcount < ActiveRecord::Migration[5.2]
+  def change
+    add_column :malcounts, :ohter, :text
+    add_column :malcounts, :type, :string
+    add_column :malcounts, :name3, :string
+    add_column :malcounts, :name4, :string
+    add_column :malcounts, :name5, :string
+    add_column :malcounts, :name6, :string
+    add_column :malcounts, :name7, :string
+    add_column :malcounts, :name8, :string
+    add_column :malcounts, :name9, :string
+    add_column :malcounts, :name10, :string
+    add_column :malcounts, :name11, :string
+    add_column :malcounts, :name12, :string
+    add_column :malcounts, :name13, :string
+    add_column :malcounts, :name14, :string
+    add_column :malcounts, :name15, :string
+    add_column :malcounts, :name16, :string
+    add_column :malcounts, :name17, :string
+    add_column :malcounts, :name18, :string
+    add_column :malcounts, :name19, :string
+    add_column :malcounts, :name20, :string
+    add_column :malcounts, :count1, :integer
+    add_column :malcounts, :count2, :integer
+    add_column :malcounts, :count3, :integer
+    add_column :malcounts, :count4, :integer
+    add_column :malcounts, :count5, :integer
+    add_column :malcounts, :count6, :integer
+    add_column :malcounts, :count7, :integer
+    add_column :malcounts, :count8, :integer
+    add_column :malcounts, :count9, :integer
+    add_column :malcounts, :count10, :integer
+    add_column :malcounts, :count11, :integer
+    add_column :malcounts, :count12, :integer
+    add_column :malcounts, :count13, :integer
+    add_column :malcounts, :count14, :integer
+    add_column :malcounts, :count15, :integer
+    add_column :malcounts, :count16, :integer
+    add_column :malcounts, :count17, :integer
+    add_column :malcounts, :count18, :integer
+    add_column :malcounts, :count19, :integer
+    add_column :malcounts, :count20, :integer
+  end
+end

@@ -1,0 +1,19 @@
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @malcount.name1,user_usermal_malcount_malhens_path(@user,@usermal,@malcount),class:'header-menu' %>&ensp;
+</h2>
+
+<h2><%= @malcount.name1 %>&ensp;ᠪᠦᠷᠢᠳᠭᠡᠬᠦ </h2>
+
+<%=  @malcount.count %><%= @malcount.name1 %>᠃ ᠡᠭᠦᠨ ᠤ᠋ ᠲᠤᠲᠤᠷ᠎ᠠ:
+
+<%= form_for @malhen, url: user_usermal_malcount_malhen_path(@user,@usermal,@malcount,@malhen) do |f| %>
+
+  <p>
+    <%=f.text_area :name1,placeholder: '* ᠶᠠᠮᠠᠷ ' + @malcount.name1, :class=>"bgarea" %>
+    <br>
+    <%=f.number_field :count, placeholder: '1',:size=>"200x10"%>
+    <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+  </p>
+
+<% end %>

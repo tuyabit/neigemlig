@@ -1,0 +1,90 @@
+<h2>ᠬᠡᠨ ᠲᠠᠢ ᠶᠠᠷᠢᠯᠴᠠᠬᠤ</h2>
+
+<% if @allmlqdfs.any? %>
+  <ul id = "chat-index">
+  <% @allmlqdfs.each do |mlqdf| %>
+
+    <% if mlqdf.a3.present? %>
+      <% if mlqdf.a3 == session[:user_id] %>
+        <li>
+          <% if mlqdf.a5.present? %>
+            <%= link_to mlqdf.a5,user_path(mlqdf.user_id),class:'command' %> ᠲᠠᠢ
+          <% else %>
+            <%= link_to mlqdf.user_id,user_path(mlqdf.user_id),class:'command' %> ᠲᠠᠢ
+          <% end %>
+          <span class="mailfrom" style="background-color:pink;">
+          <%= link_to "ᠶᠠᠷᠢᠯᠴᠠᠬᠤ",user_mlqdf_path(mlqdf.user_id,mlqdf),class:'command' %>
+          </span>
+
+          <% if !mlqdf.mlqdfchats.any? %>
+            <%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqdf_path(@user,mlqdf),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                         "class" => "mgltig"} %>
+          <% end %>
+        </li>
+
+      <% end %>
+    <% end %>
+
+    <% if mlqdf.user_id == session[:user_id] and mlqdf.a1.present? %>
+      <li>
+        <% if mlqdf.a3.present? %>
+            <%= link_to mlqdf.a1.strip,user_path(mlqdf.a3),class:'command' %>
+            <% if mlqdf.a2.present? %>
+              :<%= mlqdf.a2.strip %>
+            <% end %>
+             ᠲᠠᠢ
+            <span class="mailfrom" style="background-color:yellow;">
+            <%= link_to "ᠶᠠᠷᠢᠯᠴᠠᠬᠤ",user_mlqdf_path(mlqdf.user_id,mlqdf),class:'command' %>
+            </span>
+
+            <% if !mlqdf.mlqdfchats.any? %>
+              <%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqdf_path(@user,mlqdf),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                           "class" => "mgltig"} %>
+            <% end %>
+
+        <% else %>
+          <%= mlqdf.a1.strip %>
+          <% if mlqdf.a2.present? %>
+            :<%= mlqdf.a2.strip %>
+          <% end %>
+           ᠲᠠᠢ ᠶᠠᠷᠢᠯᠴᠠᠬᠤ
+           <% if !mlqdf.mlqdfchats.any? %>
+             <%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqdf_path(@user,mlqdf),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                          "class" => "mgltig"} %>
+           <% end %>
+          <% if @users.any? %>
+            <ul>
+            <% @users.each do |theuser| %>
+              <% if theuser.nickname.strip == mlqdf.a1.strip and theuser.age >= 20 and theuser.id != session[:user_id] %>
+                <li>
+                  ᠠᠳᠠᠯᠢᠬᠠᠨ ᠨᠠᠷᠡᠲᠤ:
+                  <%= link_to theuser.nickname,user_path(theuser.id),class:'command' %>
+                  ᠲᠤᠰ ᠬᠥᠮᠦᠨ
+                  <%= form_for mlqdf, url: user_mlqdf_path(@user,mlqdf) do |f| %>
+                    <%= f.hidden_field :a3, :value => theuser.id %>
+                    <%= f.hidden_field :a4, :value => mlqdf.a1.strip %>
+                    <%= f.hidden_field :a5, :value => session[:user_funame] %>
+                    <%= f.submit "ᠮᠥᠨ᠃", :class=>"btn" %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+
+  <% end %>
+  </ul>
+<% end %>
+
+<%= form_for([@user,@user.mlqdfs.build]) do |f| %>
+  <p>
+    <%=f.text_area :a1,placeholder: '*ᠵᠢᠩᠬᠢᠨᠢ ᠨᠡᠷ᠎ᠡ', :class=>"bgarea" %>
+    <%=f.text_area :a2,placeholder: 'ᠨᠡᠷ᠎ᠡ', :class=>"bgarea" %><br>
+  </p>
+  <p>
+    <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+  </p>
+<% end %>

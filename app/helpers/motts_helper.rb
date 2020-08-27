@@ -1,0 +1,2 @@
+module MottsHelper
+end

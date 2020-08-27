@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jname: MyString
+  jf4: 1.5
+  jf5: 9.99
+  jf6: 2020-02-05 23:15:44
+  jf7: 2020-02-05 23:15:44
+  jff6: 2020-02-05 23:15:44
+  jff7: 2020-02-05 23:15:44
+  f8: 2020-02-05 23:15:44
+  f9: 2020-02-05
+  f10: 1
+  count: 1
+  userid: 1
+  uname: MyString
+  payunit: one
+
+two:
+  jname: MyString
+  jf4: 1.5
+  jf5: 9.99
+  jf6: 2020-02-05 23:15:44
+  jf7: 2020-02-05 23:15:44
+  jff6: 2020-02-05 23:15:44
+  jff7: 2020-02-05 23:15:44
+  f8: 2020-02-05 23:15:44
+  f9: 2020-02-05
+  f10: 1
+  count: 1
+  userid: 1
+  uname: MyString
+  payunit: two

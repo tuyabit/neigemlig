@@ -1,0 +1,118 @@
+<% if session[:user_id]==1 then %>
+    <h2>
+      ᠪᠦᠬᠦ ᠭᠡᠰᠢᠭᠦᠨ
+      <%=link_to 'ᠨᠡᠮᠡᠬᠦ',new_user_path,class:'header-menu' %>
+    </h2>
+    <ul>
+      <% @users.each do |user| %>
+        <li>
+          <% if user.id == 1 then %>
+            <span class="Ankhaaruulga">ᠶᠡᠷᠦᠩᠬᠡᠢ ᠬᠢᠨᠠᠭᠴᠢ:</span>
+          <% else %>
+            <% if user.fname.present? then %>
+              <span class="Ankhaaruulga"><%= user.fname %>:</span>
+            <% end %>
+          <% end %>
+          <%= link_to user.nickname,user_path(user),class:'command' %>&ensp;
+          <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_user_path(user),class:'command' %>
+        </li>
+      <% end %>
+    </ul>
+<% end %>
+
+<% if session[:user_id] %>
+  <% if session[:user_id]!=1 then %>
+    <div class="hidden_box">
+        <h2>
+          <label for="label2">ᠮᠢᠨᠤ ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ &ensp;</label>
+          <% if session[:user_id] and session[:user_id]!=1 then %>
+            <%=link_to 'ᠨᠡᠮᠡᠬᠦ',new_motd_path,class:'header-menu' %>
+          <% end %>
+        </h2>
+        <input type="checkbox" id="label2" checked="checked"/>
+        <div class="hidden_show">
+              <ul>
+                <% @usermotds.each_with_index do |motd,i| %>
+                    <li>
+                      <%= link_to motd.f1,motd_path(motd),class:'command' %>&ensp;
+                      <% if motd.f3 == session[:user_id] then %>
+                          <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_path(motd),class:'command' %>&ensp;
+                          <% if motd.motts.any? %>
+                          <% else %>
+                            <%= link_to 'ᠬᠠᠰᠤᠬᠤ',motd_path(motd),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                            "class" => "mgltig"} %>&ensp;
+                          <% end %>
+                      <% else %>
+                        <% if session[:user_id]==1 then %>
+                            <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_path(motd),class:'command' %>&ensp;
+                            <% if motd.motts.any? %>
+                            <% else %>
+                              <%= link_to 'ᠬᠠᠰᠤᠬᠤ',motd_path(motd),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                              "class" => "mgltig"} %>&ensp;
+                            <% end %>
+                        <% end %>
+                      <% end %>
+                    </li>
+                <% end %>
+              </ul>
+        </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if session[:user_id] and @allmotds.any? %>
+
+  <div class="hidden_box">
+  <h2><label for="mysoyol">ᠮᠢᠨᠦ ᠵᠠᠬᠢᠶᠠᠯᠠᠭ᠎ᠠ</label></h2>
+  <input type="checkbox" id="mysoyol" checked="checked"/>
+  <div class="hidden_show">
+    <ul>
+      <% @allmotds.each_with_index do |motd,i| %>
+        <% if motd.motts.any? %>
+        <% motd.motts.each do |mott| %>
+        <% if mott.payunits.any? %>
+        <% mott.payunits.each do |payunit| %>
+        <% if payunit.payunitjahs.any? %>
+        <% payunit.payunitjahs.each do |payunitjah| %>
+          <% jah=0 %>
+          <% if payunitjah.jf7.present? then %>
+            <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i>Time.now.strftime('%Y%m%d%H%M').to_i then %>
+              <% jah=1 %>
+            <% end %>
+          <% end %>
+          <% if jah==1 and payunitjah.userid==session[:user_id] %>
+            <li>
+            <%= motd.f1 %>\
+            <%= link_to mott.f1,motd_path(motd),class:'command' %>\
+            <% if payunitjah.jff7.present? %>
+              <span class="mailfrom">
+                ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃<%= payunitjah.jff7.strftime('%Y.%m.%d %H:%M') %>
+              </span>
+            <% end %>
+            </li>
+          <% end %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  </div>
+
+  <div class="hidden_box">
+  <h2><label for="soyol">ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ &ensp;</label></h2>
+  <input type="checkbox" id="soyol" checked="checked"/>
+  <div class="hidden_show">
+    <ul>
+      <% @allmotds.each_with_index do |motd,i| %>
+        <li>
+          <%= link_to motd.f1,motd_path(motd),class:'command' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  </div>
+<% end %>

@@ -1,0 +1,60 @@
+
+<h2>
+   ᠵᠠᠬᠢᠲᠠᠯ ᠤᠨ ᠬᠠᠶᠠᠭ ᠭᠠᠷᠴᠠᠭ ᠡᠬᠢᠯᠡᠯᠲᠡ ᠪᠡᠨ ᠵᠠᠰᠠᠬᠤ
+  <%=link_to 'ᠪᠦᠬᠦ ᠵᠠᠬᠢᠲᠠᠯ',mails_path,class:'header-menu' %>
+</h2>
+<%= form_for @mail do |f| %>
+
+  <table height=100%>
+    <tr>
+      <td height=10%>
+        <%= f.label :a1, '＠ᠬᠠᠶᠠᠭ' %><br><br>
+        <%= f.email_field :a1,placeholder: 'sample@sample.com', :style=>"ime-mode: disabled" %>
+        <% if @mail.errors.messages[:a1].any? %>
+        <span class="error"><%=@mail.errors.messages[:a1][0] %></span>
+        <% end %>
+      </td>
+      <td>
+         <p>
+           <%=f.text_area :f1,placeholder: 'ᠭᠠᠷᠴᠠᠭ', :size=>"100x3", :class=>"gaarea" %>
+           <% if @mail.errors.messages[:f1].any? %>
+           <span class="error"><%=@mail.errors.messages[:f1][0] %></span>
+           <% end %>
+          </p>
+          <p>
+           <%=f.text_area :f2,placeholder: 'ᠬᠦᠨᠳᠦᠲᠦ ᠬᠠᠢᠷᠠᠲᠤ             ᠳᠠᠭᠠᠨ', :size=>"100x3", :class=>"gaarea" %>
+           <% if @mail.errors.messages[:f2].any? %>
+             <span class="error"><%=@mail.errors.messages[:f2][0] %></span>
+           <% end %>
+         </p>
+          <p>
+            <%=f.text_area :a2,placeholder: ' ᠰᠠᠢᠨ ᠪᠠᠢᠨᠤᠤ', :size=>"100x4", :class=>"gaarea" %>
+            <% if @mail.errors.messages[:a2].any? %>
+              <span class="error"><%=@mail.errors.messages[:a2][0] %></span>
+            <% end %>
+            <% if session[:user_id]!=1 then %>
+                <%= f.hidden_field :f3, :value => session[:user_id] %>
+            <% else %>
+              <% if @mail.f3==1 then %>
+                  <%= f.hidden_field :f3, :value => session[:user_id] %>
+              <% end %>
+            <% end %>
+            <%=f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ ", :class=>"btn" %>
+
+          </p>
+      </td>
+    </tr>
+  </table>
+
+<% end %>
+
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        <span class="text"><%= userangaar.name %></span><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

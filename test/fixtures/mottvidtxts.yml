@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ga: MyText
+  ba: MyText
+  da: MyText
+  mottimage: one
+
+two:
+  ga: MyText
+  ba: MyText
+  da: MyText
+  mottimage: two

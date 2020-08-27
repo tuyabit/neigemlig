@@ -1,0 +1,258 @@
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to 'ᠳᠡᠯᠭᠡᠭᠦᠷ',user_usershop_path(@user,@usershop),class:'header-menu' %>&ensp;
+</h2>
+
+<% if @usershops.any? %>
+
+    <ul>
+    <% @usershops.each do |usershop| %>
+        <li>
+        <% if @usershop.id == usershop.id then %>
+            <span :class="text"><%= usershop.name2 %>\<%= usershop.name1%><span>
+
+            <br>
+
+            <div class="hidden_box">
+                <h2><label for="pica">ᠵᠢᠷᠤᠭ&ensp;</label></h2>
+                <input type="checkbox" id="pica"/>
+                <div class="hidden_show">
+
+                    <% if usershop.usershopimgs.any? %>
+                        <% usershop.usershopimgs.each do |usershopimg| %>
+                            <% if usershopimg.picture.present? %>
+                              <table height="100%">
+                                <tr>
+                                  <td>
+                                    <span class="img">
+                                      <%= image_tag usershopimg.picture.url,:oncontextmenu=>"return false", :class => "img" %>
+                                    </span>
+                                    <br>
+                                  </td>
+                                  <td>
+                                    <span class="img">
+                                        <p class="text"><%= usershopimg.name %></p>
+
+                                    </span>
+                                    <br>
+                                  </td>
+                                </tr>
+                              </table>
+                          <% end %>
+                        <% end %>
+                    <% end %>
+
+                </div>
+            </div>
+
+            <div class="hidden_box">
+                <h2><label for="unea">ᠦᠨ᠎ᠡ&ensp;</label></h2>
+                <input type="checkbox" id="unea" checked="checked"/>
+                <div class="hidden_show">
+
+                    <% if usershop.usershopunes.any? %>
+                    <ul>
+                        <% usershop.usershopunes.each do |usershopune| %>
+                            <li>
+                                <% if usershop.user_id == session[:user_id] or session[:user_id]==1 then %>
+                                    <% if usershopune.from.present? %>
+                                      <span class="text"><%= usershopune.from %></span>
+                                      <br>
+                                    <% end %>
+                                <% end %>
+
+                                <% if usershopune.name.present? %>
+                                  <span class="text"><%= usershopune.name %></span>
+                                  <br>
+                                <% end %>
+
+                                <% if usershop.user_id == session[:user_id] or session[:user_id]==1 then %>
+                                    <% if usershopune.une1.present? %>
+                                      ᠤᠤᠯ ᠦᠨ᠎ᠡ:<%= usershopune.une1 %><%= usershopune.unit1 %>&ensp;ᠵᠣᠭᠤᠰ᠃
+                                    <% end %>
+                                <% end %>
+
+                                <% if usershopune.bay1.present? %>
+                                  &ensp;ᠬᠤᠳᠠᠯᠳᠠᠬᠤ ᠦᠨ᠎ᠡ:<%= usershopune.bay1 %><%= usershopune.unit1 %>&ensp;ᠵᠣᠭᠤᠰ᠃
+                                <% end %>
+                                <% if usershopune.jah1.present? %>
+                                  &ensp;ᠪᠤᠰᠤᠳ ᠰᠦᠢᠳᠬᠡᠯ:<%= usershopune.jah1 %><%= usershopune.unit1 %>&ensp;ᠵᠣᠭᠤᠰ᠃
+                                <% end %>
+                                <% if usershopune.une3.present? %>
+                                  &ensp;ᠬᠠᠷᠢᠴᠠᠯ:<%= usershopune.une3.round(3) %>
+                                <% end %>
+
+                                <% if usershopune.une2.present? %>
+                                  &ensp;ᠨᠡᠢᠲᠡ:<%= usershopune.une2 %><%= usershopune.unit2 %>&ensp;ᠵᠣᠭᠤᠰ᠃
+                                <% end %>
+
+                                <span class="mailfrom">
+                                  <%= usershopune.dune.strftime('%Y.%m.%d %H:%M') %>
+                                </span>
+
+                                <% if usershopune.usershopunejahs.any? %>
+                                  <table height="100%" bgcolor="#FFFFE0">
+                                    <tr>
+                                      <td>
+                                      <ul>
+                                      <% usershopune.usershopunejahs.each do |usershopunejah| %>
+                                          <% if @usershopune.id==usershopune.id and @usershopunejah.id == usershopunejah.id then %>
+  <% if usershop.user_id == session[:user_id] or session[:user_id]==1 then %>
+      <li>
+        <% if usershopunejah.count.present? %>
+          <span class="text"><%= usershopunejah.count %></span>ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃
+        <% end %>
+        <% if usershopunejah.name.present? %>
+          <span class="text"><%= usershopunejah.name %></span>
+        <% end %>
+        <% if usershopunejah.uname.present? %>
+          &nbsp;<span class="text"><%= usershopunejah.uname %></span>
+        <% else %>
+          <% if usershopunejah.userid.present? %>
+            &nbsp;<span class="text"><%= usershopunejah.userid %></span>
+          <% end %>
+        <% end %>
+          ᠠ᠋ᠴᠠ
+        <% if usershopunejah.dune.present? %>
+          <span class="mailfrom">
+            <%= usershopunejah.dune.strftime('%Y.%m.%d %H:%M') %>
+          </span>
+        <% end %>
+
+      </li>
+      <%= form_for @usershopunejah, url: user_usershop_usershopune_usershopunejah_path(@user,@usershop,@usershopune,@usershopunejah) do |f| %>
+
+          <table>
+            <tr>
+              <td>
+                ᠠᠭᠤᠯᠠᠭᠳᠠᠭᠴᠢ ᠬᠡᠮᠵᠢᠶ᠎ᠡ (ᠵᠢᠰᠢᠶᠡᠯᠡᠪᠡᠯ120ml)
+              </td>
+              <td>
+                ᠣᠷᠤᠭᠤᠯᠤᠭᠰᠠᠨ ᠭᠠᠵᠠᠷ
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%=f.text_area :name1,placeholder:'', :class=>"bgarea" %>
+              </td>
+              <td>
+                <%=f.text_area :from,placeholder:'', :class=>"bgarea" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                １ᠤᠤᠯ ᠦᠨ᠎ᠡ<br>
+                ２ᠬᠤᠳᠠᠯᠳᠠᠬᠤ ᠦᠨ᠎ᠡ <br>
+                ３ᠪᠤᠰᠤᠳ ᠰᠦᠢᠳᠬᠡᠯ <br>
+              </td>
+              <td>
+                ４ᠬᠠᠷᠢᠴᠠᠯ<br>
+                ５ᠨᠡᠢᠲᠡ
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                <%=f.number_field :une1, step:0.001,placeholder: '*1' %>
+                <%=f.number_field :bay1, step:0.001,placeholder: '*2' %>
+                <%=f.number_field :jah1, step:0.001,placeholder: '3' %>
+                </p>
+               </td>
+              <td>
+                <%=f.number_field :une3, step:0.001,placeholder: '4=(5÷(2+3))', :size=>"100x10" %>
+                <%=f.number_field :une2, step:0.001 ,placeholder: '*5=(4×(2+3))', :size=>"100x10" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%=f.text_area :unit1,placeholder: 'ᠤᠯᠤᠰ１*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+              </td>
+              <td>
+                <%=f.text_area :unit2,placeholder: 'ᠤᠯᠤᠰ２*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+              </td>
+            </tr>
+          </table>
+
+          <%= f.hidden_field :dune, :value =>Time.now %>
+
+          <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+          &ensp;&ensp;<span class="Ankhaaruulga">* ᠵᠠᠪᠠᠯ ᠪᠢᠴᠢᠬᠦ ᠠᠭᠤᠯᠭ᠎ᠠ</span>
+
+    <% end %>
+<% else %>
+    <% if session[:user_id] %>
+        <hr>
+        <%= form_for @usershopunejah, url: user_usershop_usershopune_usershopunejah_path(@user,@usershop,@usershopune,@usershopunejah) do |f| %>
+            <table height="100%" bgcolor="#FFFFE0">
+              <tr>
+                <td height="40%">
+                  ᠲᠣᠭ᠎ᠠ
+                  <%= f.number_field :count, step:0.001,placeholder: '1*',:size=>"20x2" %>
+                  <%= f.hidden_field :userid, :value => session[:user_id] %>
+                  <%= f.hidden_field :uname, :value => session[:user_funame] %>
+                  <%= f.hidden_field :dune, :value =>Time.now %>
+                </td>
+                <td height="60%">
+                  <p>
+                    <%= f.submit " ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ", :class=>"btn" %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+        <% end %>
+        <hr>
+    <% else %>
+        <%= link_to 'ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ',logout_path,class:'command'%>
+    <% end %>
+
+<% end %>
+
+                                          <% else %>
+                                              <li>
+                                                <% if usershopunejah.count.present? %>
+                                                  <span class="text"><%= usershopunejah.count %></span>ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃
+                                                <% end %>
+                                                <% if usershopunejah.name.present? %>
+                                                  <span class="text"><%= usershopunejah.name %></span>
+                                                <% end %>
+                                                <% if usershopunejah.uname.present? %>
+                                                  &nbsp;<span class="text"><%= usershopunejah.uname %></span>
+                                                <% else %>
+                                                  <% if usershopunejah.userid.present? %>
+                                                    &nbsp;<span class="text"><%= usershopunejah.userid %></span>
+                                                  <% end %>
+                                                <% end %>
+                                                  ᠠ᠋ᠴᠠ
+                                                <span class="mailfrom">
+                                                  <%= usershopunejah.updated_at.strftime('%Y.%m.%d %H:%M') %>
+                                                </span>
+                                              </li>
+                                          <% end %>
+
+                                      <% end %>
+                                      </ul>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                <% end %>
+                            </li>
+                        <% end %>
+                        </ul>
+                    <% end %>
+                    <br>
+                    <span class="Ankhaaruulga">ᠰᠣᠯᠢᠯᠴᠠᠭ᠎ᠠ ᠡᠭᠦᠰᠬᠦ ᠡᠳᠦᠷ ᠲᠤ ᠳᠡᠭᠡᠷᠡᠬᠢ ᠦᠨ᠎ᠡ ᠪᠣᠯᠤᠨ ᠬᠠᠷᠢᠴᠠᠯ ᠨᠢ ᠪᠤᠲᠠᠲᠠᠢ ᠪᠠᠢᠳᠡᠯ ᠳ᠋ᠤ ᠤᠶᠠᠯᠳᠠᠭᠳᠠᠵᠤ ᠪᠠᠭ᠎ᠠ ᠰᠠᠭ᠎ᠠ ᠬᠤᠪᠢᠷᠠᠳᠠᠭ ᠶ᠋ᠢ ᠣᠢᠯᠠᠭᠠᠬᠤ ᠪᠣᠯᠪᠠᠤ᠃</span>
+
+                </div>
+            </div>
+
+          <% else %>
+            <% if usershop.name1.present? %>
+                <span class="text"><%= usershop.name2 %>\<%= usershop.name1 %></span>
+                <br>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>

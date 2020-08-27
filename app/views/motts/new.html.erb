@@ -1,0 +1,33 @@
+<h2>
+  <%=link_to @motd.f1,motd_path(@motd),class:'command' %>
+</h2>
+<h2>ᠭᠠᠷᠴᠠᠭ</h2>
+<% if @motd.motts.any? %>
+  <%= form_for([@motd,@motd.motts.build]) do |f| %>
+
+      <p>
+        <%=f.text_area :f1,placeholder: '*ᠭᠠᠷᠴᠠᠭ１',autocomplete: 'off', :class=>"gaarea" %>
+        <% if @mott.errors.messages[:f1].any? %>
+        <span class="error"><%=@mott.errors.messages[:f1][0] %></span>
+        <% end %>
+        <%=f.text_area :f2,placeholder: 'ᠭᠠᠷᠴᠠᠭ２',autocomplete: 'off', :class=>"gaarea" %>
+        <% if @mott.errors.messages[:mob].any? %>
+        <span class="error"><%=@mott.errors.messages[:mob][0] %></span>
+        <% end %>
+      </p>
+      <p>
+        <%=f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+      </p>
+  <% end %>
+<% end %>
+
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        <span class="text"><%= userangaar.name %></span><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

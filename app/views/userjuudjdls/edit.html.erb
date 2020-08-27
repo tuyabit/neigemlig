@@ -1,0 +1,48 @@
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @userjuudjdl.jname,user_userjuudjdl_path(@user,@userjuudjdl),class:'header-menu' %>&ensp;
+</h2>
+
+<% if @user.userjuudjdls.any? %>
+  <%= form_for @userjuudjdl, url: user_userjuudjdl_path(@user,@userjuudjdl) do |f| %>
+    <h2>
+      <%= @userjuudjdl.jrotate %>
+    </h2>
+    <p>
+      <%=f.text_area :jname,placeholder: '*ᠠᠰᠠᠭᠤᠯᠲᠠ', autocomplete: 'off', :class=>"gaarea" %>
+      <%=f.text_area :jtxt,placeholder: '*ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', autocomplete: 'off', :class=>"gaarea" %>
+    </p>
+    <% if @userjuudjdl.jrotate=='ᠵᠡᠭᠦᠳᠤ' %>
+        <h2>
+          ᠵᠡᠭᠦᠳᠦ ᠵᠠᠳᠠᠯᠠᠬᠤ
+        </h2>
+    <% end %>
+    <% if @userjuudjdl.jrotate=='ᠪᠤᠬᠢᠨᠢᠲᠤᠯ' %>
+        <h2>
+          ᠬᠠᠤᠯᠢ ᠵᠠᠳᠠᠯᠠᠬᠤ
+        </h2>
+    <% end %>
+    <% if @userjuudjdl.jrotate=='ᠡᠷᠡᠭᠦᠯ' %>
+        <h2>
+          ᠡᠪᠡᠳᠴᠢᠨ ᠵᠠᠳᠠᠯᠠᠬᠤ
+        </h2>
+    <% end %>
+    <% if @userjuudjdl.jrotate=='ᠦᠭᠡᠰ' %>
+        <h2>
+          ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠲᠠᠢᠯᠪᠤᠷᠢ
+        </h2>
+    <% end %>
+    <p>
+    <%=f.text_area :jyamar,placeholder: '*ᠬᠠᠷᠢᠭᠤᠯᠬᠤ', autocomplete: 'off', :class=>"gaarea" %>
+    <%=f.text_area :jyaah,placeholder: '*ᠨᠠᠷᠢᠨ ᠬᠠᠷᠢᠭᠤᠯᠲᠠ', autocomplete: 'off', :class=>"gaarea" %>
+    </p>
+    ᠰᠦᠢᠳᠭᠡᠯ <br>
+    <%=f.number_field :june, step:0.001,placeholder: '*10' %><br>
+    <%=f.text_area :junit,placeholder: '*ᠤᠯᠤᠰ', autocomplete: 'off', :class=>"bgarea" %>
+    <br>ᠵᠣᠭᠤᠰ <br>
+    <p>
+      <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+  <% end %>
+<% end %>

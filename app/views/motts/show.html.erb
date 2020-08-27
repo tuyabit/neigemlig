@@ -1,0 +1,784 @@
+
+  <h2>
+    <%= link_to @motd.f1,motd_path(@motd),class:'command' %>
+  </h2>
+
+  <% isend=0 %>
+  <% if @mott.f3.present? then %>
+    <% if @mott.f3==1 then %>
+      <% isend=1 %>
+    <% end %>
+  <% end %>
+
+  <span style="font-weight:bold;">
+    <%= @mott.f1 %>
+  </span>
+  <br>
+  <% if @mott.f2.present? %>
+    <span style="font-weight:bold;">
+      &ensp;&ensp;<%= @mott.f2 %>
+    </span>
+    <br>
+  <% end %>
+
+  <% if @motd.f3 == session[:user_id] and isend==0 then %>
+      <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_mott_path(@motd,@mott),class:'header-menu' %>
+  <% else %>
+    <% if session[:user_id]==1 and isend==0 then %>
+      <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_mott_path(@motd,@mott),class:'header-menu' %>
+    <% end %>
+  <% end %>
+
+
+<% if @motd.motts.any? %>
+  <% if @mott.mottimages.any? %>
+    <% txtis="" %>
+    <% @mott.mottimages.each do |mottimage| %>
+
+      <% if mottimage.tta.present? %>
+        <br><br>
+        <span style="font-weight:bold;">
+          <%= mottimage.tta %>
+        </span>
+        <br>
+      <% end %>
+      <% if mottimage.ttb.present? %>
+        <% if mottimage.tta.present? %>
+        <% else %>
+          <br><br>
+        <% end %>
+        <span style="font-weight:bold;">
+          &ensp;&ensp;<%= mottimage.ttb %>
+        </span>
+        <br>
+      <% end %>
+       
+      <% if mottimage.picture.present? %>
+        <% if mottimage.video.blank? and mottimage.audio.blank? %>
+          <table height="100%">
+            <tr>
+              <td>
+                <p class="img">
+                  <%= image_tag mottimage.picture.url,:oncontextmenu=>"return false", :class => "img"%>
+                </p>
+                <br>
+              </td>
+              <td>
+                <% if mottimage.timage.present? %>
+                  <span class="text"><%= mottimage.timage %></span>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      <% end %>
+
+      <% if mottimage.video.present? %>
+        <table height="100%">
+          <tr>
+            <td height=50%>
+              <% if mottimage.rotate.present? %>
+                  <% if mottimage.rotate == '90' %>
+                    <% func = "myfunc(this,270)" %>
+                    <p class="videobox">
+                      <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :onclick=>func, :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"none", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                    </p>
+                  <% end %>
+                  <% if mottimage.rotate == '180' %>
+                    <% func = "myfunc(this,180)" %>
+                    <p class="videobox">
+                      <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :onclick=>func, :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"none", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                    </p>
+                  <% end %>
+                  <% if mottimage.rotate == '270' %>
+                    <% func = "myfunc(this,90)" %>
+                    <p class="videobox">
+                      <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :onclick=>func, :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"none", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                    </p>
+                  <% end %>
+                  <% if mottimage.rotate == '0' %>
+                    <p class="videobox">
+                      <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"none", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                    </p>
+                  <% end %>
+              <% else %>
+                <p class="videobox">
+                  <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"none", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                </p>
+              <% end %>
+
+              <script type="text/javascript">
+                  'use strict';
+                  var myfunc = function (video,n) {
+                    if(n==90){
+                      video.classList.toggle('win90');
+                    }else if(n==180){
+                      video.classList.toggle('win180');
+                    }else if(n==270){
+                      video.classList.toggle('win270');
+                    }
+                  }
+              </script>
+              <br>
+            </td>
+            <td height=50%>
+              <% if mottimage.tvideo.present? %>
+              <span class="text"><%= mottimage.tvideo %></span>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+
+      <% if mottimage.audio.present? %>
+        <table height="100%">
+          <tr>
+            <td>
+              <% if mottimage.picture.present? %>
+                <p class="auto">
+                  <%= video_tag mottimage.audio_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "auto"%>
+                </p>
+              <% else %>
+                <p class="auto">
+                  <%= video_tag mottimage.audio_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>"unnamed.gif", :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "auto"%>
+                </p>
+              <% end %>
+              <br>
+            </td>
+            <td>
+              <% if mottimage.taudio.present? %>
+                <span class="text"><%= mottimage.taudio %></span>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+
+      <% if mottimage.name.present? %>
+        <br>
+        <span class="text"><%= mottimage.name %></span>
+      <% end %>
+
+      <% if (@motd.f3 == session[:user_id] or session[:user_id]==1) and isend==0 then %>
+        <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_mottimage_path(@motd,@mott,mottimage),class:'command' %>&ensp;
+        <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+        motd_mott_mottimage_path(@motd,@mott,mottimage),
+        method: :delete,
+        class: 'command',
+        data: { confirm: 'are you sure you want to delete?'}%>&ensp;
+      <% end %>
+
+    <% end %>
+  <% end %>
+
+  <% @mottimages.first(1).each do |mottimage| %>
+    <br>
+    <div class="johiogq">
+      <%= link_to @motd.nickname,user_path(@motd.f3),class:'command' %> ᠵᠣᠬᠢᠶᠠᠪᠠ᠃
+      <%= mottimage.created_at.strftime('%Y.%m.%d') %>
+    </div>
+  <% end %>
+
+  <% if @motd.f3 == session[:user_id] and isend==0 then %>
+    <%= form_for([@motd,@mott,@mott.mottimages.build]) do |f| %>
+      <p>
+        <%=f.text_area :name,placeholder: 'ᠪᠠᠳᠠᠭ', :class=>"area" %><br>
+      </p>
+      <p>
+        <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+      </p>
+    <% end %>
+
+    <div class="hidden_box">
+    <label for="pic">
+      <span style="color:#ff0000;font-weight:bold;">
+        ᠪᠤᠰᠤᠳ ᠠᠭᠤᠯᠭ᠎ᠠ ᠨᠡᠮᠡᠬᠦ
+      </span>
+    </label>
+    <input type="checkbox" id="pic"/>
+    <div class="hidden_show">
+      <%= form_for([@motd,@mott,@mott.mottimages.build]) do |f| %>
+        <p>
+          ᠭᠠᠷᠴᠠᠭ <br>
+          <%=f.text_area :tta,placeholder: 'ᠭᠠᠷᠴᠠᠭ１', :class=>"gaarea" %>
+          <%=f.text_area :ttb,placeholder: 'ᠭᠠᠷᠴᠠᠭ１', :class=>"gaarea" %>
+        </p>
+        <p>
+          ᠵᠢᠷᠤᠭ <br>
+          <%= f.file_field :picture, :accept=>"image/jpeg,image/gif,image/png", :type=>"file", :id=>"file",:class=>"command"  %>
+          <%= f.text_area :timage,placeholder: 'ᠵᠢᠷᠤᠭ', :class=>"gaarea" %>
+        </p>
+        <p>
+          ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ<br>
+          <%= f.file_field :video, :accept=>"video/*", :type=>"file", :id=>"file",:class=>"command" %>
+          <%=f.text_area :tvideo,placeholder: 'ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ', :class=>"gaarea" %>
+          <br>
+          ᠴᠢᠭᠯᠡᠯ ᠢ᠋ ᠲᠠᠭᠠᠷᠠᠭᠤᠯᠬᠤ<br>
+          <%= f.radio_button :rotate, :'0', checked: "checked" %>
+          <%= f.label :rotate, '0ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+          <%= f.radio_button :rotate, :'90' %>
+          <%= f.label :rotate, '90ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+          <%= f.radio_button :rotate, :'180' %>
+          <%= f.label :rotate, '180ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+          <%= f.radio_button :rotate, :'270' %>
+          <%= f.label :rotate, '270ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+
+          ᠲᠥᠷᠦᠯ ᠵᠤᠢᠯ<br>
+          <%= f.radio_button :avideo, :'0', checked: "checked" %>
+          <%= f.label :avideo, 'ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ' %><br>
+          <%= f.radio_button :avideo, :'1' %>
+          <%= f.label :avideo, 'ᠳᠠᠭᠤᠤ ᠬᠥᠭᠵᠢᠮ' %><br>
+          <%= f.radio_button :avideo, :'2' %>
+          <%= f.label :avideo, 'ᠺᠢᠨᠣ᠋ ᠲᠧᠯᠸᠢᠰ' %><br>
+        </p>
+        <p>
+          ᠳᠠᠭᠤᠤ<br>
+          <%= f.file_field :audio, :accept=>"audio/*", :type=>"file", :id=>"file",:class=>"command" %>
+          <%=f.text_area :taudio,placeholder: 'ᠳᠠᠭᠤᠤ', :class=>"gaarea" %>
+
+          <br>ᠲᠥᠷᠦᠯ ᠵᠤᠢᠯ<br>
+          <%= f.radio_button :aaudio, :'0', checked: "checked" %>
+          <%= f.label :aaudio, 'ᠳᠠᠭᠤᠤ ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ' %><br>
+          <%= f.radio_button :aaudio, :'1' %>
+          <%= f.label :aaudio, 'ᠳᠠᠭᠤᠤ ᠬᠥᠭᠵᠢᠮ' %><br>
+          <%= f.radio_button :aaudio, :'2' %>
+          <%= f.label :aaudio, 'ᠷᠠᠳᠢᠣ᠋ ᠲᠧᠯᠸᠢᠰ' %><br>
+        </p>
+        <p>
+          <br>
+          <%=f.text_area :name,placeholder: 'ᠪᠠᠳᠠᠭ', :class=>"area" %>
+        </p>
+
+        <p>
+          <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+        </p>
+      <% end %>
+    </div>
+    </div>
+
+  <% end %>
+
+  <% bgs=0 %>
+  <% if session[:user_fname]=='ᠪᠠᠭᠰᠢ' then %>
+    <% if @mymlqdbs.any? %>
+      <% @mymlqdbs.each do |mymlqdb| %>
+        <% if mymlqdb.a9<Time.now and mymlqdb.f9>Time.now %>
+
+          <% if @motdf3mlqdbs.any? %>
+            <% @motdf3mlqdbs.each do |mlqdb| %>
+              <% if mlqdb.a9<Time.now and mlqdb.f9>Time.now %>
+
+                <% if mymlqdb.a1.strip==mlqdb.a1.strip and mymlqdb.f1.strip==mlqdb.f1.strip and mymlqdb.a2.strip==mlqdb.a2.strip %>
+                    <% bgs=1 %>
+                <% end %>
+
+              <% end %>
+            <% end %>
+          <% end %>
+
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% if session[:user_id]==1 or session[:user_fname]=='ᠬᠢᠨᠠᠭᠴᠢ' %>
+      <% bgs=1 %>
+    <% end %>
+  <% end %>
+
+  <% hasmott=0 %>
+  <% @mott.mottimages.any? %>
+    <% @mott.mottimages.each do |mottimage| %>
+      <% if mottimage.id.present? %>
+        <% hasmott=1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% if hasmott==1 then %>
+    <% if @motd.f3 == session[:user_id] or (bgs==1) %>
+      <table height="100%" bgcolor="#FAFAD2">
+        <tr>
+          <td>
+            <% if @motd.f3 == session[:user_id] then %>
+              <% if isend==1 %>
+                <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |ff| %>
+                  <%= ff.hidden_field :f3, :value => 0 %>
+                  <%= ff.hidden_field :f4, :value => nil %>
+                  <%= ff.hidden_field :f5, :value => nil %>
+                  <%= ff.hidden_field :moa, :value => nil %>
+                  <%= ff.hidden_field :mob, :value => nil %>
+                  <%= ff.hidden_field :Mdid, :value => nil %>
+                  <%= ff.hidden_field :Motdid, :value => nil %>
+                  <%= ff.hidden_field :f6, :value => nil %>
+                  <%= ff.hidden_field :f7, :value => nil %>
+                  <p>
+                    <%= ff.submit "ᠵᠠᠰᠠᠬᠤ", :class=>"btn" %>
+                    <span class="Ankhaaruulga">
+                      ᠵᠠᠰᠠᠪᠠᠯ ᠳᠠᠬᠢᠵᠤ ᠬᠢᠨᠠᠭᠤᠯᠬᠤ ᠪᠣᠯᠤᠨ᠎ᠠ᠃
+                    </span>
+                  </p>
+                <% end %>
+              <% else %>
+                <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |fff| %>
+                  <%= fff.hidden_field :f3, :value => 1 %>
+                  <%= fff.hidden_field :f4, :value => nil %>
+                  <%= fff.hidden_field :f5, :value => nil %>
+                  <%= fff.hidden_field :moa, :value => nil %>
+                  <%= fff.hidden_field :mob, :value => nil %>
+                  <%= fff.hidden_field :Mdid, :value => nil %>
+                  <%= fff.hidden_field :Motdid, :value => nil %>
+                  <%= fff.hidden_field :f6, :value => nil %>
+                  <%= fff.hidden_field :f7, :value => nil %>
+                  <p>
+                    <%= fff.submit "ᠬᠢᠨᠠᠭᠤᠯᠠᠬᠤ", :class=>"btn" %>
+                  </p>
+                <% end %>
+              <% end %>
+            <% end %>
+
+            <% if isend==1 %>
+
+              <% hinaa=0 %>
+              <% hinaasum=0 %>
+
+              <% hinab=0 %>
+              <% hinabsum=0 %>
+
+              <% if @userpays.any? %>
+                <% @userpays.each do |userpay| %>
+                  <% if userpay.f10.present? %>
+                    <% if userpay.f10=="motthinaa" and userpay.typeid==@mott.id and userpay.user_id==@mott.Motdid and userpay.unit==@mott.moa.strip %>
+                      <% hinaa=1 %>
+                      <% hinaasum=hinaasum+userpay.f5 %>
+                    <% end %>
+                    <% if userpay.f10=="motthinab" and userpay.typeid==@mott.id and userpay.user_id==@mott.Mdid and userpay.unit==@mott.mob.strip %>
+                      <% hinab=1 %>
+                      <% hinabsum=hinabsum+userpay.f5 %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+
+              <% adminhinaasum=0 %>
+              <% adminhinabsum=0 %>
+
+              <% if @mott.f6.present? %>
+
+                  <% f6payf4f5=0 %>
+                  <% f6payf5=0 %>
+                  <% f6payf6="" %>
+
+                  <% f7payf4f5=0 %>
+                  <% f7payf5=0 %>
+                  <% f7payf6="" %>
+
+                  <% if @adminuser.userpays.any? %>
+                    <% @adminuser.userpays.each do |userpay| %>
+                      <% if userpay.userid.present? %>
+                        <% if userpay.userid== @mott.Motdid and userpay.unit.strip== @mott.moa.strip %>
+                            <% if userpay.f4.present? %>
+                                <% f6payf4f5=f6payf4f5 + userpay.f4 %>
+                            <% end %>
+                            <% if userpay.f5.present? %>
+                                <% f6payf4f5=f6payf4f5 - userpay.f5 %>
+                                <% if userpay.typeid.present? %>
+                                  <% if userpay.f10=="site" and userpay.typeid == @mott.id+10000 %>
+                                    <% f6payf5=f6payf5 + userpay.f5 %>
+                                    <% f6payf6=userpay.f6 %>
+                                  <% end %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+
+                  <% f6payf4f5 = f6payf4f5.round(0) %>
+                  <% f6payf5 = f6payf5.round(0) %>
+
+                  <% if @mott.f7.present? %>
+
+                      <% if @adminuser.userpays.any? %>
+                        <% @adminuser.userpays.each do |userpay| %>
+                          <% if userpay.userid.present? %>
+                            <% if userpay.userid== @mott.Mdid and userpay.unit.strip== @mott.mob.strip %>
+                                <% if userpay.f4.present? %>
+                                    <% f7payf4f5=f7payf4f5 + userpay.f4 %>
+                                <% end %>
+                                <% if userpay.f5.present? %>
+                                    <% f7payf4f5=f7payf4f5 - userpay.f5 %>
+                                    <% if userpay.typeid.present? %>
+                                      <% if userpay.f10=="site" and userpay.typeid == @mott.id+20000 %>
+                                        <% f7payf5=f7payf5 + userpay.f5 %>
+                                        <% f7payf6=userpay.f6 %>
+                                      <% end %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+
+                      <% f7payf4f5 = f7payf4f5.round(0) %>
+                      <% f7payf5 = f7payf5.round(0) %>
+
+                      １ᠠᠭᠤᠯᠭ᠎ᠠ ᠶ᠋ᠢ ᠬᠢᠨᠠᠪᠠ᠃
+                      <% if @mott.f4.present? and @mott.moa.present? and @mott.Motdid.present? %>
+                        <span class="mailfrom">
+                          <%= link_to 'ᠪᠠᠭᠰᠢ１',user_path(@mott.Motdid),class:'command' %>
+                          <%= @mott.f6.strftime('%Y.%m.%d') %>
+                          <br><%= hinaasum %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃\
+                        </span>
+                        <span class="mailfrom" style="background-color:#FFE4E1;">
+                          <%= @mott.f4.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
+                        </span>
+                         <br>
+                         <% if session[:user_id]== @mott.Motdid %>
+                           <table height="100%" bgcolor="#EEE8AA">
+                             <tr>
+                               <td>
+                             <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
+                             <% adminhinaasum=hinaasum*0.18 %>
+                             <%= adminhinaasum.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
+                             <% if f6payf5.round(0) > 0 %>
+                                  ᠬᠠᠰᠤᠪᠠ᠃
+                                 <span class="mailfrom">
+                                   <%= f6payf6.strftime('%Y.%m.%d %H:%M') %>
+                                 </span>
+                                 <br>
+                             <% end %>
+                             <% if adminhinaasum.round(0) - f6payf5 >0 %>
+                               <% strname= "ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ:" + @mott.f1 + " ᠠᠭᠤᠯᠭ᠎ᠠ ᠶ᠋ᠢ ᠬᠢᠨᠠᠪᠠ᠃ " %>
+                               <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
+                                     <%= fff.hidden_field :name, :value =>strname + 'ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                                     <%= fff.hidden_field :f5, :value =>adminhinaasum.round(0) - f6payf5 %>
+                                     <%= fff.hidden_field :unit, :value =>@mott.moa.strip %>
+                                     <%= fff.hidden_field :userid, :value =>session[:user_id] %>
+                                     <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
+                                     <%= fff.hidden_field :f6, :value => Time.now %>
+                                     <%= fff.hidden_field :f7, :value => Time.now %>
+                                     <%= fff.hidden_field :f10, :value => 'site' %>
+                                     <%= fff.hidden_field :typeid, :value => @mott.id+10000 %>
+                                     <p>
+                                       <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
+                                     </p>
+                               <% end %>
+                             <% end %>
+                              </td>
+                             </tr>
+                           </table>
+                          <% end %>
+
+                      <% end %>
+                      <br>
+                      ２ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠲᠤᠬᠠᠢ ᠬᠢᠨᠠᠪᠠ᠃
+                      <% if @mott.f5.present? and @mott.mob.present? and @mott.Mdid.present? %>
+                        <span class="mailfrom">
+                          <%= link_to 'ᠪᠠᠭᠰᠢ２',user_path(@mott.Mdid),class:'command' %>
+                          <%= @mott.f7.strftime('%Y.%m.%d') %>
+                          <br><%= hinabsum %><%= @mott.mob.strip %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃\
+                        </span>
+                        <span class="mailfrom" style="background-color:#FFE4E1;">
+                          <%= @mott.f5.round(0) %><%= @mott.mob.strip %> ᠵᠣᠭᠤᠰ᠃
+                        </span>
+                         <br>
+                         <% if session[:user_id]== @mott.Mdid %>
+                           <table height="100%" bgcolor="#EEE8AA">
+                             <tr>
+                               <td>
+                             <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
+                             <% adminhinabsum=hinabsum*0.18 %>
+                             <%= adminhinabsum.round(0) %><%= @mott.mob.strip %> ᠵᠣᠭᠤᠰ᠃
+                             <% if f7payf5.round(0) > 0 %>
+                                  ᠬᠠᠰᠤᠪᠠ᠃
+                                 <span class="mailfrom">
+                                   <%= f7payf6.strftime('%Y.%m.%d %H:%M') %>
+                                 </span>
+                                 <br>
+                             <% end %>
+                             <% if adminhinabsum.round(0) - f7payf5 >0 %>
+                               <% strname= "ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ:" + @mott.f1 + " ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠲᠤᠬᠠᠢ ᠬᠢᠨᠠᠪᠠ᠃" %>
+                               <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
+                                     <%= fff.hidden_field :name, :value =>strname + 'ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                                     <%= fff.hidden_field :f5, :value =>adminhinabsum.round(0) - f7payf5 %>
+                                     <%= fff.hidden_field :unit, :value =>@mott.mob.strip %>
+                                     <%= fff.hidden_field :userid, :value =>session[:user_id] %>
+                                     <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
+                                     <%= fff.hidden_field :f6, :value => Time.now %>
+                                     <%= fff.hidden_field :f7, :value => Time.now %>
+                                     <%= fff.hidden_field :f10, :value => 'site' %>
+                                     <%= fff.hidden_field :typeid, :value => @mott.id+20000 %>
+                                     <p>
+                                       <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
+                                     </p>
+                               <% end %>
+                             <% end %>
+                              </td>
+                             </tr>
+                           </table>
+                          <% end %>
+
+                      <% end %>
+
+                  <% else %>
+                    １ᠠᠭᠤᠯᠭ᠎ᠠ ᠶ᠋ᠢ ᠬᠢᠨᠠᠪᠠ᠃
+                    <% if @mott.f4.present? and @mott.moa.present? and @mott.Motdid.present? %>
+                      <span class="mailfrom">
+                        <%= link_to 'ᠪᠠᠭᠰᠢ１',user_path(@mott.Motdid),class:'command' %>
+                        <%= @mott.f6.strftime('%Y.%m.%d') %>
+                        <br><%= hinaasum %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃\
+                      </span>
+                      <span class="mailfrom" style="background-color:#FFE4E1;">
+                        <%= @mott.f4.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
+                      </span>
+                       <br>
+                       <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
+                       <% adminhinaasum=hinaasum*0.18 %>
+                       <%= adminhinaasum.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
+                       <br>
+                       <% if session[:user_id]== @mott.Motdid %>
+                         <table height="100%" bgcolor="#EEE8AA">
+                           <tr>
+                             <td>
+                           <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
+                           <% adminhinaasum=hinaasum*0.18 %>
+                           <%= adminhinaasum.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
+                           <% if f6payf5.round(0) > 0 %>
+                                ᠬᠠᠰᠤᠪᠠ᠃
+                               <span class="mailfrom">
+                                 <%= f6payf6.strftime('%Y.%m.%d %H:%M') %>
+                               </span>
+                               <br>
+                           <% end %>
+                           <% if adminhinaasum.round(0) - f6payf5 >0 %>
+                             <% strname= "ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ:" + @mott.f1 + " ᠠᠭᠤᠯᠭ᠎ᠠ ᠶ᠋ᠢ ᠬᠢᠨᠠᠪᠠ᠃ " %>
+                             <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
+                                   <%= fff.hidden_field :name, :value =>strname + 'ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                                   <%= fff.hidden_field :f5, :value =>adminhinaasum.round(0) - f6payf5 %>
+                                   <%= fff.hidden_field :unit, :value =>@mott.moa.strip %>
+                                   <%= fff.hidden_field :userid, :value =>session[:user_id] %>
+                                   <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
+                                   <%= fff.hidden_field :f6, :value => Time.now %>
+                                   <%= fff.hidden_field :f7, :value => Time.now %>
+                                   <%= fff.hidden_field :f10, :value => 'site' %>
+                                   <%= fff.hidden_field :typeid, :value => @mott.id+10000 %>
+                                   <p>
+                                     <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
+                                   </p>
+                             <% end %>
+                           <% end %>
+                            </td>
+                           </tr>
+                         </table>
+                        <% end %>
+                    <% end %>
+
+                    ２ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠲᠤᠬᠠᠢ ᠬᠢᠨᠠᠵᠤ ᠪᠠᠢᠨ᠎ᠠ᠃
+                    <% if @mott.f5.present? and @mott.mob.present? and @mott.Mdid.present? %>
+                      <span class="mailfrom">
+                        <%= link_to 'ᠪᠠᠭᠰᠢ２',user_path(@mott.Mdid),class:'command' %>
+                        <br><%= hinabsum %><%= @mott.mob.strip %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃\
+                      </span>
+                      <span class="mailfrom" style="background-color:#FFE4E1;">
+                        <%= @mott.f5.round(0) %><%= @mott.mob.strip %> ᠵᠣᠭᠤᠰ᠃
+                      </span>
+                       <br>
+                    <% end %>
+
+                    <% if session[:user_id]==1 or session[:user_fname]=='ᠬᠢᠨᠠᠭᠴᠢ' %>
+                      <% if !@mott.f5.present? or @mott.Mdid==session[:user_id] %>
+                        <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
+                          <%=f.number_field :f5, step:1,placeholder: '10' %><br>
+                          <%=f.text_area :mob,placeholder: 'ᠤᠯᠤᠰ', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+                          <%= f.hidden_field :Mdid, :value => session[:user_id] %>
+                          <%= f.hidden_field :f7, :value => nil %>
+                          <p>
+                            <%= f.submit "ᠬᠤᠷᠢᠶᠠᠨ᠎ᠠ", :class=>"btn" %>
+                          </p>
+                        <% end %>
+                      <% end %>
+                      <% if hinab==1  and hinabsum>=@mott.f5 then%>
+                        <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
+                          <%= f.hidden_field :f7, :value => Time.now %>
+                          <p>
+                            <%= f.submit "ᠬᠢᠨᠠᠪᠠ２", :class=>"btn" %>
+                          </p>
+                        <% end %>
+                      <% else %>
+                        <% if @mott.Mdid==session[:user_id] %>
+                          <%= form_for([@myuser, @myuser.userpays.build]) do |fff| %>
+                            <%= fff.hidden_field :name, :value =>@mott.f1 + ' ᠬᠢᠨᠠᠬᠤ２' %>
+                            <%= fff.hidden_field :f5, :value =>@mott.f5.round(0)-hinabsum %>
+                            <%= fff.hidden_field :unit, :value =>@mott.mob.strip %>
+                            <%= fff.hidden_field :userid, :value =>@motd.f3 %>
+                            <%= fff.hidden_field :uname, :value =>@user.nickname %>
+                            <%= fff.hidden_field :f6, :value => Time.now %>
+                            <%= fff.hidden_field :f7, :value => Time.now %>
+                            <%= fff.hidden_field :f10, :value => 'motthinab' %>
+                            <%= fff.hidden_field :typeid, :value => @mott.id %>
+                            <p>
+                              <%= fff.submit 'ᠬᠠᠰᠤᠬᠤ', :class=>"btn" %>
+                            </p>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+              <% else %>
+                  １ᠠᠭᠤᠯᠭ᠎ᠠ ᠶ᠋ᠢ ᠬᠢᠨᠠᠵᠤ ᠪᠠᠢᠨ᠎ᠠ᠃
+                  <% if @mott.f4.present? and @mott.moa.present? and @mott.Motdid.present? %>
+                    <span class="mailfrom">
+                      <%= link_to 'ᠪᠠᠭᠰᠢ１',user_path(@mott.Motdid),class:'command' %>
+                      <br><%= hinaasum %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃\
+                    </span>
+                    <span class="mailfrom" style="background-color:#FFE4E1;">
+                      <%= @mott.f4.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
+                    </span>
+                     <br>
+                  <% end %>
+                  <% hinah=0 %>
+                  <% if session[:user_fname]=='ᠪᠠᠭᠰᠢ' %>
+                    <% if @mymlqdbs.any? %>
+                      <% @mymlqdbs.each do |mymlqdb| %>
+                        <% if mymlqdb.a9<Time.now and mymlqdb.f9>Time.now %>
+
+                          <% if @jobmlqdbs.any? %>
+                            <% @jobmlqdbs.each do |jobmlqdb| %>
+                              <% if jobmlqdb.a9<Time.now and jobmlqdb.f9>Time.now %>
+
+                                <% if mymlqdb.a1.strip==jobmlqdb.a1.strip and mymlqdb.f1.strip==jobmlqdb.f1.strip and mymlqdb.a2.strip==jobmlqdb.a2.strip %>
+                                    <% hinah=1 %>
+                                <% end %>
+
+                              <% end %>
+                            <% end %>
+                          <% end %>
+
+                        <% end %>
+                      <% end %>
+                    <% end %>
+
+                  <% end %>
+
+                  <% if session[:user_id]==1 %>
+                    <% hinah=1 %>
+                  <% end %>
+                  <% if hinah==1 %>
+                    <% if !@mott.f4.present? or @mott.Motdid==session[:user_id] %>
+                      <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
+                        <%= f.number_field :f4, step:1,placeholder: '10' %><br>
+                        <%= f.text_area :moa,placeholder: 'ᠤᠯᠤᠰ', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ᠃
+                        <%= f.hidden_field :Motdid, :value => session[:user_id] %>
+                        <%= f.hidden_field :f6, :value => nil %>
+                        <p>
+                          <%= f.submit "ᠬᠤᠷᠢᠶᠠᠨ᠎ᠠ", :class=>"btn" %>
+                        </p>
+                      <% end %>
+                    <% end %>
+                    <% if hinaa==1 and hinaasum>=@mott.f4 then %>
+                      <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
+                        <%= f.hidden_field :f6, :value => Time.now %>
+                        <p>
+                          <%= f.submit "ᠬᠢᠨᠠᠪᠠ１", :class=>"btn" %>
+                        </p>
+                      <% end %>
+                    <% else %>
+                      <% if @mott.Motdid==session[:user_id] %>
+                        <%= form_for([@myuser, @myuser.userpays.build]) do |fff| %>
+                          <%= fff.hidden_field :name, :value =>@mott.f1 + ' ᠬᠢᠨᠠᠬᠤ１' %>
+                          <%= fff.hidden_field :f5, :value =>@mott.f4.round(0)-hinaasum %>
+                          <%= fff.hidden_field :unit, :value =>@mott.moa.strip %>
+                          <%= fff.hidden_field :userid, :value =>@motd.f3 %>
+                          <%= fff.hidden_field :uname, :value =>@user.nickname %>
+                          <%= fff.hidden_field :f6, :value => Time.now %>
+                          <%= fff.hidden_field :f7, :value => Time.now %>
+                          <%= fff.hidden_field :f10, :value => 'motthinaa' %>
+                          <%= fff.hidden_field :typeid, :value => @mott.id %>
+                          <p>
+                            <%= fff.submit 'ᠬᠠᠰᠤᠬᠤ', :class=>"btn" %>
+                          </p>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <br>
+                  <% end %>
+                  ２ᠳᠠᠷᠠᠭ᠎ᠠ ᠨᠢ ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠲᠤᠬᠠᠢ ᠬᠢᠨᠠᠨ᠎ᠠ᠃
+              <% end %>
+              <br>
+              ３ᠦᠭᠡ ᠦᠯᠡᠳᠡᠭᠡᠬᠦ᠃
+              <% if @motd.f3 == session[:user_id] or session[:user_id]==1 or session[:user_fname]=='ᠪᠠᠭᠰᠢ' or session[:user_fname]=='ᠬᠢᠨᠠᠭᠴᠢ' %>
+                  <%= form_for([@motd,@mott,@mott.comments.build]) do |f| %>
+                      <p>
+                        <%=f.text_area :tt,:class=>"area" %>
+                        <%=f.hidden_field :tta, :value =>session[:user_funame] %>
+                        <%=f.hidden_field :ttb, :value =>Time.now.strftime('%Y.%m.%d %H:%M') %>
+                      </p>
+                      <p>
+                        <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                      </p>
+                  <% end %>
+              <% end %>
+
+
+
+            <% end %>
+
+            <% if @motd.f3 == session[:user_id] or session[:user_id]==1 or session[:user_fname]=='ᠪᠠᠭᠰᠢ' or session[:user_fname]=='ᠬᠢᠨᠠᠭᠴᠢ' %>
+              <% if @mott.comments.any? %>
+                 <ul>
+                <% @mott.comments.each do |comment| %>
+                  <% if comment.tt.present? then %>
+                  <li>
+                    <span class="text"><%= comment.tt %></span>
+                    <% if session[:user_id]==1 or session[:user_fname]=='ᠪᠠᠭᠰᠢ' or session[:user_fname]=='ᠬᠢᠨᠠᠭᠴᠢ' %>
+                      <% if comment.tta.present? then %>
+                        <% if comment.tta.strip==session[:user_funame].strip then %>
+                          <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_comment_path(@motd,@mott,comment),class:'command' %>&ensp;
+                          <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                          motd_mott_comment_path(@motd,@mott,comment),
+                          method: :delete,
+                          class: 'command',
+                          data: { confirm: 'are you sure you want to delete?'}%>
+                        <% end %>
+                      <% else %>
+                        <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_comment_path(@motd,@mott,comment),class:'command' %>&ensp;
+                        <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                        motd_mott_comment_path(@motd,@mott,comment),
+                        method: :delete,
+                        class: 'command',
+                        data: { confirm: 'are you sure you want to delete?'}%>
+                      <% end %>
+                    <% end %>
+                    <div class="johiogq">
+                      <%= comment.tta %><%= comment.ttb %>
+                    </div>
+                  </li>
+                  <% end %>
+                <% end %>
+                </ul>
+              <% end %>
+
+            <% end %>
+
+          </td>
+        </tr>
+      </table>
+
+    <% end %>
+  <% end %>
+
+<% if @motd.f3 == session[:user_id] and isend==0 then %>
+  <hr>
+    <section class="Ankhaaruulga">
+      <% if @userangaars.any? %>
+        <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+        <% @userangaars.each do |userangaar| %>
+          <% if userangaar.name.present? %>
+            <span class="text"><%= userangaar.name %></span>
+            <br>
+          <% end %>
+        <% end %>
+      <% end %>
+    </section>
+<% end %>

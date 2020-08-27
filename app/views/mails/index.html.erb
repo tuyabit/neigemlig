@@ -1,0 +1,189 @@
+
+<div class="hidden_box">
+  <h2><label for="label2">ᠵᠠᠬᠢᠲᠠᠯ ᠪᠢᠴᠢᠬᠦ&ensp;</label><%=link_to 'ᠨᠡᠮᠡᠬᠦ',new_mail_path,class:'header-menu' %></h2>
+  <input type="checkbox" id="label2" checked="checked"/>
+    <div class="hidden_show">
+        <% if @usermails.any? %>
+        <ul>
+          <% @usermails.each do |mail| %>
+              <% if mail.f6 %>
+
+              <% else %>
+                  <li>
+                    <%= link_to mail.f1,mail_path(mail),class:'command' %>&ensp;
+                    <%= mail.f2 %>&ensp;
+                    <%= mail.a2 %>&ensp;
+                    <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_mail_path(mail),class:'command' %>&ensp;
+                    <%= link_to ' ᠬᠠᠰᠤᠬᠤ',mail_path(mail),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                                   "class" => "mgltig"} %>
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+</div>
+
+<div class="hidden_box">
+  <h2><label for="label7">ᠢᠷᠡᠭᠰᠡᠨ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label></h2>
+  <input type="checkbox" id="label7" checked="checked"/>
+    <div class="hidden_show">
+        <% if @inmails.any? %>
+        <ul>
+          <% @inmails.each do |mail| %>
+              <% if mail.f6 and !mail.f7 %>
+                  <li>
+                    <%= link_to mail.f1,mail_path(mail),class:'command' %>&ensp;
+                    <%= mail.f2 %>&ensp;
+                    <%= mail.a2 %>&ensp;
+                    <span class="mailfrom"><%= mail.nickname %>&ensp;<%= mail.f6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃</span>
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+</div>
+
+<div class="hidden_box">
+  <h2><label for="label8">ᠢᠷᠡᠭᠰᠡᠨ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label></h2>
+  <input type="checkbox" id="label8" checked="checked"/>
+    <div class="hidden_show">
+        <% if @inrmails.any? %>
+        <ul>
+          <% @inrmails.each do |rmail| %>
+              <% if rmail.ff6 and !rmail.ff7 %>
+                  <li>
+                    <%= link_to rmail.ff1,mail_path(rmail.mail_id),class:'command' %>&ensp;
+                    <%= rmail.ff2 %>&ensp;
+                    <%= rmail.aa2 %>&ensp;
+                    <span class="mailfrom"><%= rmail.nickname %>&ensp;<%= rmail.ff6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃</span>
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+</div>
+
+<div class="hidden_box">
+  <h2><label for="label3">ᠢᠯᠡᠭᠡᠭᠰᠡᠨ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label></h2>
+  <input type="checkbox" id="label3" checked="checked"/>
+    <div class="hidden_show">
+        <% if @usermails.any? %>
+        <ul>
+          <% @usermails.each do |mail| %>
+              <% if mail.f6 %>
+                <li>
+                  <%= link_to mail.f1,mail_path(mail),class:'command' %>&ensp;
+                  <%= mail.f2 %>&ensp;
+                  <%= mail.a2 %>&ensp;
+                  <span class="mailfrom">
+                      <%= mail.f6.strftime('%Y.%m.%d %H:%M') %>&ensp;<%= mail.nickname %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃
+                      <% if mail.f7 %>
+                          &ensp;<%= mail.f7.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠦᠵᠡᠪᠡ᠃
+                      <% end %>
+                  </span>
+
+                </li>
+              <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+</div>
+
+<div class="hidden_box">
+  <h2><label for="label4">ᠢᠯᠡᠭᠡᠭᠰᠡᠨ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label></h2>
+  <input type="checkbox" id="label4" checked="checked"/>
+    <div class="hidden_show">
+        <% if @outrmails.any? %>
+        <ul>
+          <% @outrmails.each do |rmail| %>
+              <% if rmail.ff6 %>
+                  <li>
+                    <%= link_to rmail.ff1,mail_path(rmail.mail_id),class:'command' %>&ensp;
+                    <%= rmail.ff2 %>&ensp;
+                    <%= rmail.aa2 %>&ensp;
+                    <span class="mailfrom">
+                      <%= rmail.ff6.strftime('%Y.%m.%d %H:%M') %>&ensp;<%= rmail.nickname %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃
+                      <% if rmail.ff7 %>
+                          &ensp;<%= rmail.ff7.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠦᠵᠡᠪᠡ᠃
+                      <% end %>
+                    </span>
+
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+</div>
+
+<div class="hidden_box">
+  <h2><label for="label5">ᠦᠵᠡᠭᠰᠡᠨ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label></h2>
+  <input type="checkbox" id="label5" checked="checked"/>
+    <div class="hidden_show">
+        <% if @inmails.any? %>
+        <ul>
+          <% @inmails.each do |mail| %>
+              <% if mail.f6 and mail.f7 %>
+                  <li>
+                    <%= link_to mail.f1,mail_path(mail),class:'command' %>&ensp;
+                    <%= mail.f2 %>&ensp;
+                    <%= mail.a2 %>&ensp;
+                    <span class="mailfrom"><%= mail.nickname %>&ensp;<%= mail.f6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃&ensp;<%= mail.f7.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠦᠵᠡᠪᠡ᠃</span>
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+</div>
+
+<div class="hidden_box">
+  <h2><label for="label9">ᠦᠵᠡᠭᠰᠡᠨ ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label></h2>
+  <input type="checkbox" id="label9" checked="checked"/>
+    <div class="hidden_show">
+        <% if @inrmails.any? %>
+        <ul>
+          <% @inrmails.each do |rmail| %>
+              <% if rmail.ff6 and rmail.ff7 %>
+                  <li>
+                    <%= link_to rmail.ff1,mail_path(rmail.mail_id),class:'command' %>&ensp;
+                    <%= rmail.ff2 %>&ensp;
+                    <%= rmail.aa2 %>&ensp;
+                    <span class="mailfrom"><%= rmail.nickname %>&ensp;<%= rmail.ff6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃&ensp;<%= rmail.ff7.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠦᠵᠡᠪᠡ᠃</span>
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+</div>
+
+<% if session[:user_id]==1 then %>
+    <div class="hidden_box">
+      <h2><label for="label6">ᠪᠦᠬᠦ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label></h2>
+      <input type="checkbox" id="label6"/>
+        <div class="hidden_show">
+            <% if @allmails.any? %>
+            <ul>
+              <% @allmails.each do |mail| %>
+                    <li>
+                      <%= link_to mail.f1,mail_path(mail),class:'command' %>&ensp;
+                      <%= mail.f2 %>&ensp;
+                      <%= mail.a2 %>&ensp;
+                      <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_mail_path(mail),class:'command' %>&ensp;
+                      <%= link_to ' ᠬᠠᠰᠤᠬᠤ',mail_path(mail),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                                     "class" => "mgltig"} %>
+                      <% if mail.f6 %>
+                          <span class="mailfrom"><%= mail.nickname %>&ensp;<%= mail.f6.strftime('%Y.%m.%d %H:%M') %>&ensp;ᠲᠤ ᠢᠯᠡᠭᠡᠪᠡ᠃&ensp;</span>
+                      <% end %>
+                    </li>
+              <% end %>
+            </ul>
+            <% end %>
+        </div>
+    </div>
+<% end %>

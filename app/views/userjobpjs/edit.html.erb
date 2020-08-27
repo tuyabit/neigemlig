@@ -1,0 +1,32 @@
+
+<h2>
+<%= link_to @userjob.name,user_userjob_path(@userjob.user_id,@userjob),class:'header-menu' %>
+ᠬᠤᠪᠢᠶᠠᠷᠢ ᠠᠵᠢᠯ ᠵᠠᠰᠠᠬᠤ</h2>
+<%= form_for @userjobpj, url: user_userjob_userjobpj_path(@user,@userjob,@userjobpj) do |f| %>
+    <table>
+      <tr colspan="3">
+        <td colspan="3">
+          <p>
+            <%=f.text_area :name,placeholder: '* ᠶᠠᠮᠠᠷ ᠠᠵᠢᠯ', :class=>"gaarea" %>
+            <%=f.text_area :from,placeholder: 'ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ<br>
+            <%= f.date_select :startdate, :use_month_numbers => true,  datetime_separator:' ',:time_separator => ' ' %>
+             ~
+            <%= f.date_select :enddate, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ' %>
+        </td>
+        <td>
+            ᠦᠨ᠎ᠡ<br>
+            <%=f.number_field :une, step:0.001,placeholder: '1000' %><br><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
+        </td>
+      </tr>
+    </table>
+    <p>
+      <%= f.hidden_field :unit, :value => @userjob.unit %>
+      <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+<% end %>

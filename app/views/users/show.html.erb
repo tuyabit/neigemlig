@@ -1,0 +1,1425 @@
+
+<% if session[:user_id] then %>
+
+<div class="hidden_box">
+    <h2>
+      <label for="nickname"><%= @user.nickname %></label>
+      <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+        <%=link_to 'ᠵᠠᠰᠠᠬᠤ',edit_user_path(@user),class:'header-menu' %>
+      <% end %>
+    </h2>
+    <input type="checkbox" id="nickname" checked="checked"/>
+    <div class="hidden_show">
+
+      <p><span class="mgltig"><%= @user.nickname %></span>
+      <% if @user.id!=1 then %>
+        <% if @user.age.present? %> &nbsp;<%= @user.age %> ᠨᠠᠰᠤᠲᠠᠢ <% end %>
+        &nbsp;<%= @user.sex %></p>
+      <% end %>
+
+      <p class="text"><%= @user.introduce %></p>
+      <% if @user.id!=1 then %>
+          <div class="hidden_box">
+              <h2><label for="pic">ᠰᠡᠭᠦᠳᠡᠷ&ensp;</label></h2>
+              <input type="checkbox" id="pic" checked="checked"/>
+              <div class="hidden_show">
+
+              <% if @user.userimages.any? %>
+                  <% @user.userimages.each do |userimage| %>
+                      <% if userimage.picture? %>
+                        <table height=100%>
+                          <tr>
+                            <td>
+                                <%= image_tag userimage.picture.url,:oncontextmenu=>"return false", :class => "indeximg" %>
+                              <br>
+                            </td>
+                            <td>
+                              <p class="text"><%= userimage.name %></p>
+                              <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                                  <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userimage_path(@user,userimage),class:'command' %>&ensp;
+                                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                                  user_userimage_path(@user,userimage),
+                                  method: :delete,
+                                  class: 'command',
+                                  data: { confirm: 'are you sure you want to delete?'}%>
+                              <% end %>
+                              <br>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">
+                              <div class="mailfrom">
+                                <%= userimage.updated_at.strftime('%Y.%m.%d') %>&ensp;
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                    <% end %>
+                  <% end %>
+              <% end %>
+
+              <% if @user.id == session[:user_id] then %>
+                <div class="hidden_box">
+                <label for="newpic">
+                  <span style="color:#ff0000;font-weight:bold;">
+                  &ensp;ᠨᠡᠮᠡᠬᠦ
+                  </span>
+                </label>
+                <input type="checkbox" id="newpic"/>
+                <div class="hidden_show">
+                  <%= form_for([@user, @user.userimages.build]) do |f| %>
+                    <table>
+                      <tr>
+                        <td>
+                          <p>
+                            <%= f.file_field :picture, :type=>"file", :id=>"file", :class=>"command"  %>
+                            <%=f.text_area :name,placeholder: '', :class=>"gaarea" %>
+                          </p>
+                          <p>
+                            <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                  <% end %>
+                </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+      <% end %>
+
+      <% if @user.id == session[:user_id] and session[:user_id]==1 then %>
+      <div class="hidden_box">
+          <h2><label for="Ankhaar">ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ</label></h2>
+          <input type="checkbox" id="Ankhaar" checked="checked"/>
+          <div class="hidden_show">
+
+            <section class="Ankhaaruulga">
+            <% if @user.userangaars.any? %>
+                <% @user.userangaars.each do |userangaar| %>
+                    <% if userangaar.name? %>
+                        <span class="text"><%= userangaar.name %></span>
+                        <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userangaar_path(@user,userangaar),class:'command' %>&ensp;
+                        <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                        user_userangaar_path(@user,userangaar),
+                        method: :delete,
+                        class: 'command',
+                        data: { confirm: 'are you sure you want to delete?'}%>
+                        <br>
+                    <% end %>
+                <% end %>
+            <% end %>
+            </section>
+
+            <div class="hidden_box">
+            <label for="newAnkhaar">
+              <span style="color:#ff0000;font-weight:bold;">
+              &ensp;ᠨᠡᠮᠡᠬᠦ
+              </span>
+            </label>
+            <input type="checkbox" id="newAnkhaar"/>
+            <div class="hidden_show">
+            <%= form_for([@user, @user.userangaars.build]) do |f| %>
+              <p>
+                <%=f.text_area :name,placeholder: '', :class=>"area" %>
+              </p>
+              <p>
+                <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+              </p>
+            <% end %>
+            </div>
+            </div>
+        </div>
+        </div>
+      <% end %>
+
+      <% if @user.id == session[:user_id] and session[:user_id]==1 then %>
+      <div class="hidden_box">
+          <h2><label for="mdegdel">ᠮᠡᠳᠡᠭᠳᠡᠯ</label></h2>
+          <input type="checkbox" id="mdegdel" checked="checked"/>
+          <div class="hidden_show">
+
+            <section class="mdegdel">
+            <% if @user.usermdegdels.any? %>
+                <% @user.usermdegdels.each do |usermdegdel| %>
+                    <% if usermdegdel.ga1.present? or usermdegdel.ga2.present? or usermdegdel.name.present? %>
+                      <ul>
+                        <li>
+                          <% if usermdegdel.f4.present? %>
+                            <span class="mailfrom">
+                              <%= usermdegdel.f4.strftime('%Y.%m.%d %H:%M') %> ᠠ᠋ᠴᠠ <%= usermdegdel.f5.strftime('%Y.%m.%d %H:%M') %> ᠳ᠋ᠤ ᠨᠡᠢᠲᠡᠯᠡᠨ᠎ᠡ᠃
+                            </span>
+                          <% end %>
+                          <br>
+                          <span class="text"><%= usermdegdel.ga1 %></span>
+                          <br><%= usermdegdel.ga2 %>
+                          <br><%= usermdegdel.name %>
+                          <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_usermdegdel_path(@user,usermdegdel),class:'command' %>&ensp;
+                          <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                          user_usermdegdel_path(@user,usermdegdel),
+                          method: :delete,
+                          class: 'command',
+                          data: { confirm: 'are you sure you want to delete?'}%>
+                        </li>
+                      </ul>
+                    <% end %>
+                <% end %>
+            <% end %>
+            </section>
+
+            <div class="hidden_box">
+            <label for="newmdegdel">
+              <span style="color:#ff0000;font-weight:bold;">
+              &ensp;ᠨᠡᠮᠡᠬᠦ
+              </span>
+            </label>
+            <input type="checkbox" id="newmdegdel"/>
+            <div class="hidden_show">
+            <%= form_for([@user, @user.usermdegdels.build]) do |f| %>
+              <p>
+                ᠨᠡᠢᠲᠡᠯᠡᠬᠦ ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ<br>
+                <%= f.datetime_select :f4, class: "datetimet", :use_month_numbers => true, minute_step: 10, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+                <br>~<br>
+                <%= f.datetime_select :f5, class: "datetimet", :use_month_numbers => true, minute_step: 10, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+              </p>
+              <p>
+                <%=f.text_area :ga1,placeholder: 'ᠴᠢᠬᠤᠯᠠ', :class=>"gaarea" %>
+                <%=f.text_area :ga2,placeholder: 'ᠭᠠᠷᠴᠠᠭ', :class=>"gaarea" %>
+              </p>
+              <p>
+                <%=f.text_area :name,placeholder: 'ᠮᠡᠳᠡᠭᠳᠡᠯ', :class=>"area" %>
+              </p>
+              <p>
+                <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+              </p>
+            <% end %>
+            </div>
+            </div>
+        </div>
+        </div>
+      <% end %>
+
+      <% if @user.id!=1 then %>
+        <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+          <div class="hidden_box">
+              <h2><label for="nvtvg">ᠨᠤᠲᠤᠭ&ensp;</label></h2>
+              <input type="checkbox" id="nvtvg" checked="checked"/>
+              <div class="hidden_show">
+
+                <% if @mlqdbs.any? %>
+                <ul>
+                  <% @mlqdbs.each do |mlqdb| %>
+                  <li>
+                    <%= mlqdb.a9 %>ー
+                    <%= mlqdb.f9 %><br>
+                    <%= mlqdb.a1 %>\
+                    <%= mlqdb.f1 %>\
+                    <%= mlqdb.a2 %>\
+                    <%= mlqdb.f2 %>&ensp;
+                    <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                        <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_user_mlqdb_path(@user,mlqdb),class:'command' %>&ensp;
+                        <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                        user_mlqdb_path(@user,mlqdb),
+                        method: :delete,
+                        class: 'command',
+                        data: { confirm: 'are you sure you want to delete?'}%>
+                    <% end %>
+
+                  </li>
+                  <% end %>
+                </ul>
+                <% end %>
+
+                <% if @user.id == session[:user_id] then %>
+                  <div class="hidden_box">
+                  <label for="newnvtvg">
+                    <span style="color:#ff0000;font-weight:bold;">
+                    &ensp;ᠨᠡᠮᠡᠬᠦ
+                    </span>
+                  </label>
+                  <input type="checkbox" id="newnvtvg"/>
+                  <div class="hidden_show">
+                    <%= form_for([@user, @user.mlqdbs.build]) do |f| %>
+                        <p>
+                          ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ
+                          <%= f.date_select :a9, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now, :start_year => (Date.today.year-100), :end_year => (Date.today.year+100) %>
+                          ~
+                          <%= f.date_select :f9, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now.year + 5, :start_year => (Date.today.year-100), :end_year => (Date.today.year+100) %>
+                        </p>
+                        <p>
+                          <%=f.text_area :a1,placeholder: '* ᠤᠯᠤᠰ', :class=>"bgarea" %>
+                          <%=f.text_area :f1,placeholder: '* ᠣᠷᠤᠨ', :class=>"bgarea" %>
+                        </p>
+                        <p>
+                          <%=f.text_area :a2,placeholder: '* ᠬᠣᠲᠠ ᠪᠤᠶᠤ ᠠᠢᠮᠠᠭ', :class=>"bgarea" %>
+                          <%=f.text_area :f2,placeholder: '* ᠬᠣᠰᠢᠭᠤ ᠰᠤᠮᠤ ᠭᠠᠴᠠᠭ᠎ᠠ', :class=>"bgarea" %>
+                        </p>
+                        <p>
+                          <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                        </p>
+                    <% end %>
+                  </div>
+                  </div>
+                <% end %>
+
+                <h2>ᠬᠡᠤᠬᠡᠳ</h2>
+                <% if @user.usergers.any? %>
+                  <ul>
+                  <% @user.usergers.each do |userger| %>
+                    <li>
+                      <% if userger.hed.present? %>
+                        <%= userger.hed %> ᠳ᠋ᠤᠭᠠᠷ
+                      <% end %>
+                      <%= userger.faymly %>:
+                      <% if !userger.userid.present? %>
+                        <%= userger.name %>
+                      <% else %>
+                        <%= link_to userger.name,user_path(userger.userid),class:'command' %>
+                      <% end %>
+
+                      <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                          <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                          user_userger_path(@user,userger),
+                          method: :delete,
+                          class: 'command',
+                          data: { confirm: 'are you sure you want to delete?'}%>
+                      <% end %>
+
+                      <% if !userger.userid.present? %>
+                        <% if @users.any? %>
+                          <ul>
+                          <% @users.each do |theuser| %>
+                            <% if theuser.nickname.strip == userger.name.strip and theuser.age<@user.age-20 %>
+                              <li>
+                                ᠠᠳᠠᠯᠢᠬᠠᠨ ᠨᠠᠷᠡᠲᠤ:
+                                <%= link_to theuser.nickname,user_path(theuser.id),class:'command' %>
+                                ᠲᠤᠰ ᠬᠥᠮᠦᠨ
+                                <%= form_for userger, url: user_userger_path(@user,userger) do |f| %>
+                                  <%= f.hidden_field :userid, :value => theuser.id %>
+                                  <%= f.submit "ᠮᠥᠨ᠃", :class=>"btn" %>
+                                <% end %>
+                              </li>
+                            <% end %>
+                          <% end %>
+                          </ul>
+                        <% end %>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  </ul>
+                <% end %>
+
+                <% if @user.id == session[:user_id] then %>
+                  <div class="hidden_box">
+                  <label for="newhuuhed">
+                    <span style="color:#ff0000;font-weight:bold;">
+                    &ensp;ᠨᠡᠮᠡᠬᠦ
+                    </span>
+                  </label>
+                  <input type="checkbox" id="newhuuhed"/>
+                  <div class="hidden_show">
+                    <%= form_for([@user, @user.usergers.build]) do |f| %>
+                        <p>
+                          <%=f.number_field :hed , :size=>"5x5" %> ᠳ᠋ᠤᠭᠠᠷ
+                          <%= f.radio_button :faymly, :ᠬᠦᠦ, checked: "checked" %>
+                          <%= f.label :faymly, 'ᠬᠦᠦ' %>&ensp;
+                          <%= f.radio_button :faymly, :ᠬᠡᠤᠬᠡᠨ %>
+                          <%= f.label :faymly, 'ᠬᠡᠤᠬᠡᠨ' %>
+                        </p>
+                        <p>
+                          <%=f.text_area :name,placeholder: '* ᠨᠡᠷ᠎ᠡ', :class=>"bgarea" %>
+                        </p>
+                        <%= f.hidden_field :yamr, :value =>'ᠬᠡᠤᠬᠡᠳ' %>
+                        <p>
+                          <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                        </p>
+                    <% end %>
+                  </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="hidden_box">
+                <h2><label for="svrgvvl">ᠰᠤᠷᠭᠠᠭᠤᠯᠢ&ensp;</label></h2>
+                <input type="checkbox" id="svrgvvl" checked="checked"/>
+                <div class="hidden_show">
+
+                <% if @user.mlqdas.any? %>
+                <ul>
+                  <% @user.mlqdas.each do |mlqda| %>
+                  <li>
+                    <%= mlqda.a9 %>ー
+                    <%= mlqda.f9 %><br>
+                    <%= mlqda.a1 %>\
+                    <%= mlqda.f1 %>\
+                    <%= mlqda.a2 %>\
+                    <%= mlqda.f2 %>&ensp;
+                    <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                        <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                        user_mlqda_path(@user,mlqda),
+                        method: :delete,
+                        class: 'command',
+                        data: { confirm: 'are you sure you want to delete?'}%>
+                    <% end %>
+                  </li>
+                  <% end %>
+                </ul>
+                <% end %>
+
+                <% if @user.id == session[:user_id] then %>
+                  <div class="hidden_box">
+                  <label for="newsvrgvvl">
+                    <span style="color:#ff0000;font-weight:bold;">
+                    &ensp;ᠨᠡᠮᠡᠬᠦ
+                    </span>
+                  </label>
+                  <input type="checkbox" id="newsvrgvvl"/>
+                  <div class="hidden_show">
+                    <%= form_for([@user, @user.mlqdas.build]) do |f| %>
+                      <p>
+                        ᠬᠤᠭᠤᠴᠠᠭ᠎ᠠ
+                        <%= f.date_select :a9, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now, :start_year => (Date.today.year-100), :end_year => (Date.today.year+100) %>
+                        ~
+                        <%= f.date_select :f9, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now.year + 5, :start_year => (Date.today.year-100), :end_year => (Date.today.year+100) %>
+                      </p>
+                      <p>
+                        <%=f.text_area :a1,placeholder: '* ᠰᠤᠷᠭᠠᠭᠤᠯᠢ', :class=>"bgarea" %>
+                        <%=f.text_area :f1,placeholder: '* ᠣᠷᠤᠨ', :class=>"bgarea" %>
+                      </p>
+                      <p>
+                        <%=f.text_area :a2,placeholder: '* ᠬᠣᠲᠠ ᠪᠤᠶᠤ ᠠᠢᠮᠠᠭ', :class=>"bgarea" %>
+                        <%=f.text_area :f2,placeholder: 'ᠬᠣᠰᠢᠭᠤ ᠰᠤᠮᠤ ᠭᠠᠴᠠᠭ᠎ᠠ', :class=>"bgarea" %>
+                      </p>
+                      <p>
+                        <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                      </p>
+                    <% end %>
+                  </div>
+                  </div>
+                <% end %>
+            </div>
+            </div>
+
+            <div class="hidden_box">
+                <h2><label for="hel">ᠬᠡᠯᠡ&ensp;</label></h2>
+                <input type="checkbox" id="hel" checked="checked"/>
+                <div class="hidden_show">
+
+                <% if @user.mlqdcs.any? %>
+                <ul>
+                  <% @user.mlqdcs.each do |mlqdc| %>
+                  <li>
+                    <%= mlqdc.a1 %>：
+                    <%= mlqdc.f1 %>&ensp;
+                    <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                      <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                      user_mlqdc_path(@user,mlqdc),
+                      method: :delete,
+                      class: 'command',
+                      data: { confirm: 'are you sure you want to delete?'}%>
+                    <% end %>
+                  </li>
+                  <% end %>
+                </ul>
+                <% end %>
+
+                <% if @user.id == session[:user_id] then %>
+                  <div class="hidden_box">
+                  <label for="newhel">
+                    <span style="color:#ff0000;font-weight:bold;">
+                    &ensp;ᠨᠡᠮᠡᠬᠦ
+                    </span>
+                  </label>
+                  <input type="checkbox" id="newhel"/>
+                  <div class="hidden_show">
+                    <%= form_for([@user, @user.mlqdcs.build]) do |f| %>
+                    <p>
+                      <%=f.text_area :a1,placeholder: 'ᠬᠡᠯᠡ', autocomplete: 'off', :class=>"bgarea" %>
+                      <%=f.text_area :f1,placeholder: 'ᠬᠢᠷᠢ ᠬᠡᠮᠵᠢᠶ᠎ᠡ', autocomplete: 'off', :class=>"bgarea" %>
+                    </p>
+                    <p>
+                      <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                    </p>
+                    <% end %>
+                  </div>
+                  </div>
+                <% end %>
+            </div>
+            </div>
+
+            <div class="hidden_box">
+                <h2><label for="bosd">ᠪᠤᠰᠥᠳ&ensp;</label></h2>
+                <input type="checkbox" id="bosd" checked="checked"/>
+                <div class="hidden_show">
+
+                <% if @user.mlqdes.any? %>
+                <ul>
+                  <% @user.mlqdes.each do |mlqde| %>
+                  <li>
+                    <%= mlqde.a1 %>：
+                    <%= mlqde.f1 %>&ensp;
+                    <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                        <%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqde_path(@user,mlqde),method: :delete,class: 'command',
+                        data: { confirm: 'are you sure you want to delete?'}%>
+                    <% end %>
+                  </li>
+                  <% end %>
+                </ul>
+                <% end %>
+
+                <% if @user.id == session[:user_id] then %>
+                  <div class="hidden_box">
+                  <label for="newbosd">
+                    <span style="color:#ff0000;font-weight:bold;">
+                    &ensp;ᠨᠡᠮᠡᠬᠦ
+                    </span>
+                  </label>
+                  <input type="checkbox" id="newbosd"/>
+                  <div class="hidden_show">
+                    <%= form_for([@user, @user.mlqdes.build]) do |f| %>
+                    <p>
+                      <%=f.text_area :a1,placeholder: 'ᠪᠤᠰᠥᠳ', :class=>"gaarea" %>
+                      <%=f.text_area :f1,placeholder: 'ᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+                    </p>
+                    <p>
+                      <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                    </p>
+                    <% end %>
+                  </div>
+                  </div>
+                <% end %>
+            </div>
+            </div>
+
+          <div class="hidden_box">
+              <h2><label for="hayag">ᠬᠠᠶᠠᠭ&ensp;</label></h2>
+              <input type="checkbox" id="hayag" checked="checked"/>
+              <div class="hidden_show">
+
+              <% if @user.useradds.any? %>
+              <ul>
+                <% @user.useradds.each do |useradd| %>
+                <li>
+
+                  <%= useradd.name %>：
+                  <%= useradd.tel %>\<%= useradd.pcode %>\<%= useradd.add %>\
+                  <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                      <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                      user_useradd_path(@user,useradd),
+                      method: :delete,
+                      class: 'command',
+                      data: { confirm: 'are you sure you want to delete?'}%>
+                  <% end %>
+                </li>
+                <% end %>
+              </ul>
+              <% end %>
+
+              <% if @user.id == session[:user_id] then %>
+                <div class="hidden_box">
+                <label for="newhayag">
+                  <span style="color:#ff0000;font-weight:bold;">
+                  &ensp;ᠨᠡᠮᠡᠬᠦ
+                  </span>
+                </label>
+                <input type="checkbox" id="newhayag"/>
+                <div class="hidden_show">
+                  <%= form_for([@user, @user.useradds.build]) do |f| %>
+                    <p>
+                      <%=f.text_area :name,placeholder: 'ᠨᠡᠷ᠎ᠡ', autocomplete: 'off', :class=>"bgarea" %>
+                      <%=f.text_area :tel,placeholder: 'ᠭᠠᠷ ᠤᠲᠠᠰᠤ', autocomplete: 'off', :class=>"bgarea" %>
+                        <%=f.text_area :pcode,placeholder: 'ᠰᠢᠤᠳᠠᠨ ᠨᠣᠮᠧᠷ', autocomplete: 'off', :class=>"bgarea" %>
+                    </p>
+                    <p>
+                      <%=f.text_area :add,placeholder: 'ᠰᠠᠭᠤᠭ᠎ᠠ ᠭᠠᠵᠠᠷ', autocomplete: 'off', :class=>"gaarea" %>
+                    </p>
+                    <p>
+                      <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                    </p>
+                  <% end %>
+                  <%= form_for([@user, @user.useradds.build]) do |f| %>
+                    <table>
+                      <tr>
+                        <td>
+                          <%=f.text_area :name,placeholder: 'Name', :size=>"13x3" %>
+                        </td>
+                        <td>
+                          <%=f.text_area :tel,placeholder: '13912341234', :size=>"13x3" %>
+                        </td>
+                        <td>
+                          <%=f.text_area :pcode,placeholder: '1000001', :size=>"13x1" %>
+                        </td>
+                        <td>
+                          <%=f.text_area :add,placeholder: 'address:china,neimenggu...', :size=>"13x9" %>
+                        </td>
+                      </tr>
+                    </table>
+                    <p>
+                      <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                    </p>
+                  <% end %>
+                </div>
+                </div>
+              <% end %>
+          </div>
+          </div>
+        <% end %>
+      <% end %>
+  </div>
+</div>
+
+<% end %>
+
+<div class="hidden_box">
+<% if @user.id!=1 then %>
+  <h2><label for="shop"><%= @user.id %> ᠳ᠋ᠤᠭᠠᠷ ᠳᠡᠯᠭᠡᠭᠦᠷ</label></h2>
+<% end %>
+<input type="checkbox" id="shop" checked="checked"/>
+<div class="hidden_show">
+
+ <% if @user.id!=1 then %>
+    <h2>&ensp;
+    <%= link_to 'ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ',users_path(@user),class:'command' %>
+    </h2>
+    <% if @motds.any? %>
+        &ensp;&ensp;&ensp;
+        <% @motds.each_with_index do |motd,i| %>
+            \<%= link_to motd.f1,motd_path(motd),class:'command' %>
+        <% end %>
+    <% end %>
+
+    <h2>&ensp;
+    <%= link_to 'ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ',user_usershops_path(@user),class:'command' %>
+    </h2>
+    <% if @user.usershops.any? %>
+        &ensp;&ensp;&ensp;
+        <% @user.usershops.each do |usershop| %>
+            <% if usershop.name1.present? %>
+              \<%= link_to usershop.name1,user_usershop_path(@user,usershop),class:'command' %>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <h2>&ensp;
+    <%= link_to 'ᠠᠵᠢᠯ',user_userjobs_path(@user),class:'command' %>
+    </h2>
+    <% if @user.userjobs.any? %>
+        &ensp;&ensp;&ensp;
+        <% @user.userjobs.each do |userjob| %>
+            <% if userjob.name.present? %>
+              \<%= link_to userjob.name,user_userjob_path(@user,userjob),class:'command' %>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <% if @user.id == session[:user_id] then %>
+      <h2>&ensp;
+      <%= link_to 'ᠬᠦᠰᠡᠯ',user_usergets_path(@user),class:'command' %>
+      </h2>
+      <% if @user.usergets.any? %>
+          &ensp;&ensp;&ensp;
+          <% @user.usergets.each do |userget| %>
+                \<%= link_to userget.name,user_userget_path(@user,userget),class:'command' %>
+          <% end %>
+      <% end %>
+
+      <h2>&ensp;
+      <%= link_to 'ᠠᠰᠠᠭᠤᠯᠲᠠ',user_userjuuds_path(@user),class:'command' %>
+      </h2>
+      <% if @user.userjuuds.any? %>
+          &ensp;&ensp;&ensp;
+          <% @user.userjuuds.each do |userjuud| %>
+                \<%= link_to userjuud.name,user_userjuud_path(@user,userjuud),class:'command' %>
+          <% end %>
+      <% end %>
+
+      <h2>&ensp;
+      <%= link_to 'ᠪᠦᠷᠢᠳᠭᠡᠯ',user_usermals_path(@user),class:'command' %>
+      </h2>
+      <% if @user.usermals.any? %>
+          &ensp;&ensp;&ensp;
+          <% @user.usermals.each do |usermal| %>
+                \<%= link_to usermal.name1,user_usermal_path(@user,usermal),class:'command' %>
+          <% end %>
+      <% end %>
+
+    <% end %>
+
+    <% if session[:user_id] %>
+      <div class="hidden_box">
+          <h2><label for="bags">&ensp;ᠬᠠᠷᠢᠴᠠᠬᠤ ᠨᠣᠮᠧᠷ</label></h2>
+          <input type="checkbox" id="bags" checked="checked"/>
+          <div class="hidden_show">
+
+          <% at="" %>
+          <% if @user.mlqdds.any? %>
+          <ul>
+            <% @user.mlqdds.each do |mlqdd| %>
+            <li>
+              <% if mlqdd.a1=="@ᠬᠠᠶᠠᠭ" %>
+                <% at=mlqdd.f1 %>
+              <% end %>
+              <%= mlqdd.a1 %>：
+              <%= mlqdd.f1 %>&ensp;
+              <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                  user_mlqdd_path(@user,mlqdd),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+          <% end %>
+
+          <% if @user.id == session[:user_id] then %>
+            <div class="hidden_box">
+            <label for="newbags">
+              <span style="color:#ff0000;font-weight:bold;">
+              &ensp;&ensp;ᠨᠡᠮᠡᠬᠦ
+              </span>
+            </label>
+            <input type="checkbox" id="newbags"/>
+            <div class="hidden_show">
+              <%= form_for([@user, @user.mlqdds.build]) do |f| %>
+                <p>
+                  <%=f.text_area :a1,placeholder: 'ᠬᠠᠷᠢᠴᠠᠬᠤ ᠠᠷᠭ᠎ᠠ', autocomplete: 'off', :class=>"bgarea" %>
+                  <%=f.text_area :f1,placeholder: 'ᠨᠣᠮᠧᠷ', autocomplete: 'off', :class=>"bgarea"%>
+                </p>
+                <p>
+                  <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                </p>
+              <% end %>
+
+              <% if at=="" %>
+                <%= form_for([@user, @user.mlqdds.build]) do |f| %>
+                  <%= f.hidden_field :a1, :value => '@ᠬᠠᠶᠠᠭ' %>
+                  <%= f.hidden_field :f1, :value => @user.email %>
+                  <p>
+                    @ᠬᠠᠶᠠᠭ <br>
+                    <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                  </p>
+                <% end %>
+              <% end %>
+            </div>
+            </div>
+          <% end %>
+      </div>
+      </div>
+    <% end %>
+ <% end %>
+
+    <div class="hidden_box">
+    <h2><label for="pay">&ensp;ᠵᠣᠭᠤᠰ ᠬᠤᠷᠢᠶᠠᠬᠤ ᠵᠢᠷᠤᠭ</label></h2>
+    <input type="checkbox" id="pay" checked="checked"/>
+    <div class="hidden_show">
+
+      <% if @user.payimages.any? %>
+          <% @user.payimages.each do |payimage| %>
+              <% if payimage.picture? %>
+                <table height="100%">
+                  <tr>
+                    <td>
+                      <span class="payimg">
+                        <%= image_tag payimage.picture.url,:oncontextmenu=>"return false", :class => "payimg" %>
+                      </span>
+                      <br>
+                    </td>
+                    <td>
+                        <p class="text"><%= payimage.name %></p>
+                        <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                            <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_payimage_path(@user,payimage),class:'command' %>&ensp;
+                            <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                            user_payimage_path(@user,payimage),
+                            method: :delete,
+                            class: 'command',
+                            data: { confirm: 'are you sure you want to delete?'}%>
+                        <% end %>
+                        <span class="mailfrom">
+                          <%= payimage.updated_at.strftime('%Y.%m.%d') %>&ensp;
+                        </span>
+                        <br>
+                    </td>
+                  </tr>
+                </table>
+            <% end %>
+          <% end %>
+      <% end %>
+
+      <% if @user.id == session[:user_id] then %>
+        <div class="hidden_box">
+        <label for="newpay">
+          <span style="color:#ff0000;font-weight:bold;">
+          &ensp;&ensp;ᠨᠡᠮᠡᠬᠦ
+          </span>
+        </label>
+        <input type="checkbox" id="newpay"/>
+        <div class="hidden_show">
+          <%= form_for([@user, @user.payimages.build]) do |f| %>
+            <table>
+              <tr>
+                <td>
+                  <p>
+                    <%= f.file_field :picture, :type=>"file", :id=>"file", :class=>"command"  %>
+                    <%=f.text_area :name,placeholder: '', :class=>"gaarea" %>
+                  </p>
+                  <p>
+                    <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+        </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% inoutsum=[] %>
+  <% inoutunit=[] %>
+
+  <% if session[:user_id] and session[:user_id]!=1 then %>
+    <hr>
+    <h2>ᠳᠠᠩᠰᠠ</h2>
+
+    <% if @user.id != session[:user_id]  %>
+
+      <div class="hidden_box">
+      <h2><label for="userpay">&ensp;<%= @user.nickname %>&ensp;ᠳ᠋ᠤ ᠲᠤᠰᠢᠶᠠᠭᠰᠠᠨ ᠳᠠᠩᠰᠠ</label></h2>
+      <input type="checkbox" id="userpay" checked="checked"/>
+      <div class="hidden_show">
+
+      <% if @user.userpays.any? %>
+        <% sumf4=[] %>
+        <% sumf5=[] %>
+        <% sum=0 %>
+        <% unit=[] %>
+        <% f4f5unit="" %>
+        <% f4f5index=0 %>
+        <% @user.userpays.each do |userpay| %>
+          <% if userpay.userid == session[:user_id] %>
+            <table height="100%">
+            <tr>
+            <% if userpay.picture.present? %>
+              <td height="30%">
+                  <span class="payimg">
+                    <%= image_tag userpay.picture.url,:oncontextmenu=>"return false", :class => "payimg" %>
+                  </span>
+                  <br>
+              </td>
+            <% end %>
+            <td>
+
+            <% if userpay.f10.present? %>
+                <br>
+                 <% if userpay.name.present? %>
+                   <%= userpay.name %>
+                 <% end %>
+                <span class="Ankhaaruulga"><%= userpay.f5.round(0) %></span><%= userpay.unit %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
+
+                <% if userpay.f6.present? %>
+                  <span class="mailfrom">
+                    <%= userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                  </span>
+                <% end %>
+
+                <% if session[:user_id]==1  %>
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                  user_userpay_path(@user,userpay),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+                <% end %>
+                <br>
+            <% else %>
+                <br>
+                <% if userpay.name.present? %>
+                  <%= userpay.name %>
+                <% end %>
+                <span style="background:yellow;">
+                  <%= userpay.f4 %>
+                </span>
+                <%= userpay.unit %>&ensp;ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+
+                <% if userpay.f6.present? %>
+                  <span class="mailfrom">
+                    <%= userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                  </span>
+                <% end %>
+                <br>
+            <% end %>
+            <% f4f5unit="" %>
+            <% f4f5index=0 %>
+            <% unit.each_with_index do |sumunit, i| %>
+              <% if sumunit ==userpay.unit.strip then %>
+                <% f4f5unit=userpay.unit.strip %>
+                <% f4f5index=i %>
+              <% end %>
+            <% end %>
+            <% if f4f5unit=="" then %>
+                <% if userpay.unit.present? %>
+                  <% unit.push(userpay.unit.strip) %>
+                <% else %>
+                  <% unit.push("") %>
+                <% end %>
+                <% if userpay.f4.present? %>
+                  <% sumf4.push(userpay.f4) %>
+                <% else %>
+                  <% sumf4.push(0) %>
+                <% end %>
+                <% if userpay.f5.present? %>
+                  <% sumf5.push(userpay.f5) %>
+                <% else %>
+                  <% sumf5.push(0) %>
+                <% end %>
+            <% else %>
+                <% if userpay.f4.present? %>
+                  <% sumf4[f4f5index]=sumf4[f4f5index]+userpay.f4 %>
+                <% end %>
+                <% if userpay.f5.present? %>
+                  <% sumf5[f4f5index]=sumf5[f4f5index]+userpay.f5 %>
+                <% end %>
+            <% end %>
+
+            </td>
+            </tr>
+            </table>
+        <% end %>
+      <% end %>
+
+      <br>
+      <% sum=0 %>
+      <% unit.each_with_index do |sumunit, i| %>
+           <%= sumf4[i].round(0) %>
+           <span class="Ankhaaruulga">
+             - <%= sumf5[i].round(0) %>
+           </span>
+           <% if sumf4[i]<sumf5[i] then %>
+             <span class="Ankhaaruulga">
+               = <%= sumf4[i].round(0)-sumf5[i].round(0) %>
+             </span>
+             <%= sumunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+             <span class="Ankhaaruulga">
+               <%= sumf5[i].round(0)-sumf4[i].round(0) %>
+               <%= sumunit %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
+             </span>
+           <% else %>
+             = <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ᠃<br>
+             <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ ᠬᠠᠳᠠᠭᠠᠯᠠᠮᠵᠢ ᠦᠯᠡᠳᠡᠨ᠎ᠡ᠃
+           <% end %>
+           <% inoutsum.push(sumf4[i].round(0)-sumf5[i].round(0)) %>
+           <% inoutunit.push(sumunit) %>
+          <br>
+      <% end %>
+
+    <% end %>
+
+    </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if session[:user_id] and @user.id != session[:user_id] %>
+  <div class="hidden_box">
+  <h2><label for="paydata">&ensp;<%= @user.nickname %>&ensp;ᠠ᠋ᠴᠠ ᠬᠤᠷᠢᠶᠠᠭᠰᠠᠨ ᠳᠠᠩᠰᠠ</label></h2>
+  <input type="checkbox" id="paydata" checked="checked"/>
+  <div class="hidden_show">
+
+  <% if @myuser.userpays.any? %>
+    <% sumf4=[] %>
+    <% sumf5=[] %>
+    <% sum=0 %>
+    <% unit=[] %>
+    <% userid=[] %>
+    <% f4f5unit="" %>
+    <% f4f5index=0 %>
+    <% @myuser.userpays.each do |userpay| %>
+      <% if userpay.id.present? %>
+        <% if userpay.user_id==session[:user_id] and userpay.userid==@user.id %>
+          <table height="100%">
+            <tr>
+            <% if userpay.picture.present? %>
+              <td height="30%">
+                  <span class="payimg">
+                    <%= image_tag userpay.picture.url,:oncontextmenu=>"return false", :class => "payimg" %>
+                  </span>
+                  <br>
+              </td>
+            <% end %>
+            <td>
+
+            <% if userpay.f10.present? %>
+                <br>
+                <% if userpay.name.present? %>
+                  <%= userpay.name %>
+                <% end %>
+                <span class="Ankhaaruulga">
+                  <%= userpay.f5 %>
+                </span>
+                <%= userpay.unit %>&ensp;ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
+
+            <% else %>
+                <br>
+                <% if userpay.name.present? %>
+                  <%= userpay.name %>
+                <% end %>
+                <span style="background:yellow;">
+                  <%= userpay.f4 %>
+                </span>
+                <%= userpay.unit %>&ensp;ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+              <% end %>
+              <% if userpay.f6.present? %>
+                <span class="mailfrom">
+                  <%= userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                </span>
+              <% end %>
+              <% if session[:user_id] and userpay.id.present? %>
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                  user_userpay_path(@user,userpay.id),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+              <% end %>
+
+              <% f4f5unit="" %>
+              <% f4f5index=0 %>
+              <% unit.each_with_index do |sumunit, i| %>
+                <% if userpay.unit.present? then %>
+                  <% if sumunit ==userpay.unit.strip then %>
+                    <% f4f5unit=userpay.unit.strip %>
+                    <% f4f5index=i %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <% if f4f5unit=="" then %>
+                  <% if userpay.unit.present? %>
+                    <% unit.push(userpay.unit.strip) %>
+                  <% else %>
+                    <% unit.push("") %>
+                  <% end %>
+                  <% if userpay.f4.present? %>
+                    <% sumf4.push(userpay.f4) %>
+                  <% else %>
+                    <% sumf4.push(0) %>
+                  <% end %>
+                  <% if userpay.f5.present? %>
+                    <% sumf5.push(userpay.f5) %>
+                  <% else %>
+                    <% sumf5.push(0) %>
+                  <% end %>
+              <% else %>
+                  <% if userpay.f4.present? %>
+                    <% sumf4[f4f5index]=sumf4[f4f5index]+userpay.f4 %>
+                  <% end %>
+                  <% if userpay.f5.present? %>
+                    <% sumf5[f4f5index]=sumf5[f4f5index]+userpay.f5 %>
+                  <% end %>
+              <% end %>
+
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      <% end %>
+    <% end %>
+    <br>
+    <% sum=0 %>
+    <% unit.each_with_index do |sumunit, i| %>
+      <%= sumf4[i].round(0) %>
+      <span class="Ankhaaruulga">
+         - <%= sumf5[i].round(0) %>
+      </span>
+       <% if sumf4[i]<sumf5[i] then %>
+         <span class="Ankhaaruulga">
+           = <%= sumf4[i].round(0)-sumf5[i].round(0) %>
+         </span>
+         <%= sumunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+         <span class="Ankhaaruulga">
+           <%= sumf5[i].round(0)-sumf4[i].round(0) %>
+           <%= sumunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠬᠤᠷᠢᠶᠠᠪᠠ᠃
+         </span>
+         <br>
+       <% else %>
+         = <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ᠃<br>
+         <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ ᠬᠠᠳᠠᠭᠠᠯᠠᠮᠵᠢ ᠦᠯᠡᠳᠡᠨ᠎ᠡ᠃<br>
+       <% end %>
+       <% inoutsum.push(sumf5[i].round(0)-sumf4[i].round(0)) %>
+       <% inoutunit.push(sumunit) %>
+    <% end %>
+    <br>
+  <% end %>
+
+  <% insum=[] %>
+  <% inunit=[] %>
+  <% isunit="" %>
+  <% ins=0 %>
+  <% hvraa=0 %>
+  <% inoutunit.each_with_index do |unit, i| %>
+    <% if isunit !=unit then %>
+      <% insum.push(inoutsum[i]) %>
+      <% inunit.push(unit) %>
+      <% isunit =unit %>
+      <% ins=ins+1 %>
+    <% else %>
+      <% insum[ins-1]=insum[ins-1]+inoutsum[i] %>
+    <% end %>
+  <% end %>
+
+  <% inunit.each_with_index do |inunit, i| %>
+      <br>
+      <% if insum[i].round(0)>0 %>
+        <%= @user.nickname %> ᠠ᠋ᠴᠠ ᠨᠡᠢᠲᠡ:
+        <span class="Ankhaaruulga"><%= insum[i].round(0) %></span>
+        <%= inunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠬᠤᠷᠢᠶᠠᠪᠠ᠃
+        <% hvraa=1 %>
+      <% else %>
+        <%= @user.nickname %> ᠳ᠋ᠤ ᠨᠡᠢᠲᠡ:
+        <span class="Ankhaaruulga"><%= 0-insum[i].round(0) %></span>
+        <%= inunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+      <% end %>
+      <br><br>
+  <% end %>
+
+  <% if hvraa==1 then %>
+
+    <div class="hidden_box">
+    <label for="newpaydata">
+      <%= @user.nickname %> ᠠ᠋ᠴᠠ ᠵᠣᠭᠤᠰ ᠬᠤᠷᠢᠶᠠᠬᠠᠤ
+    </label>
+    <input type="checkbox" id="newpaydata" checked="checked"/>
+    <div class="hidden_show">
+      <%= form_for([@myuser, @myuser.userpays.build]) do |f| %>
+
+        <table height="100%">
+          <tr>
+            <td>
+              <%=f.number_field :f4, step:0.001,placeholder: '*' %><br>
+            </td>
+          </tr>
+          <tr>
+            <td height=100%>
+              <%=f.text_area :unit,placeholder: '* ᠤᠯᠤᠰ', :class=>"bgarea" %><br>
+              ᠵᠣᠭᠤᠰ
+            </td>
+          </tr>
+        </table>
+        <%= f.file_field :picture, :type=>"file", :id=>"file", :class=>"command"  %>
+        <%=f.text_area :name,placeholder: '', :class=>"gaarea" %>
+          <p>
+            <%= f.hidden_field :userid, :value =>@user.id %>
+            <%= f.hidden_field :uname, :value =>@user.nickname %>
+            <%= f.hidden_field :f6, :value => Time.now %>
+            <%= f.hidden_field :f7, :value => Time.now %>
+            <%= f.submit "ᠬᠤᠷᠢᠶᠠᠬᠤ", :class=>"btn" %>
+          </p>
+      <% end %>
+    </div>
+    </div>
+    <% end %>
+    <br>
+  </div>
+  </div>
+<% end %>
+
+<% if session[:user_id] and @user.id == session[:user_id] %>
+
+  <div class="hidden_box">
+  <h2><label for="outpay">&ensp;ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠰᠠᠨ ᠳᠠᠩᠰᠠ</label></h2>
+  <input type="checkbox" id="outpay" checked="checked"/>
+  <div class="hidden_show">
+
+  <% if @userpays.any? %>
+    <% sumf4=[] %>
+    <% sumf5=[] %>
+    <% sum=0 %>
+    <% unit=[] %>
+    <% userid=[] %>
+    <% f4f5unit="" %>
+    <% f4f5index=0 %>
+    <% @userpays.each do |userpay| %>
+      <% if userpay.userid==session[:user_id] %>
+
+        <table height="100%">
+          <tr>
+          <% if userpay.picture.present? %>
+            <td height="30%">
+                <span class="payimg">
+                  <%= image_tag userpay.picture.url,:oncontextmenu=>"return false", :class => "payimg" %>
+                </span>
+                <br>
+            </td>
+          <% end %>
+          <td>
+
+          <% if userpay.f10.present? %>
+            <% if userpay.f5>0 %>
+              <% if userpay.name.present? %>
+                <%= userpay.name %>:
+              <% end %>
+              <span class="Ankhaaruulga">
+                <%= userpay.f5 %>
+              </span>
+              <%= userpay.unit %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
+              <%= link_to userpay.nickname,user_path(userpay.user_id),class:'command' %> ᠲᠤ
+              <% if userpay.f6.present? %>
+                <span class="mailfrom">
+                  <%= userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                </span>
+              <% end %>
+              <% if session[:user_id] and userpay.id.present? %>
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                  user_userpay_path(@user,userpay.id),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+              <% end %>
+              <br><br>
+            <% end %>
+          <% else %>
+            <% if userpay.name.present? %>
+              <%= userpay.name %>:
+            <% end %>
+            <span style="background:yellow;">
+              <%= userpay.f4 %>
+            </span>
+            <%= userpay.unit %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+            <%= link_to userpay.nickname,user_path(userpay.user_id),class:'command' %> ᠲᠤ
+            <% if userpay.f6.present? %>
+              <span class="mailfrom">
+                <%= userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+              </span>
+            <% end %>
+            <% if session[:user_id] and userpay.id.present? %>
+                <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                user_userpay_path(@user,userpay.id),
+                method: :delete,
+                class: 'command',
+                data: { confirm: 'are you sure you want to delete?'}%>
+            <% end %>
+            <br><br>
+          <% end %>
+
+          <% f4f5unit="" %>
+          <% f4f5index=0 %>
+          <% unit.each_with_index do |sumunit, i| %>
+            <% if userpay.unit.present? then %>
+              <% if sumunit ==userpay.unit.strip then %>
+                <% f4f5unit=userpay.unit.strip %>
+                <% f4f5index=i %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if f4f5unit=="" then %>
+              <% if userpay.unit.present? %>
+                <% unit.push(userpay.unit.strip) %>
+              <% else %>
+                <% unit.push("") %>
+              <% end %>
+              <% if userpay.f4.present? %>
+                <% sumf4.push(userpay.f4) %>
+              <% else %>
+                <% sumf4.push(0) %>
+              <% end %>
+              <% if userpay.f5.present? %>
+                <% sumf5.push(userpay.f5) %>
+              <% else %>
+                <% sumf5.push(0) %>
+              <% end %>
+          <% else %>
+              <% if userpay.f4.present? %>
+                <% sumf4[f4f5index]=sumf4[f4f5index]+userpay.f4 %>
+              <% end %>
+              <% if userpay.f5.present? %>
+                <% sumf5[f4f5index]=sumf5[f4f5index]+userpay.f5 %>
+              <% end %>
+          <% end %>
+
+          </td>
+        </tr>
+      </table>
+      <% end %>
+    <% end %>
+
+    <% sum=0 %>
+    <% unit.each_with_index do |sumunit, i| %>
+      <% if sumf5[i].round(0) ==0 and sumf4[i].round(0)==0 %>
+      <% else %>
+          <%= sumf4[i] %>
+          <span class="Ankhaaruulga">
+             - <%= sumf5[i] %>
+          </span>
+           <% if sumf4[i]<sumf5[i] then %>
+             <span class="Ankhaaruulga">
+               = <%= sumf4[i].round(0)-sumf5[i].round(0) %>
+             </span>
+             <%= sumunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+             <span class="Ankhaaruulga">
+               <%= sumf5[i].round(0)-sumf4[i].round(0) %>
+               <%= sumunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+             </span>
+           <% else %>
+             = <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ᠃<br>
+             <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ ᠬᠠᠳᠠᠭᠠᠯᠠᠮᠵᠢ ᠦᠯᠡᠳᠡᠨ᠎ᠡ᠃
+           <% end %>
+          <br>
+      <% end %>
+    <% end %>
+
+  <% end %>
+  </div>
+  </div>
+
+  <div class="hidden_box">
+  <h2><label for="userpay">&ensp;ᠵᠣᠭᠤᠰ ᠬᠤᠷᠢᠶᠠᠭᠰᠠᠨ ᠳᠠᠩᠰᠠ</label></h2>
+  <input type="checkbox" id="userpay" checked="checked"/>
+  <div class="hidden_show">
+
+  <% if @user.userpays.any? %>
+    <% sumf4=[] %>
+    <% sumf5=[] %>
+    <% sum=0 %>
+    <% unit=[] %>
+    <% userid=[] %>
+    <% f4f5unit="" %>
+    <% f4f5index=0 %>
+    <% @user.userpays.each do |userpay| %>
+        <table height="100%">
+          <tr>
+          <% if userpay.picture.present? %>
+            <td height="30%">
+                <span class="payimg">
+                  <%= image_tag userpay.picture.url,:oncontextmenu=>"return false", :class => "payimg" %>
+                </span>
+                <br>
+            </td>
+          <% end %>
+          <td>
+          <% if userpay.f10.present? %>
+            <% if userpay.f5>0  %>
+              <% if userpay.name.present? %>
+                <%= userpay.name %>:
+              <% end %>
+              <span class="Ankhaaruulga">
+                <%= userpay.f5 %>
+              </span>
+              <%= userpay.unit %>&ensp;ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
+              <% sumtoadmin=0 %>
+              <% if userpay.uname.present? %>
+                <%= link_to userpay.uname,user_path(userpay.userid),class:'command' %> ᠴᠠ
+              <% end %>
+              <% if userpay.f6.present? %>
+                <span class="mailfrom">
+                  <%= userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                </span>
+              <% end %>
+              <% if session[:user_id] and userpay.id.present? %>
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                  user_userpay_path(@user,userpay.id),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+              <% end %>
+              <br><br>
+            <% end %>
+          <% else %>
+              <span style="background:yellow;">
+                <%= userpay.f4 %>
+              </span>
+              <%= userpay.unit %>&ensp;ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+              <% if userpay.uname.present? %>
+                <%= link_to userpay.uname,user_path(userpay.userid),class:'command' %> ᠴᠠ
+              <% end %>
+              <% if userpay.f6.present? %>
+                <span class="mailfrom">
+                  <%= userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                </span>
+              <% end %>
+              <% if session[:user_id] and userpay.id.present? %>
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                  user_userpay_path(@user,userpay.id),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+              <% end %>
+              <br><br>
+          <% end %>
+
+          <% f4f5unit="" %>
+          <% f4f5index=0 %>
+          <% unit.each_with_index do |sumunit, i| %>
+            <% if userpay.unit.present? then %>
+              <% if sumunit ==userpay.unit.strip then %>
+                <% f4f5unit=userpay.unit.strip %>
+                <% f4f5index=i %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if f4f5unit=="" then %>
+              <% if userpay.unit.present? %>
+                <% unit.push(userpay.unit.strip) %>
+              <% else %>
+                <% unit.push("") %>
+              <% end %>
+              <% if userpay.f4.present? %>
+                <% sumf4.push(userpay.f4) %>
+              <% else %>
+                <% sumf4.push(0) %>
+              <% end %>
+              <% if userpay.f5.present? %>
+                <% sumf5.push(userpay.f5) %>
+              <% else %>
+                <% sumf5.push(0) %>
+              <% end %>
+          <% else %>
+              <% if userpay.f4.present? %>
+                <% sumf4[f4f5index]=sumf4[f4f5index]+userpay.f4 %>
+              <% end %>
+              <% if userpay.f5.present? %>
+                <% sumf5[f4f5index]=sumf5[f4f5index]+userpay.f5 %>
+              <% end %>
+          <% end %>
+
+          </td>
+          </tr>
+        </table>
+      <% end %>
+
+      <% sum=0 %>
+      <% unit.each_with_index do |sumunit, i| %>
+        <% if sumf5[i].round(0) ==0 and sumf4[i].round(0)==0 %>
+        <% else %>
+            <%= sumf4[i] %>
+            <span class="Ankhaaruulga">
+               - <%= sumf5[i] %>
+            </span>
+             <% if sumf4[i]<sumf5[i] then %>
+               <span class="Ankhaaruulga">
+                 = <%= sumf4[i].round(0)-sumf5[i].round(0) %>
+               </span>
+               <%= sumunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+               <span class="Ankhaaruulga">
+                 <%= sumf5[i].round(0)-sumf4[i].round(0) %>
+                 <%= sumunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠬᠤᠷᠢᠶᠠᠪᠠ᠃
+               </span>
+             <% else %>
+               = <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ᠃<br>
+               <%= sumf4[i].round(0)-sumf5[i].round(0) %><%= sumunit %> ᠵᠣᠭᠤᠰ ᠬᠠᠳᠠᠭᠠᠯᠠᠮᠵᠢ ᠦᠯᠡᠳᠡᠨ᠎ᠡ᠃
+             <% end %>
+            <br>
+        <% end %>
+      <% end %>
+
+    <% end %>
+    </div>
+    </div>
+
+<% end %>
+
+</div>
+</div>

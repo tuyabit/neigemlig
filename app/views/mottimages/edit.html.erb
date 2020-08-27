@@ -1,0 +1,295 @@
+
+<h2>
+  <%= link_to @motd.f1,motd_path(@motd),class:'command' %> ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @mott.f1,motd_mott_path(@motd,@mott),class:'header-menu' %>
+</h2>
+
+<br><br>
+<span style="font-weight:bold;">
+  <%= @mott.f1 %>
+</span>
+<br>
+
+<span class="text"><%= @mott.f2 %></span>
+
+<% if @motd.motts.any? %>
+
+    <% if @mott.mottimages.any? %>
+        <% @mott.mottimages.each do |mottimage| %>
+
+          <% if @mottimage.id==mottimage.id %>
+              <table>
+                <tr>
+                  <td>
+                    <%= form_for @mottimage, url: motd_mott_mottimage_path(@motd,@mott,@mottimage) do |f| %>
+                        ᠭᠠᠷᠴᠠᠭ
+                        <p>
+                          <%=f.text_area :tta,:size=>"100x2", :class=>"gaarea" %>
+                          <%=f.text_area :ttb,:size=>"100x2", :class=>"gaarea" %>
+                        </p>
+                        <p>
+                          ᠵᠢᠷᠤᠭ (ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ ᠪᠤᠶᠤ ᠳᠠᠭᠤᠨ ᠤ᠋ ᠵᠢᠷᠤᠭ ᠪᠣᠯᠭᠠᠨ ᠬᠡᠷᠡᠭᠯᠡᠨ᠎ᠡ᠃ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ ᠪᠤᠶᠤ ᠳᠠᠭᠤᠤ ᠪᠠᠢᠬᠤ ᠦᠭᠡᠢ ᠪᠣᠯ ᠲᠤᠰᠠᠭᠠᠷ ᠢ᠋ᠢᠡᠨ ᠬᠡᠷᠡᠭᠯᠡᠨ᠎ᠡ᠃)<br>
+                          <% if mottimage.picture.present? %>
+                              <table height="100%">
+                                <tr>
+                                  <td>
+                                    <span class="img">
+                                      <p><%= image_tag mottimage.picture.url,:oncontextmenu=>"return false", :class => "img"%></p>
+                                    </span>
+                                    <br>
+                                  </td>
+                                  <td>
+                                    <h2>&nbsp;</h2>
+                                    <% if mottimage.timage.present? %>
+                                      <span class="text"><%= mottimage.timage %></span>
+                                    <% end %>
+
+                                  </td>
+                                </tr>
+                              </table>
+                          <% end %>
+                          <%= f.file_field :picture, :accept=>"image/jpeg,image/gif,image/png", :type=>"file" , :id=>"file", :class=>"command"  %>
+                          <%=f.text_area :timage,placeholder: 'ᠵᠢᠷᠤᠭ',:size=>"100x3", :class=>"gaarea" %>
+                        </p>
+                        <p>
+                          ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ <br>
+                          <% if mottimage.video.present? %>
+                            <table height="100%">
+                              <tr>
+                                <td>
+                                  <% if mottimage.rotate.present? %>
+                                      <% if mottimage.rotate == '90' %>
+                                        <% func = "myfunc(this,270)" %>
+                                        <div class="videobox">
+                                          <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :onclick=>func, :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                                        </div>
+                                      <% end %>
+                                      <% if mottimage.rotate == '180' %>
+                                        <% func = "myfunc(this,180)" %>
+                                        <div class="videobox">
+                                          <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :onclick=>func, :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                                        </div>
+                                      <% end %>
+                                      <% if mottimage.rotate == '270' %>
+                                        <% func = "myfunc(this,90)" %>
+                                        <div class="videobox">
+                                          <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :onclick=>func, :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                                        </div>
+                                      <% end %>
+                                      <% if mottimage.rotate == '0' %>
+                                        <div class="videobox">
+                                          <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                                        </div>
+                                      <% end %>
+                                  <% else %>
+                                    <div class="videobox">
+                                      <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :id=>mottimage.id, :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                                    </div>
+                                  <% end %>
+
+                                  <script type="text/javascript">
+                                      'use strict';
+                                      var myfunc = function (video,n) {
+                                        if(n==90){
+                                          video.classList.toggle('win90');
+                                        }else if(n==180){
+                                          video.classList.toggle('win180');
+                                        }else if(n==270){
+                                          video.classList.toggle('win270');
+                                        }
+                                      }
+                                  </script>
+                                </td>
+                              </tr>
+                            </table>
+
+                          <% end %>
+                          <%= f.file_field :video, :accept=>"video/*", :type=>"file" , :id=>"file", :class=>"command"  %>
+                          <%=f.text_area :tvideo,placeholder: 'ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ',:size=>"100x3", :class=>"gaarea" %>
+
+                          <br>ᠴᠢᠭᠯᠡᠯ ᠢ᠋ ᠲᠠᠭᠠᠷᠠᠭᠤᠯᠬᠤ<br>
+                          <%= f.radio_button :rotate, :'0', checked: "checked" %>
+                          <%= f.label :rotate, '0ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+                          <%= f.radio_button :rotate, :'90' %>
+                          <%= f.label :rotate, '90ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+                          <%= f.radio_button :rotate, :'180' %>
+                          <%= f.label :rotate, '180ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+                          <%= f.radio_button :rotate, :'270' %>
+                          <%= f.label :rotate, '270ᠭᠢᠷᠢᠶᠠᠳᠦᠰ ᠡᠷᠭᠢᠭᠦᠯᠦᠨ᠎ᠡ' %><br>
+                          ᠲᠥᠷᠦᠯ ᠵᠤᠢᠯ<br>
+                          <%= f.radio_button :avideo, :'0', checked: "checked" %>
+                          <%= f.label :avideo, 'ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ' %><br>
+                          <%= f.radio_button :avideo, :'1' %>
+                          <%= f.label :avideo, 'ᠳᠠᠭᠤᠤ ᠬᠥᠭᠵᠢᠮ' %><br>
+                          <%= f.radio_button :avideo, :'2' %>
+                          <%= f.label :avideo, 'ᠺᠢᠨᠣ᠋ ᠲᠧᠯᠸᠢᠰ' %><br>
+                        </p>
+                        <p>
+                          ᠳᠠᠭᠤᠤ <br>
+                          <% if mottimage.audio.present? %>
+                            <table height="100%">
+                              <tr>
+                                <td>
+                                  <% if mottimage.picture.present? %>
+                                      <span class="auto">
+                                          <%= video_tag mottimage.audio_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "auto"%>
+                                      </span>
+                                  <% else %>
+                                      <span class="auto">
+                                          <%= video_tag mottimage.audio_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>"unnamed.gif", :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "auto"%>
+                                      </span>
+                                  <% end %>
+                                  <br>
+                                </td>
+                                <td>
+                                  <h2>&nbsp;</h2>
+                                  <% if mottimage.taudio.present? %>
+                                    <span class="text"><%= mottimage.taudio %></span>
+                                  <% end %>
+
+                                </td>
+                              </tr>
+                            </table>
+                          <% end %>
+                          <%= f.file_field :audio, :accept=>"audio/*", :type=>"file",  :id=>"file", :class=>"command"  %>
+                          <%=f.text_area :taudio,placeholder: 'ᠳᠠᠭᠤᠤ',:size=>"100x3", :class=>"gaarea" %>
+
+                          <br>ᠲᠥᠷᠦᠯ ᠵᠤᠢᠯ<br>
+                          <%= f.radio_button :aaudio, :'0', checked: "checked" %>
+                          <%= f.label :aaudio, 'ᠳᠠᠭᠤᠤ ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ' %><br>
+                          <%= f.radio_button :aaudio, :'1' %>
+                          <%= f.label :aaudio, 'ᠳᠠᠭᠤᠤ ᠬᠥᠭᠵᠢᠮ' %><br>
+                          <%= f.radio_button :aaudio, :'2' %>
+                          <%= f.label :aaudio, 'ᠷᠠᠳᠢᠣ᠋ ᠲᠧᠯᠸᠢᠰ' %><br>
+                        </p>
+                        <p>
+                          ᠪᠠᠳᠠᠭ <br>
+                          <%=f.text_area :name,:size=>"100x15", :class=>"area" %>
+                        </p>
+                        <p>
+                          <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn",:autofocus=>"autofocus"  %>
+                        </p>
+                    <% end %>
+
+                  </td>
+                </tr>
+              </table>
+          <% else %>
+
+            <% if mottimage.tta.present? %>
+              <br><br>
+              <span style="font-weight:bold;">
+                <%= mottimage.tta %>
+              </span>
+              <br>
+            <% end %>
+            <% if mottimage.ttb.present? %>
+              <% if mottimage.tta.present? %>
+              <% else %>
+                <br><br>
+              <% end %>
+              <span style="font-weight:bold;">
+                &ensp;&ensp;<%= mottimage.ttb %>
+              </span>
+              <br>
+            <% end %>
+
+                <% if mottimage.picture.present? %>
+                  <% if mottimage.video.blank? and mottimage.audio.blank? %>
+                    <table height="100%">
+                      <tr>
+                        <td>
+                          <h2>ᠵᠢᠷᠤᠭ</h2>
+                          <span class="img">
+                            <p><%= image_tag mottimage.picture.url,:oncontextmenu=>"return false", :class => "img"%></p>
+                          </span>
+                          <br>
+                        </td>
+                        <td>
+                          <h2>&nbsp;</h2>
+                          <% if mottimage.timage.present? %>
+                            <span class="text"><%= mottimage.timage %></span>
+                          <% end %>
+                        </td>
+                      </tr>
+                    </table>
+                  <% end %>
+                <% end %>
+
+                <% if mottimage.video.present? %>
+                  <table height="100%">
+                    <tr>
+                      <td>
+                        <h2>ᠰᠢᠩᠭᠡᠭᠡᠯᠲᠡ</h2>
+                        <% if mottimage.picture.present? %>
+                          <span class="video">
+                            <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"none", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                          </span>
+                        <% else %>
+                          <span class="video">
+                            <%= video_tag mottimage.video_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"none", :playsinline=>true, :poster=>"unnamed.gif", :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "video"%>
+                          </span>
+                        <% end %>
+                        <br>
+                      </td>
+                      <td>
+                        <h2>&nbsp;</h2>
+                        <% if mottimage.tvideo.present? %>
+                          <span class="text"><%= mottimage.tvideo %></span>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </table>
+                <% end %>
+
+                <% if mottimage.audio.present? %>
+                  <table height="100%">
+                    <tr>
+                      <td>
+                        <h2>ᠳᠠᠭᠤᠤ</h2>
+                        <% if mottimage.picture.present? %>
+                            <span class="auto">
+                                <%= video_tag mottimage.audio_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>mottimage.picture.url, :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "auto"%>
+                            </span>
+                        <% else %>
+                            <span class="auto">
+                                <%= video_tag mottimage.audio_url.to_s,:oncontextmenu=>"return false", :loop=>true, :autoplay=>false, :muted=>false, :preload=>"auto", :playsinline=>true, :poster=>"unnamed.gif", :controls=>true,:style => "border:solid 2px #aaaaaa", :class => "auto"%>
+                            </span>
+                        <% end %>
+                        <br>
+                      </td>
+                      <td>
+                        <h2>&nbsp;</h2>
+                        <% if mottimage.taudio.present? %>
+                          <span class="text"><%= mottimage.taudio %></span>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </table>
+                <% end %>
+
+                <% if mottimage.name.present? %>
+                  <br>
+                  <span class="text"><%= mottimage.name %></span>
+                <% end %>
+
+          <% end %>
+     <% end %>
+  <% end %>
+<% end %>
+
+<br>
+<% if @motd.f3 == session[:user_id] or session[:user_id]==1 then %>
+
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        &ensp;&ensp;<%= userangaar.name %><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>
+
+<% end %>

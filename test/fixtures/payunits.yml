@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  f4: 1.5
+  f5: 9.99
+  f6: 2020-01-07 22:03:12
+  f7: 2020-01-07 22:03:12
+  ff6: 2020-01-07 22:03:12
+  ff7: 2020-01-07 22:03:12
+  f8: 2020-01-07 22:03:12
+  f9: 2020-01-07
+  f10: 
+  mott: one
+
+two:
+  name: MyText
+  f4: 1.5
+  f5: 9.99
+  f6: 2020-01-07 22:03:12
+  f7: 2020-01-07 22:03:12
+  ff6: 2020-01-07 22:03:12
+  ff7: 2020-01-07 22:03:12
+  f8: 2020-01-07 22:03:12
+  f9: 2020-01-07
+  f10: 
+  mott: two

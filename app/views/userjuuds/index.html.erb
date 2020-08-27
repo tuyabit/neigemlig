@@ -1,0 +1,313 @@
+<% if session[:user_id] then %>
+  <br>
+  <div class="hidden_box">
+  <label for="minieruul">ᠮᠢᠨᠤ ᠠᠰᠠᠭᠤᠯᠲᠠ</label>
+  <input type="checkbox" id="minieruul" checked="checked"/>
+  <div class="hidden_show">
+
+    <% if @user.userjuuds.any? %>
+      <ul>
+      <% @user.userjuuds.each do |userjuud| %>
+      <li>
+        <%= userjuud.rotate %>:
+        <%= link_to userjuud.name,user_userjuud_path(@user,userjuud),class:'command' %>
+        <span class="mailfrom">
+          <%= userjuud.juuddt.strftime('%Y.%m.%d') %>
+        </span>
+        <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+              <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+              user_userjuud_path(@user,userjuud),
+              method: :delete,
+              class: 'command',
+              data: { confirm: 'are you sure you want to delete?'}%>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <% if @user.id == session[:user_id] and session[:user_id]!=1 then %>
+      <div class="hidden_box">
+      <label for="job">
+        <span style="color:#ff0000;font-weight:bold;">
+        &ensp;ᠨᠡᠮᠡᠬᠦ
+        </span>
+      </label>
+      <input type="checkbox" id="job"/>
+      <div class="hidden_show">
+
+        <%= form_for([@user, @user.userjuuds.build]) do |f| %>
+          <table>
+            <tr>
+              <td>
+                <%= f.radio_button :rotate, :ᠵᠡᠭᠦᠳᠤ, checked: "checked" %>
+                <%= f.label :rotate, 'ᠵᠡᠭᠦᠳᠤ' %><br>
+                <%= f.radio_button :rotate, :ᠪᠤᠬᠢᠨᠢᠲᠤᠯ %>
+                <%= f.label :rotate, 'ᠪᠤᠬᠢᠨᠢᠲᠤᠯ' %><br>
+                <%= f.radio_button :rotate, :ᠡᠷᠡᠭᠦᠯ %>
+                <%= f.label :rotate, 'ᠡᠷᠡᠭᠦᠯ' %><br>
+                <%= f.radio_button :rotate, :ᠦᠭᠡᠰ %>
+                <%= f.label :rotate, 'ᠦᠭᠡᠰ' %><br>
+              </td>
+              <td>
+                ᠬᠡᠵᠢᠶ᠎ᠡ <br>
+                <%= f.date_select :juuddt, :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => Time.now %>
+              </td>
+            </tr>
+          </table>
+          <p>
+            <%=f.text_area :name,placeholder: '*ᠠᠰᠠᠭᠤᠯᠲᠠ', autocomplete: 'off', :class=>"gaarea" %>
+            <%=f.text_area :txt,placeholder: '*ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', autocomplete: 'off', :class=>"gaarea" %>
+          </p>
+          <p>
+            <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+          </p>
+        <% end %>
+      </div>
+      </div>
+    <% end %>
+  </div>
+  </div>
+
+  <% if session[:user_fname]=='ᠦᠵᠡᠭᠡᠴᠢ' then %>
+    <% juud='ᠵᠡᠭᠦᠳᠤ' %>
+    <% jdlah='ᠵᠡᠭᠦᠳᠤ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
+  <% end %>
+
+  <% if session[:user_fname]=='ᠬᠠᠤᠯᠢᠴᠢ' then %>
+    <% juud='ᠪᠤᠬᠢᠨᠢᠲᠤᠯ' %>
+    <% jdlah='ᠬᠠᠤᠯᠢ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
+  <% end %>
+
+  <% if session[:user_fname]=='ᠡᠮᠴᠢ' then %>
+    <% juud='ᠡᠷᠡᠭᠦᠯ' %>
+    <% jdlah='ᠡᠪᠡᠳᠴᠢᠨ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
+  <% end %>
+
+  <% if session[:user_fname]=='ᠪᠠᠭᠰᠢ' then %>
+    <% juud='ᠦᠭᠡᠰ' %>
+    <% jdlah='ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠲᠠᠢᠯᠪᠤᠷᠢ' %>
+  <% end %>
+
+  <% if juud %>
+    <br>
+    <div class="hidden_box">
+    <label for="juud"><%= juud %>&ensp;</label>
+    <input type="checkbox" id="juud" checked="checked"/>
+    <div class="hidden_show">
+
+        <% if @alljuuds.any? %>
+        <ul>
+          <% @alljuuds.each do |userjuud| %>
+            <% if userjuud.rotate==juud and userjuud.user_id !=session[:user_id] %>
+            <li>
+                <%= link_to userjuud.name,user_userjuud_path(userjuud.user_id,userjuud),class:'command' %>
+                <span class="mailfrom">
+                  <%= userjuud.juuddt.strftime('%Y.%m.%d') %>
+                </span>
+            </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+    </div>
+
+    <% sumune =[] %>
+    <% sumpayf5 =[] %>
+    <% sumunit =[] %>
+
+    <div class="hidden_box">
+    <label for="juudjdl"><%= jdlah %></label>
+    <input type="checkbox" id="juudjdl" checked="checked"/>
+    <div class="hidden_show">
+
+        <% if @userjuudjdls.any? %>
+        <ul>
+          <% @userjuudjdls.each do |userjuudjdl| %>
+            <% if userjuudjdl.jrotate==juud %>
+            <li>
+                <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl),class:'command' %>
+                <% une=0 %>
+                <% if userjuudjdl.june.present? %>
+                  <% if userjuudjdl.june>0 %>
+                    \
+                    <span class="mailfrom" style="background-color:#FFE4E1;">
+                      <%= userjuudjdl.june %><%= userjuudjdl.junit %> ᠵᠣᠭᠤᠰ᠃
+                    </span>
+                    <% une=userjuudjdl.june %>
+                  <% end %>
+                <% end %>
+                <span class="mailfrom">
+                  <%= userjuudjdl.jymrdt.strftime('%Y.%m.%d') %>
+                </span>
+                <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                      <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+                      user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl),
+                      method: :delete,
+                      class: 'command',
+                      data: { confirm: 'are you sure you want to delete?'}%>
+
+                      <% payf4f5=0 %>
+                      <% payf5=0 %>
+                      <% payf6="" %>
+                      <% if @user.userpays.any? and une>0 %>
+                        <table height="100%" bgcolor="#EEE8AA">
+                          <tr>
+                            <td>
+                              <ul>
+                              <% @user.userpays.each do |userpay| %>
+                                <% if userpay.unit.strip== userjuudjdl.junit.strip %>
+                                  <% if userpay.f4.present? %>
+                                      <% payf4f5=payf4f5 + userpay.f4 %>
+                                  <% end %>
+                                  <% if userpay.f5.present? %>
+                                      <% payf4f5=payf4f5 - userpay.f5 %>
+                                      <% if userpay.typeid.present? %>
+                                        <% if userpay.f10=="juud" and userpay.typeid==userjuudjdl.id %>
+                                          <% payf5=payf5+userpay.f5 %>
+                                          <% payf6=userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                                          <li>
+                                            <%= userpay.f5 %><%= userpay.unit.strip %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+                                            <span class="mailfrom">
+                                              <%= userpay.uname %>
+                                              <%= userpay.f6.strftime('%Y.%m.%d') %>
+                                            </span>
+                                          </li>
+                                        <% end %>
+                                      <% end %>
+                                  <% end %>
+                                <% end %>
+                              <% end %>
+                            </ul>
+
+                          </td>
+                          </tr>
+                        </table>
+                      <% end %>
+
+                      <% if userjuudjdl.june.present? %>
+                        <% if userjuudjdl.june>0 %>
+                          <% sumune.push(userjuudjdl.june.round(0)) %>
+                          <% sumpayf5.push(payf5) %>
+                          <% sumunit.push(userjuudjdl.junit.strip) %>
+                        <% end %>
+                      <% end %>
+
+                <% end %>
+            </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+    </div>
+
+
+    <% unitbune="" %>
+    <% bune=0 %>
+    <% bf5=0 %>
+
+    <% unitbu=[] %>
+    <% bubune=[] %>
+    <% buf5=[] %>
+
+    <% sumunit.each_with_index do |bu1, i| %>
+
+      <% if unitbune !=bu1 then %>
+
+        <% if unitbune !="" %>
+          <% unitbu.push(unitbune) %>
+          <% bu.push(bune) %>
+        <% end %>
+
+        <% unitbune = bu1 %>
+        <% bune = sumune[i] %>
+        <% bf5 = sumpayf5[i] %>
+      <% else %>
+        <% bune = bune + sumune[i] %>
+        <% bf5 = bf5 + sumpayf5[i] %>
+      <% end %>
+    <% end %>
+
+    <% unitbu.push(unitbune) %>
+    <% bubune.push(bune.round(0)) %>
+    <% buf5.push(bf5.round(0)) %>
+
+    <br>
+    <table height="100%" bgcolor="#EEE8AA">
+        <tr>
+          <td>
+              ᠠᠰᠢᠭ:
+              <% unitbu.each_with_index do |unit, i| %>
+                  <%= buf5[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃
+                  <br>
+                  <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
+                  <% bune=buf5[i]*0.18 %>
+                  <%= bune.round(0) %><%= unit %> ᠵᠣᠭᠤᠰ
+
+                  <% payf4f5=0 %>
+                  <% payf5=0 %>
+                  <% payf6="" %>
+                  <% if @adminuser.userpays.any? %>
+                    <% @adminuser.userpays.each do |userpay| %>
+
+                      <% if userpay.user_id.present? %>
+                          <% if userpay.userid==@user.id and userpay.unit.strip== unit.strip %>
+                              <% if userpay.f4.present? %>
+                                  <% payf4f5=payf4f5 + userpay.f4 %>
+                              <% end %>
+
+                              <% if userpay.f5.present? %>
+                                  <% payf4f5=payf4f5-userpay.f5 %>
+                                  <% if userpay.f10.present? %>
+                                    <% if userpay.f10=="-11" %>
+                                      <% payf5=payf5+userpay.f5 %>
+                                      <% payf6=userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                                        <br>
+                                        <%= userpay.f5 %><%= userpay.unit.strip %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+                                        <span class="mailfrom">
+                                          <%= link_to userpay.uname,user_path(userpay.userid),class:'command' %>
+                                          <%= userpay.f6.strftime('%Y.%m.%d') %>
+                                        </span>
+                                    <% end %>
+                                  <% end %>
+                              <% end %>
+
+                          <% end %>
+                      <% end %>
+
+                    <% end %>
+                  <% end %>
+
+                  <% payf4f5 = payf4f5.round(0) %>
+                  <% payf5 = payf5.round(0) %>
+
+                  <% bune = bune.round(0) - payf5 %>
+                  <% bune.round(0) %>
+
+                  <% if bune>0 %>
+                    <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
+                          <%= fff.hidden_field :name, :value =>jdlah+' ᠶᠡᠷᠦᠩᠬᠡᠢ ᠡᠷᠬᠢᠯᠡᠭᠴᠢ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                          <%= fff.hidden_field :f5, :value =>bune.round(0) %>
+                          <%= fff.hidden_field :unit, :value =>unit %>
+                          <%= fff.hidden_field :userid, :value =>session[:user_id] %>
+                          <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
+                          <%= fff.hidden_field :f6, :value => Time.now %>
+                          <%= fff.hidden_field :f7, :value => Time.now %>
+                          <%= fff.hidden_field :f10, :value => -11 %>
+                          <p>
+                            <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
+                          </p>
+                    <% end %>
+                  <% end %>
+              <% end %>
+          </td>
+        </tr>
+        <tr>
+        <td></td>
+      </tr>
+    </table>
+  <% end %>
+
+<% end %>

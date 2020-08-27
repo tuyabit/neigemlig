@@ -1,0 +1,17 @@
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to 'ᠮᠢᠨᠦ ᠳᠡᠯᠭᠡᠭᠦᠷ',user_usershop_path(@user,@usershop),class:'header-menu' %>&ensp;
+</h2>
+
+<% if @user.usershops.any? %>
+  <%= form_for @usershop, url: user_usershop_path(@user,@usershop) do |f| %>
+    <p>
+      <%=f.text_area :name2,placeholder: '* ᠦᠢᠯᠡᠳᠦᠯ', autocomplete: 'off', :class=>"gaarea" %>
+      <%=f.text_area :name1,placeholder: '* ᠨᠡᠷ᠎ᠡ', autocomplete: 'off', :class=>"gaarea" %>
+    </p>
+    <p>
+      <%= f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+  <% end %>
+<% end %>

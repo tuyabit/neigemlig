@@ -1,0 +1,21 @@
+
+<h2>
+  <%=link_to 'ᠨᠡᠮᠡᠬᠦ' ,new_motd_mott_path(@motd),class:'header-menu' %>
+  <%= @motd.mda %>\<%=  @motd.f1 %>
+</h2>
+<% @motd.id %>
+
+<% if @motd.motts.any? %>
+<ul>
+  <% @motd.motts.each do |mott| %>
+
+    <li>
+      <%= link_to mott.f1,motd_mott_path(@motd,mott),class:'command' %>&ensp;&ensp;
+      <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_path(@motd,mott),class:'command' %>&ensp;
+      <%= link_to ' ᠬᠠᠰᠤᠬᠤ',motd_mott_path(@motd,mott),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                     "class" => "mgltig"} %>
+
+    </li>
+  <% end %>
+</ul>
+<% end %>

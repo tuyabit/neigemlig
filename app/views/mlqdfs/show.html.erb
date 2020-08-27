@@ -1,0 +1,71 @@
+<% if @mlqdf.a3.present? %>
+  <h2>
+    <% if @mlqdf.a3 == session[:user_id] %>
+      <% if @mlqdf.a5.present? %>
+        <%= link_to @mlqdf.a5.strip,user_path(@mlqdf.user_id),class:'command' %>
+      <% else %>
+        <%= link_to @mlqdf.user_id,user_path(@mlqdf.user_id),class:'command' %>
+      <% end %>
+    <% else %>
+      <%= link_to @mlqdf.a1.strip,user_path(@mlqdf.a3),class:'command' %>
+      <% if @mlqdf.a2.present? %>
+        :<%= @mlqdf.a2.strip %>
+      <% end %>
+    <% end %>
+     ᠲᠠᠢ ᠶᠠᠷᠢᠯᠴᠠᠬᠤ
+    <%= link_to 'ᠬᠡᠨ ᠲᠠᠢ ᠶᠠᠷᠢᠯᠴᠠᠬᠤ',user_mlqdfs_path(session[:user_id]),class:'header-menu' %>&ensp;
+  </h2>
+
+  <% if @mlqdfchats.any? %>
+  <ul id = "chat-index">
+    <% @mlqdfchats.each do |mlqdfchat| %>
+      <li>
+        <% if mlqdfchat.from == @mlqdf.user_id %>
+          <%= mlqdfchat.text1 %>
+          <span class="mailfrom" style="background-color:yellow;">
+            <%= mlqdfchat.updated_at.strftime('%Y.%m.%d %H:%M') %>&ensp;
+            <% if @mlqdf.a5.present? %>
+              <%= link_to @mlqdf.a5.strip,user_path(@mlqdf.user_id),class:'command' %>
+            <% else %>
+              <%= link_to @mlqdf.user_id,user_path(@mlqdf.user_id),class:'command' %>
+            <% end %>
+          </span>
+          <% if session[:user_id] == @mlqdf.user_id %>
+            &ensp;<%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqdf_mlqdfchat_path(@user,@mlqdf,mlqdfchat),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                         "class" => "mgltig"} %>
+          <% end %>
+        <% else %>
+          <% if mlqdfchat.to == @mlqdf.user_id %>
+            <%= mlqdfchat.text1 %>
+            <span class="mailfrom" style="background-color:pink;">
+              <%= mlqdfchat.updated_at.strftime('%Y.%m.%d %H:%M') %>&ensp;
+              <%= link_to @mlqdf.a4.strip,user_path(@mlqdf.a3),class:'command' %>
+            </span>
+            <% if session[:user_id] == mlqdfchat.from %>
+              &ensp;<%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqdf_mlqdfchat_path(@user,@mlqdf,mlqdfchat),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                           "class" => "mgltig"} %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+      </li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <%= form_for([@user,@mlqdf,@mlqdf.mlqdfchats.build]) do |f| %>
+    <p>
+      <%=f.text_area :text1,placeholder: 'ᠶᠠᠷᠢᠬᠤ', :class=>"gaarea" %><br>
+      <% if @mlqdf.user_id == session[:user_id] %>
+        <%= f.hidden_field :from, :value =>@mlqdf.user_id %>
+        <%= f.hidden_field :to, :value =>@mlqdf.a3 %>
+      <% else %>
+        <%= f.hidden_field :from, :value =>@mlqdf.a3 %>
+        <%= f.hidden_field :to, :value =>@mlqdf.user_id %>
+      <% end %>
+    </p>
+    <p>
+      <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+    </p>
+  <% end %>
+<% end %>

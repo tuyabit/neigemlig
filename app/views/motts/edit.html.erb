@@ -1,0 +1,37 @@
+
+<h2>
+  ᠵᠠᠰᠠᠬᠤ
+  <%= link_to @mott.f1,motd_mott_path(@motd,@mott),class:'header-menu' %>&ensp;
+</h2>
+<h2>
+  <%= @motd.f1 %>
+</h2>
+<% if @motd.motts.any? %>
+  <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
+    <p>
+      <%=f.text_area :f1,placeholder: '*ᠭᠠᠷᠴᠠᠭ１',autocomplete: 'off', :class=>"gaarea" %>
+      <% if @mott.errors.messages[:f1].any? %>
+      <span class="error"><%=@mott.errors.messages[:f1][0] %></span>
+      <% end %>
+
+      <%=f.text_area :f2,placeholder: 'ᠭᠠᠷᠴᠠᠭ２',autocomplete: 'off', :class=>"gaarea" %>
+      <% if @mott.errors.messages[:mob].any? %>
+      <span class="error"><%=@mott.errors.messages[:mob][0] %></span>
+      <% end %>
+    </p>
+    <p>
+      <%=f.submit "ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+    </p>
+  <% end %>
+<% end %>
+
+<section class="Ankhaaruulga">
+  <% if @userangaars.any? %>
+    <h3>ᠠᠩᠬᠠᠭᠠᠷᠠᠭᠤᠯᠤᠯ：</h3>
+    <% @userangaars.each do |userangaar| %>
+      <% if userangaar.name.present? %>
+        &ensp;&ensp;<%= userangaar.name %><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

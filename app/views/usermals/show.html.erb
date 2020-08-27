@@ -1,0 +1,211 @@
+
+<h2>
+  <%= @usermal.name1 %>
+  <% if @user.id == session[:user_id] then %>
+      <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_user_usermal_path(@user,@usermal),class:'header-menu' %>&ensp;
+  <% else %>
+    <% if session[:user_id]==1 then %>
+        <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_user_usermal_path(@user,@usermal),class:'header-menu' %>&ensp;
+    <% end %>
+  <% end %>
+</h2>
+
+<span class="text"><%= @usermal.name2 %></span>
+
+<div class="hidden_box">
+    <label for="malcount1">&ensp;ᠲᠣᠭ᠎ᠠ</label>
+    <input type="checkbox" id="malcount1" checked="checked"/>
+    <div class="hidden_show">
+
+    <% if @usermal.malcounts.any? %>
+    <ul>
+      <% @usermal.malcounts.each do |malcount| %>
+
+      <li>
+        <%= malcount.count %>
+        <%= link_to malcount.name1,user_usermal_malcount_malhens_path(@user,@usermal,malcount),class:'command' %>
+
+        <span class="mailfrom">
+          <%= malcount.created_at.strftime('%Y.%m.%d %H:%M') %>
+        </span>
+
+        <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+            <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_user_usermal_malcount_path(@user,@usermal,malcount),class:'command' %>&ensp;
+
+            <% if malcount.malhens.any? %>
+            <% else %>
+              <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
+              user_usermal_malcount_path(@user,@usermal,malcount),
+              method: :delete,
+              class: 'command',
+              data: { confirm: 'are you sure you want to delete?'}%>
+            <% end %>
+        <% end %>
+
+        <% if malcount.malhens.any? %>
+        <ul>
+          <% malcount.malhens.each do |malhen| %>
+
+            <li>
+              <%= malhen.name1 %><%= malhen.count %>
+
+              <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_usermal_malcount_malhen_path(@user,@usermal,malcount,malhen),class:'command' %>&ensp;
+              <%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_usermal_malcount_malhen_path(@user,@usermal,malcount,malhen),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
+                                                             "class" => "mgltig"} %>
+
+            </li>
+          <% end %>
+        </ul>
+        <% end %>
+
+      </li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <% if @user.id == session[:user_id] then %>
+      <div class="hidden_box">
+      <label for="malcount2<%=@usermal.id%>">
+        <span style="color:#ff0000;font-weight:bold;">
+        &ensp;&ensp;ᠨᠡᠮᠡᠬᠦ
+        </span>
+      </label>
+      <input type="checkbox" id="malcount2<%=@usermal.id%>"/>
+      <div class="hidden_show">
+
+        <%= form_for([@user,@usermal, @usermal.malcounts.build]) do |f| %>
+          <p>
+            <%=f.text_area :name1,placeholder: '* ᠶᠠᠮᠠᠷ ' + @usermal.name1, :class=>"bgarea" %>
+            <br>
+            <%=f.number_field :count, placeholder: '* ᠬᠡᠳᠤ',:size=>"200x10", :value => "1" %>
+            <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+          </p>
+
+        <% end %>
+      </div>
+      </div>
+    <% end %>
+</div>
+</div>
+
+<div class="hidden_box">
+    <h2><label for="malhen1">ᠪᠦᠷᠢᠳᠭᠡᠯ &ensp;</label></h2>
+    <input type="checkbox" id="malhen1" checked="checked"/>
+    <div class="hidden_show">
+
+      <% if @maxmalcounts.any? %>
+      <ul>
+        <% count=0 %>
+        <% @maxmalcounts.each do |malcount| %>
+            <% if malcount.name1.strip != @usermal.name1.strip %>
+
+              <li>
+                <%= malcount.count %><%= malcount.name1 %>
+                <span class="mailfrom">
+                  <%= malcount.created_at.strftime('%Y.%m.%d %H:%M') %>
+                </span>
+                <% count = count + malcount.count %>
+                <% if @malhens.any? %>
+                <ul>
+                    <% name="" %>
+                    <% @malhens.each do |malhen| %>
+                      <% if malcount.name1 == malhen.name %>
+                          <% if name != malhen.name1 + malhen.name %>
+                              <% if malcount.created_at != malhen.createddt %>
+                              <% else %>
+                                <li>
+                                <%= malhen.name1 %>:<%= malhen.count %>
+                                <% name = malhen.name1 + malhen.name %>
+                                </li>
+                              <% end %>
+                          <% end %>
+                      <% end %>
+                    <% end %>
+                </ul>
+                <% end %>
+              </li>
+
+            <% end %>
+        <% end %>
+
+        <li>
+        ᠨᠡᠢᠲᠡ:<%= count %><%= @usermal.name1 %> ᠃
+
+        <% if @malhens.any? %>
+          ᠡᠭᠦᠨ ᠤ᠋ ᠲᠤᠲᠤᠷ᠎ᠠ:
+          <ul>
+          <% name1="" %>
+          <% name="" %>
+
+          <% allcount=0 %>
+          <% row=0 %>
+
+          <% hencount=0 %>
+          <% henrow=0 %>
+          <% @malhens.each_with_index do |malhen,i| %>
+            <% if malhen.name.strip != @usermal.name1.strip %>
+
+              <% if @maxmalcounts.any? %>
+                <% @maxmalcounts.each do |malcount| %>
+                  <% if malcount.name1 == malhen.name %>
+
+                    <% if name != (malhen.name1 + malhen.name) %>
+
+                        <% if name1 != malhen.name1 %>
+                            <% name1=malhen.name1 %>
+                            <% if henrow>2 %>
+                                <li>
+                                ᠨᠡᠢᠲᠡ:<%= hencount %><%= @usermal.name1 %> ᠃
+                                </li>
+                            <% end %>
+
+                            <% hencount=0 %>
+                            <% henrow=0 %>
+
+                            <% if i > 0 %>
+                              <br>
+                            <% end %>
+
+                        <% end %>
+
+                        <% if malcount.created_at == malhen.createddt %>
+
+                          <li>
+                            <%= malhen.name1 %>(<%= malhen.name %>):<%= malhen.count %>
+                            <span class="mailfrom">
+                              <%= malhen.createddt.strftime('%Y.%m.%d %H:%M') %>
+                            </span>
+                            <% allcount = allcount + malhen.count %>
+                            <% hencount = hencount + malhen.count %>
+                            <% row = row + 1 %>
+                            <% henrow = henrow + 1 %>
+                          </li>
+                          <% name = malhen.name1 + malhen.name %>
+                        <% end %>
+
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if henrow>2 %>
+              <li>
+              ᠨᠡᠢᠲᠡ:<%= hencount %><%= @usermal.name1 %> ᠃
+              </li>
+          <% end %>
+
+          </ul>
+        <% end %>
+        </li>
+        <li>
+          <span class="mailfrom">
+            <%= Time.now.strftime('%Y.%m.%d %H:%M') %>
+          </span>
+        </li>
+      </ul>
+      <% end %>
+
+
+</div>
+</div>

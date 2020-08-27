@@ -1,0 +1,95 @@
+<% if session[:user_id] %>
+
+  <% if session[:user_id]!=1 then %>
+    <br>
+    <div class="hidden_box">
+      <label for="minihusel">ᠮᠢᠨᠦ ᠬᠦᠰᠡᠯ ᠰᠠᠭᠠᠷᠳᠠᠯᠭ᠎ᠠ</label>
+      <input type="checkbox" id="minihusel" checked="checked"/>
+      <div class="hidden_show">
+
+        <% if @user.usergets.any? %>
+          <ul>
+          <% @user.usergets.each do |userget| %>
+            <li>
+            <%= userget.yuu %>:
+            <%= link_to userget.name,user_userget_path(@user,userget),class:'command' %>
+            <% if userget.txt.present? %>
+              \<%= userget.txt %>
+            <% end %>
+            <% if userget.updated_at.present? %>
+              <span class="mailfrom">
+                <%= userget.updated_at.strftime('%Y.%m.%d') %>
+              </span>
+            <% end %>
+            <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userget_path(@user,userget),class:'command' %>&ensp;
+            <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+            user_userget_path(@user,userget),
+            method: :delete,
+            class: 'command',
+            data: { confirm: 'are you sure you want to delete?'}%>
+            </li>
+          <% end %>
+          </ul>
+        <% end %>
+
+        <div class="hidden_box">
+        <label for="newhusel">
+          <span style="color:#ff0000;font-weight:bold;">
+          &ensp;ᠨᠡᠮᠡᠬᠦ
+          </span>
+        </label>
+        <input type="checkbox" id="newhusel"/>
+        <div class="hidden_show">
+
+        <%= form_for([@user, @user.usergets.build]) do |f| %>
+          <p>
+            <%= f.radio_button :yuu, :ᠰᠣᠶᠤᠯ, checked: "checked" %>
+            <%= f.label :yuu, 'ᠰᠣᠶᠤᠯ' %><br>
+            <%= f.radio_button :yuu, :ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ %>
+            <%= f.label :yuu, 'ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ' %><br>
+            <%= f.radio_button :yuu, :ᠠᠵᠢᠯ %>
+            <%= f.label :yuu, 'ᠠᠵᠢᠯ' %><br>
+            <%= f.radio_button :yuu, :ᠪᠤᠰᠤᠳ %>
+            <%= f.label :yuu, 'ᠪᠤᠰᠤᠳ' %><br>
+          </p>
+          <p>
+            <%=f.text_area :name,placeholder: '*ᠬᠦᠰᠡᠯ ᠰᠠᠭᠠᠷᠳᠠᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+            <%=f.text_area :txt,placeholder: 'ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+          </p>
+          <p>
+            <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+          </p>
+        <% end %>
+        </div>
+        </div>
+
+      </div>
+    </div>
+  <% else %>
+    <div class="hidden_box">
+      <h2><label for="allhusel">ᠪᠦᠬᠦ ᠬᠦᠰᠡᠯ ᠰᠠᠭᠠᠷᠳᠠᠯᠭ᠎ᠠ</label></h2>
+      <input type="checkbox" id="allhusel" checked="checked"/>
+      <div class="hidden_show">
+
+        <% if @allusergets.any? %>
+          <ul>
+          <% @allusergets.each do |userget| %>
+            <li>
+              <%= userget.yuu %>:
+              <%= link_to userget.name,user_userget_path(userget.user_id,userget.id),class:'command' %>
+              <% if userget.txt.present? %>
+                \<%= userget.txt %>
+              <% end %>
+              <% if userget.updated_at.present? %>
+                <span class="mailfrom">
+                  <%= userget.updated_at.strftime('%Y.%m.%d') %>
+                </span>
+              <% end %>
+            </li>
+          <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

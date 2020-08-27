@@ -1,0 +1,16 @@
+<h2>ᠨᠤᠲᠤᠭ</h2>
+
+<% if @mlqdbs.any? %>
+  <ul>
+  <% @mlqdbs.each do |mlqdb| %>
+    <li>
+      <%= mlqdb.a9 %>ー
+      <%= mlqdb.f9 %><br>
+      <%= mlqdb.a1 %>\
+      <%= mlqdb.f1 %>\
+      <%= mlqdb.a2 %>\
+      <%= mlqdb.f2 %>&ensp;
+    </li>
+  <% end %>
+  </ul>
+<% end %>

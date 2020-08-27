@@ -1,0 +1,2 @@
+module MlqdbsHelper
+end

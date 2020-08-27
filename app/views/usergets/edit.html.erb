@@ -1,0 +1,24 @@
+<h2>
+ ᠵᠠᠰᠠᠬᠤ
+  <%= link_to 'ᠬᠦᠰᠡᠯ ᠰᠠᠭᠠᠷᠳᠠᠯᠭ᠎ᠠ',user_usergets_path(@user),class:'header-menu' %>&ensp;
+</h2>
+
+<%= form_for @userget, url: user_userget_path(@user,@userget) do |f| %>
+  <p>
+    <%= f.radio_button :yuu, :ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ %>
+    <%= f.label :yuu, 'ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ' %><br>
+    <%= f.radio_button :yuu, :ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ %>
+    <%= f.label :yuu, 'ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ' %><br>
+    <%= f.radio_button :yuu, :ᠠᠵᠢᠯ %>
+    <%= f.label :yuu, 'ᠠᠵᠢᠯ' %><br>
+    <%= f.radio_button :yuu, :ᠪᠤᠰᠤᠳ %>
+    <%= f.label :yuu, 'ᠪᠤᠰᠤᠳ' %><br>
+  </p>
+  <p>
+    <%=f.text_area :name,placeholder: '* ᠶᠠᠭᠤ', :class=>"gaarea" %>
+    <%=f.text_area :txt,placeholder: 'ᠨᠠᠷᠢᠨ ᠠᠭᠤᠯᠭ᠎ᠠ', :class=>"gaarea" %>
+  </p>
+  <p>
+    <%= f.submit " ᠬᠠᠳᠠᠭᠠᠯᠠᠬᠤ", :class=>"btn" %>
+  </p>
+<% end %>

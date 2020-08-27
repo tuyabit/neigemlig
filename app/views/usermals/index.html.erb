@@ -1,0 +1,55 @@
+<br>
+<div class="hidden_box">
+    <label for="mal">ᠪᠦᠷᠢᠳᠭᠡᠯ &ensp;</label>
+    <input type="checkbox" id="mal" checked="checked"/>
+    <div class="hidden_show">
+
+    <% if @user.usermals.any? %>
+    <ul>
+      <% @user.usermals.each do |usermal| %>
+      <li>
+        <%= link_to usermal.name1,user_usermal_path(@user,usermal),class:'command' %>\&ensp;
+        <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+            <% if usermal.malcounts.any? %>
+            <% else %>
+              <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+              user_usermal_path(@user,usermal),
+              method: :delete,
+              class: 'command',
+              data: { confirm: 'are you sure you want to delete?'}%>
+            <% end %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <% if @user.id == session[:user_id] and session[:user_id]!=1 then %>
+      <div class="hidden_box">
+      <label for="newmal">
+        <span style="color:#ff0000;font-weight:bold;">
+        &ensp;ᠨᠡᠮᠡᠬᠦ
+        </span>
+      </label>
+      <input type="checkbox" id="newmal"/>
+      <div class="hidden_show">
+
+        <%= form_for([@user, @user.usermals.build]) do |f| %>
+          <table>
+            <tr>
+              <td>
+                <p>
+                  <%=f.text_area :name1,placeholder: '* ᠶᠠᠭᠤ', autocomplete: 'off', :class=>"bgarea" %>
+                </p>
+                <p>
+                  <%= f.submit "ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                </p>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+        </div>
+        </div>
+    <% end %>
+</div>
+</div>
