@@ -1,8 +1,9 @@
 
-  <h2>
-    <%= link_to @motd.f1,motd_path(@motd),class:'command' %>
-  </h2>
+<h2>
+  <%= link_to @motd.f1,motd_path(@motd),class:'command' %>
+</h2>
 
+<br>
   <% isend=0 %>
   <% if @mott.f3.present? then %>
     <% if @mott.f3==1 then %>
@@ -21,6 +22,7 @@
     <br>
   <% end %>
 
+  <span class="noprint">
   <% if @motd.f3 == session[:user_id] and isend==0 then %>
       <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_mott_path(@motd,@mott),class:'header-menu' %>
   <% else %>
@@ -28,7 +30,7 @@
       <%= link_to 'ᠵᠠᠰᠠᠬᠤ ',edit_motd_mott_path(@motd,@mott),class:'header-menu' %>
     <% end %>
   <% end %>
-
+  </span>
 
 <% if @motd.motts.any? %>
   <% if @mott.mottimages.any? %>
@@ -159,6 +161,7 @@
         <span class="text"><%= mottimage.name %></span>
       <% end %>
 
+      <span class="noprint">
       <% if (@motd.f3 == session[:user_id] or session[:user_id]==1) and isend==0 then %>
         <%= link_to 'ᠵᠠᠰᠠᠬᠤ',edit_motd_mott_mottimage_path(@motd,@mott,mottimage),class:'command' %>&ensp;
         <%= link_to 'ᠬᠠᠰᠤᠬᠤ',
@@ -167,6 +170,7 @@
         class: 'command',
         data: { confirm: 'are you sure you want to delete?'}%>&ensp;
       <% end %>
+      </span>
 
     <% end %>
   <% end %>
@@ -179,6 +183,7 @@
     </div>
   <% end %>
 
+  <span class="noprint">
   <% if @motd.f3 == session[:user_id] and isend==0 then %>
     <%= form_for([@motd,@mott,@mott.mottimages.build]) do |f| %>
       <p>
@@ -347,13 +352,18 @@
               <% if @userpays.any? %>
                 <% @userpays.each do |userpay| %>
                   <% if userpay.f10.present? %>
+
                     <% if userpay.f10=="motthinaa" and userpay.typeid==@mott.id and userpay.user_id==@mott.Motdid and userpay.unit==@mott.moa.strip %>
-                      <% hinaa=1 %>
-                      <% hinaasum=hinaasum+userpay.f5 %>
+                      <% if @mott.created_at.strftime('%Y%m%d%H%M').to_i<userpay.updated_at.strftime('%Y%m%d%H%M').to_i %>
+                        <% hinaa=1 %>
+                        <% hinaasum=hinaasum+userpay.f5 %>
+                      <% end %>
                     <% end %>
                     <% if userpay.f10=="motthinab" and userpay.typeid==@mott.id and userpay.user_id==@mott.Mdid and userpay.unit==@mott.mob.strip %>
-                      <% hinab=1 %>
-                      <% hinabsum=hinabsum+userpay.f5 %>
+                      <% if @mott.created_at.strftime('%Y%m%d%H%M').to_i<userpay.updated_at.strftime('%Y%m%d%H%M').to_i %>
+                        <% hinab=1 %>
+                        <% hinabsum=hinabsum+userpay.f5 %>
+                      <% end %>
                     <% end %>
                   <% end %>
                 <% end %>
@@ -532,10 +542,6 @@
                         <%= @mott.f4.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
                       </span>
                        <br>
-                       <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
-                       <% adminhinaasum=hinaasum*0.18 %>
-                       <%= adminhinaasum.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
-                       <br>
                        <% if session[:user_id]== @mott.Motdid %>
                          <table height="100%" bgcolor="#EEE8AA">
                            <tr>
@@ -597,11 +603,11 @@
                           </p>
                         <% end %>
                       <% end %>
-                      <% if hinab==1  and hinabsum>=@mott.f5 then%>
+                      <% if hinab==1 and hinabsum>=@mott.f5 then%>
                         <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
                           <%= f.hidden_field :f7, :value => Time.now %>
                           <p>
-                            <%= f.submit "ᠬᠢᠨᠠᠪᠠ２", :class=>"btn" %>
+                            <%= f.submit "ᠬᠢᠨᠠᠬᠤ２", :class=>"btn" %>
                           </p>
                         <% end %>
                       <% else %>
@@ -679,7 +685,7 @@
                       <%= form_for @mott, url: motd_mott_path(@motd,@mott) do |f| %>
                         <%= f.hidden_field :f6, :value => Time.now %>
                         <p>
-                          <%= f.submit "ᠬᠢᠨᠠᠪᠠ１", :class=>"btn" %>
+                          <%= f.submit "ᠬᠢᠨᠠᠬᠤ１", :class=>"btn" %>
                         </p>
                       <% end %>
                     <% else %>
@@ -782,3 +788,5 @@
       <% end %>
     </section>
 <% end %>
+
+</span>

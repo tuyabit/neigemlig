@@ -47,7 +47,7 @@ class MotdsController < ApplicationController
         @usershops = Usershop.all.order(updated_at:'desc')
 
         @payunitjahs = Payunitjah.joins("LEFT OUTER JOIN payunits ON payunitjahs.payunit_id = payunits.id LEFT OUTER JOIN motts ON payunits.mott_id = motts.id LEFT OUTER JOIN motds ON motts.motd_id = motds.id").select("payunitjahs.*,payunits.f7,motts.f1,motts.motd_id,motds.f3").order(updated_at:'desc')
-        @payunits = Payunit.joins("LEFT OUTER JOIN motts ON payunits.mott_id = motts.id LEFT OUTER JOIN motds ON motts.motd_id = motds.id").select("payunits.*,motts.f7 as mtf7,motts.f1,motts.motd_id,motds.f3").order(f4:'desc',updated_at:'desc')
+        @payunits = Payunit.joins("LEFT OUTER JOIN motts ON payunits.mott_id = motts.id LEFT OUTER JOIN motds ON motts.motd_id = motds.id").select("payunits.*,motts.f7 as mtf7,motts.f1,motts.motd_id,motds.f3").order(f4:'desc',created_at:'asc')
 
         @usershopunejahs = Usershopunejah.joins("LEFT OUTER JOIN usershopunes ON usershopunejahs.usershopune_id = usershopunes.id LEFT OUTER JOIN usershops ON usershopunes.usershop_id = usershops.id LEFT OUTER JOIN users ON usershops.user_id = users.id ").select("usershopunejahs.*,usershops.name1,usershops.name2,usershopunes.name,usershopunes.usershop_id,usershops.user_id").order(updated_at:'desc')
 

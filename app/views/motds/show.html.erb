@@ -76,7 +76,7 @@
                 <li>
                 <% if payunit.f7.strftime('%Y%m%d%H%M').to_i>=Time.now.strftime('%Y%m%d%H%M').to_i then %>
                   <span class="mailfrom">
-                   <%= payunit.f6.strftime('%Y.%m.%d %H:%M') %> ᠠ᠋ᠴᠠ <%= payunit.f7.strftime('%Y.%m.%d %H:%M') %>
+                   <%= link_to payunit.f6.strftime('%Y.%m.%d %H:%M') + 'ᠠ᠋ᠴᠠ' + payunit.f7.strftime('%Y.%m.%d %H:%M') + ' ᠳ᠋ᠤ ᠨᠡᠢᠲᠡᠯᠡᠨ᠎ᠡ᠃',motd_mott_path(@motd,mott),class:'mailfrom' %>
                   </span>
                 <% else %>
                   <span class="mailfrom" style="color:gray;">
