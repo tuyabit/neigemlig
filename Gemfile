@@ -9,7 +9,8 @@ gem 'rails', '~> 5.2.3'
 # gem 'sqlite3'
 
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.18'
+  gem 'rails_12factor'
 end
 
 # Use Puma as the app server
@@ -66,4 +67,3 @@ gem 'carrierwave', '~> 2.0'
 gem 'mini_magick'
 
 gem 'therubyracer', platforms: :ruby
-gem 'rails_12factor', group: :production
