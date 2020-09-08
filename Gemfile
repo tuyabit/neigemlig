@@ -9,7 +9,7 @@ gem 'rails', '~> 5.2.3'
 # gem 'sqlite3'
 
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.18'
   gem 'rails_12factor'
 end
 
