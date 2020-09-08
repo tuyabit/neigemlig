@@ -10,6 +10,7 @@ gem 'rails', '~> 5.2.3'
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 # Use Puma as the app server
@@ -49,6 +50,7 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'mysql2'
+
 end
 
 group :test do
@@ -66,4 +68,3 @@ gem 'carrierwave', '~> 2.0'
 gem 'mini_magick'
 
 gem 'therubyracer', platforms: :ruby
-gem 'rails_12factor', group: :production
