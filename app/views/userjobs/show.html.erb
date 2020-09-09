@@ -30,11 +30,11 @@
 <% end %>
 
 <h2>
+  <%= @userjob.name %>
   <%= link_to 'ᠠᠵᠢᠯ',user_userjobs_path(@user),class:'header-menu' %>&ensp;
 </h2>
 
 <% if @userjob.name.present? %>
-  <br>
   <table height="100%">
     <tr>
       <% if @userjob.picture? %>
@@ -47,30 +47,30 @@
       <% end %>
       <td>
           <%= @userjob.f9.strftime('%Y.%m.%d') %>ー
-          <%= @userjob.ff9.strftime('%Y.%m.%d') %><br>
-          <%= link_to @userjob.name,user_userjob_path(@user,@userjob),class:'command' %>
-          <br> <%= @userjob.from %><br>
+          <%= @userjob.ff9.strftime('%Y.%m.%d') %>
           <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
-            ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠠᠭ:<br><%= @userjob.f4 %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃<br>
+            <br>ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ: <%= @userjob.f4.round(0) %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
+          <% end %>
+          <% if @userjob.from.present? %>
+            <br><%= @userjob.from %>
           <% end %>
           <% if @userjob.job.present? %>
             <br><%= @userjob.job %>
           <% end %>
-          <br><%= @userjob.user_id %>ᠳ᠋ᠤᠭᠠᠷ
-          <%= link_to ' ᠳᠡᠯᠭᠡᠭᠦᠷ',user_path(@userjob.user_id),class:'command' %>
-          <span class="mailfrom">
-            <%= @userjob.updated_at.strftime('%Y.%m.%d') %>&ensp;
-          </span>
           <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
               <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userjob_path(@user,@userjob),class:'command' %>&ensp;
           <% end %>
+          <div class="johiogq">
+            <%= link_to @user.nickname,user_path(@user.id),class:'command' %>
+            <%= @userjob.created_at.strftime('%Y.%m.%d') %>
+          </div>
+
           <br>
       </td>
     </tr>
  </table>
 <% end %>
 
-<h2><%= @userjob.name %></h2>
 <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
 
   <% mystartdate = Time.now %>
@@ -82,10 +82,18 @@
   <% allunit = @userjob.unit %>
   <% if @userjob.userjobpjs.any? %>
       <ul>
-      <% @userjob.userjobpjs.each do |userjobpj| %>
+      <% @userjob.userjobpjs.each_with_index do |userjobpj, i| %>
         <% if userjobpj.name.present? %>
-            <hr>
+            <br>
             <li>
+            <h2><%= i+1 %>. <%= userjobpj.name %></h2>
+            <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                <% if userjobpj.une.present? %>
+                  ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ: <%= userjobpj.une %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
+                  <% sum = sum + userjobpj.une %>
+                <% end %>
+            <% end %>
+            <br>
             <%= userjobpj.startdate.strftime('%Y.%m.%d') %>ー
             <%= userjobpj.enddate.strftime('%Y.%m.%d') %>
 
@@ -103,19 +111,14 @@
             <% else %>
               (<%= myday.round(1) %>ᠡᠳᠤᠷ)
             <% end %>
-            <h2><%= userjobpj.name %></h2>
-            <% if userjobpj.from.present? %>
-              <%= userjobpj.from %>
-            <% end %>
 
+            <% if userjobpj.from.present? %>
+              <br><%= userjobpj.from %>
+            <% end %>
+            <span class="mailfrom">
+              <%= userjobpj.created_at.strftime('%Y.%m.%d') %>
+            </span>
             <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
-                <% if userjobpj.une.present? %>
-                  <br>ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠠᠭ:<%= userjobpj.une %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
-                  <% sum = sum + userjobpj.une %>
-                <% end %>
-                <span class="mailfrom">
-                  <%= userjobpj.updated_at.strftime('%Y.%m.%d') %>&ensp;
-                </span>
                 <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userjob_userjobpj_path(@user,@userjob,userjobpj),class:'command' %>&ensp;
                 <% if userjobpj.userjobpjhuns.any? %>
                 <% else %>
@@ -126,10 +129,8 @@
                     data: { confirm: 'are you sure you want to delete?'}%>
                 <% end %>
             <% end %>
-
-
             <div class="hidden_box">
-                <label for="aa<%=userjobpj.id%>">ᠰᠦᠢᠳᠭᠡᠯ:</label>
+                <h2><label for="aa<%=userjobpj.id%>">ᠰᠦᠢᠳᠭᠡᠯ</label></h2>
                 <input type="checkbox" id="aa<%=userjobpj.id%>" checked="checked"/>
                 <div class="hidden_show">
                   <% mysum = 0 %>
@@ -137,9 +138,24 @@
                   <% myunit = @userjob.unit %>
                 <% if userjobpj.userjobpjhuns.any? %>
                     <ul>
-                    <% userjobpj.userjobpjhuns.each do |userjobpjhun| %>
+                    <% userjobpj.userjobpjhuns.each_with_index do |userjobpjhun,m| %>
                       <% if userjobpjhun.hname.present? %>
                           <li>
+                          (<%= m+1 %>) <%= userjobpjhun.hname %>
+                          <span class="mailfrom">
+                            <%= userjobpjhun.updated_at.strftime('%Y.%m.%d') %>&ensp;
+                          </span>
+                          <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+                              <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userjob_userjobpj_userjobpjhun_path(@user,@userjob,userjobpj,userjobpjhun),class:'command' %>&ensp;
+                              <% if !userjobpjhun.userjobpjhunjahs.any? %>
+                                <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                                user_userjob_userjobpj_userjobpjhun_path(@user,@userjob,userjobpj,userjobpjhun),
+                                method: :delete,
+                                class: 'command',
+                                data: { confirm: 'are you sure you want to delete?'}%>
+                              <% end %>
+                          <% end %>
+                          <br>
                           <%= userjobpjhun.hstartdate.strftime('%Y.%m.%d') %>ー
                           <%= userjobpjhun.henddate.strftime('%Y.%m.%d') %>
                           <% myyear = userjobpjhun.henddate.year-userjobpjhun.hstartdate.year %>
@@ -154,35 +170,22 @@
                             (<%= myday.round(1) %>ᠡᠳᠤᠷ)
                           <% end %>
                           <br>
-                          <%= userjobpjhun.hname %>
                           <% if userjobpjhun.hfrom.present? %>
-                            \<%= userjobpjhun.hfrom %>
+                            <%= userjobpjhun.hfrom %>
                           <% end %>
-                          <span class="mailfrom">
-                            <%= userjobpjhun.updated_at.strftime('%Y.%m.%d') %>&ensp;
-                          </span>
-                          <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
-                              <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userjob_userjobpj_userjobpjhun_path(@user,@userjob,userjobpj,userjobpjhun),class:'command' %>&ensp;
-                              <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
-                              user_userjob_userjobpj_userjobpjhun_path(@user,@userjob,userjobpj,userjobpjhun),
-                              method: :delete,
-                              class: 'command',
-                              data: { confirm: 'are you sure you want to delete?'}%>
-                          <% end %>
-
                           <% if userjobpjhun.hcount.present? %>
                             <% if userjobpjhun.hcount>0 %>
                               <table height="100%" bgcolor="#FFFACD">
                                 <tr>
                                   <td>
                                     <%= userjobpjhun.hcount %> ᠬᠥᠮᠦᠨ
-                                    \ᠬᠥᠮᠦᠨ ᠪᠦᠷᠢ ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ <%= userjobpjhun.hune %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ ᠃
+                                    \ᠬᠥᠮᠦᠨ ᠪᠦᠷᠢ ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ <%= userjobpjhun.hune %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
                                     <% if myday >= 28 %>
                                       <% hhune = userjobpjhun.hcount * userjobpjhun.hune * tmonth.round(1) %>
                                     <% else %>
                                       <% hhune = userjobpjhun.hcount * userjobpjhun.hune %>
                                     <% end %>
-                                    \ᠨᠡᠢᠲᠡ <%= hhune.round(0) %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ ᠣᠷᠤᠨ᠎ᠠ᠃
+                                    \ᠨᠡᠢᠲᠡ <%= hhune.round(0) %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
                                     <% mysum = mysum + hhune.round(0) %>
 
                                     <table height="100%" bgcolor="#F5DEB3">
@@ -204,7 +207,7 @@
                                                   &nbsp;<%= link_to userjobpjhunjah.userid,user_path(userjobpjhunjah.userid),class:'command' %>
                                                 <% end %>
                                               <% end %>
-                                               ᠠ᠋ᠴᠠ
+
                                               <span class="mailfrom">
                                                 <%= userjobpjhunjah.jahdt.strftime('%Y.%m.%d') %>
                                               </span>
@@ -220,6 +223,7 @@
                                               <% if userjobpjhunjah.get1dt.present? %>
                                                   ᠲᠣᠭᠲᠠᠪᠠ᠃
                                                   <span class="mailfrom">
+                                                    <%= link_to @user.nickname,user_path(@user.id),class:'command' %>
                                                     <%= userjobpjhunjah.get1dt.strftime('%Y.%m.%d') %>
                                                   </span>
                                                   <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_userjob_userjobpj_userjobpjhun_userjobpjhunjah_path(@user,@userjob,userjobpj,userjobpjhun,userjobpjhunjah),class:'command' %>
@@ -261,35 +265,110 @@
                                                     <% end %>
                                                   <% end %>
 
-                                                  <% if userjobpjhunjah.get1dt.present? and userjobpjhunjah.userid==session[:user_id] %>
+                                                  <table height="100%" bgcolor="#DEB887">
+                                                    <tr>
+                                                      <td>
+                                                    <% payf4f5=0 %>
+                                                    <% payf5=0 %>
+                                                    <% payf6="" %>
 
-                                                    <% strname= "ᠠᠵᠢᠯ:" + userjobpjhun.hname + " ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ " %>
-                                                    <% job="job" %>
-                                                    <%= form_for([@myuser, @myuser.userpays.build]) do |fff| %>
-                                                          <%= fff.hidden_field :name, :value =>strname %>
-                                                          <%= fff.hidden_field :f5, :value =>userjobpjhunjah.june %>
-                                                          <%= fff.hidden_field :unit, :value =>@userjob.unit %>
-                                                          <%= fff.hidden_field :userid, :value =>@user.id %>
-                                                          <%= fff.hidden_field :uname, :value =>@user.nickname %>
-                                                          <%= fff.hidden_field :f6, :value => Time.now %>
-                                                          <%= fff.hidden_field :f7, :value => Time.now %>
-                                                          <%= fff.hidden_field :f10, :value => job %>
-                                                          <%= fff.hidden_field :typeid, :value => userjobpjhunjah.id %>
-                                                          <p>
-                                                            <%= fff.submit 'ᠴᠠᠯᠢᠩ', :class=>"btn" %>
-                                                          </p>
+                                                    <% if @alluserpays.any? %>
+                                                      <% @alluserpays.each do |userpay| %>
+                                                        <% if userpay.user_id.present? %>
+                                                          <% if userpay.userid==@user.id and userpay.unit.strip== @userjob.unit.strip %>
+                                                              <% if userpay.f4.present? %>
+                                                                  <% payf4f5=payf4f5 + userpay.f4 %>
+                                                              <% end %>
+                                                              <% if userpay.f5.present? %>
+                                                                  <% payf4f5=payf4f5 - userpay.f5 %>
+                                                                  <% if userpay.typeid.present? %>
+                                                                    <% if userpay.f10=="job" and userpay.typeid == userjobpjhunjah.id %>
+                                                                      <% payf5=payf5 + userpay.f5 %>
+                                                                      <% payf6=userpay.f6 %>
+                                                                    <% end %>
+                                                                  <% end %>
+                                                              <% end %>
+                                                          <% end %>
+                                                        <% end %>
+                                                      <% end %>
                                                     <% end %>
 
-                                                  <% end %>
+                                                    <% payf4f5 = payf4f5.round(0) %>
+                                                    <% payf5 = payf5.round(0) %>
+                                                    <% bune = userjobpjhunjah.june.round(0) %>
+
+                                                    <% if payf5.round(0) > 0 %>
+                                                        ᠴᠠᠯᠢᠩ:<%= payf5.round(0) %><%= @userjob.unit.strip %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
+                                                        <span class="mailfrom">
+                                                          <%= payf6.strftime('%Y.%m.%d %H:%M') %>
+                                                        </span>
+                                                        <br>
+                                                        <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
+
+                                                        <% adminpayf4f5=0 %>
+                                                        <% adminpayf5=0 %>
+                                                        <% adminpayf6="" %>
+                                                        <% adminune=0 %>
+                                                        <% adminune=payf5.round(0)*0.18 %>
+                                                        <%= adminune.round(0) %><%= @userjob.unit.strip %> ᠵᠣᠭᠤᠰ
+
+                                                        <% if @adminuser.userpays.any? %>
+                                                          <% @adminuser.userpays.each do |userpay| %>
+
+                                                            <% if userpay.userid.present? %>
+                                                                <% if userpay.userid==userjobpjhunjah.userid and userpay.unit.strip== @userjob.unit.strip %>
+                                                                    <% if userpay.f4.present? %>
+                                                                        <% adminpayf4f5=adminpayf4f5 + userpay.f4 %>
+                                                                    <% end %>
+                                                                    <% if userpay.f5.present? %>
+                                                                      <% adminpayf4f5=adminpayf4f5 - userpay.f5 %>
+                                                                      <% if userpay.f10="site" and userpay.typeid == userjobpjhunjah.id %>
+                                                                        <% adminpayf5=adminpayf5 + userpay.f5 %>
+                                                                        <% adminpayf6=userpay.f6.strftime('%Y.%m.%d %H:%M') %>
+                                                                      <% end %>
+                                                                    <% end %>
+                                                                <% end %>
+                                                            <% end %>
+
+                                                          <% end %>
+                                                        <% end %>
+
+                                                        <% adminpayf4f5 = adminpayf4f5.round(0) %>
+                                                        <% adminpayf5 = adminpayf5.round(0) %>
+
+                                                        <% if adminune.round(0) <= adminpayf5 %>
+                                                          ᠬᠠᠰᠤᠪᠠ᠃
+                                                          <span class="mailfrom">
+                                                            <%= adminpayf6 %>
+                                                          </span>
+                                                          <br>
+                                                        <% else %>
+                                                          <% if adminune.round(0) - adminpayf5 >0 %>
+                                                            ᠲᠤᠰᠢᠶᠠᠬᠤ ᠶ᠋ᠢ ᠬᠦᠯᠢᠶᠡᠵᠦ ᠪᠠᠢᠨ᠎ᠠ᠃
+                                                          <% end %>
+                                                        <% end %>
+
+                                                    <% end %>
+                                                    <% if bune.round(0)>payf5.round(0)  %>
+                                                        <span class="Ankhaaruulga">
+                                                           ᠦᠯᠡᠳᠡᠭᠰᠡᠨ ᠴᠠᠯᠢᠩ:<%= bune.round(0)-payf5.round(0) %><%= @userjob.unit.strip %> ᠵᠣᠭᠤᠰ᠃
+                                                        </span>
+
+                                                    <% end %>
+                                                  </td>
+                                                  </tr>
+                                                  </table>
 
                                               <% else %>
 
                                                   <% if userjobpjhunjah.mddt.present? %>
-                                                      ᠮᠡᠳᠡᠯ᠎ᠡ᠃
-                                                      <span class="mailfrom">
-                                                        <%= userjobpjhunjah.mddt.strftime('%Y.%m.%d') %>
-                                                      </span>
-                                                      <br>
+                                                    ᠮᠡᠳᠡᠯ᠎ᠡ᠃
+                                                    <span class="mailfrom">
+                                                      <%= link_to @user.nickname,user_path(@user.id),class:'command' %>
+                                                      <%= userjobpjhunjah.mddt.strftime('%Y.%m.%d') %>
+                                                    </span>
+                                                    <br>
+                                                    <% if @user.id == session[:user_id] %>
                                                       <% md=md + 1 %>
                                                       <%= form_for userjobpjhunjah, url: user_userjob_userjobpj_userjobpjhun_userjobpjhunjah_path(@user,@userjob,userjobpj,userjobpjhun,userjobpjhunjah) do |f| %>
                                                           <%= f.hidden_field :jname, :value => userjobpjhun.hname %>
@@ -299,19 +378,22 @@
                                                           <%= f.hidden_field :jstartdate, :value => userjobpjhun.hstartdate %>
                                                           <%= f.hidden_field :jenddate, :value => userjobpjhun.henddate %>
                                                           <%= f.hidden_field :get1dt, :value => Time.now %>
-                                                          <%= f.submit "ᠲᠣᠭᠲᠠᠪᠠ", :class=>"btn" %>
+                                                          <%= f.submit "ᠲᠣᠭᠲᠠᠬᠤ", :class=>"btn" %>
                                                       <% end %>
-
+                                                    <% else %>
+                                                      ᠬᠠᠷᠢᠭᠤ ᠬᠦᠯᠢᠶᠡᠵᠤ ᠪᠠᠢᠨ᠎ᠠ᠃
+                                                    <% end %>
                                                   <% else %>
+                                                    <% if @user.id == session[:user_id] %>
                                                       <% hun=hun + 1 %>
                                                       <%= form_for userjobpjhunjah, url: user_userjob_userjobpj_userjobpjhun_userjobpjhunjah_path(@user,@userjob,userjobpj,userjobpjhun,userjobpjhunjah) do |f| %>
                                                           <%= f.hidden_field :mddt, :value => Time.now %>
                                                           <%= f.submit "ᠮᠡᠳᠡᠯ᠎ᠡ", :class=>"btn" %>
                                                       <% end %>
+                                                    <% else %>
+                                                      ᠶᠠᠷᠢᠯᠴᠠᠬᠤ ᠶ᠋ᠢ ᠬᠦᠯᠢᠶᠡᠵᠤ ᠪᠠᠢᠨ᠎ᠠ᠃
+                                                    <% end %>
                                                   <% end %>
-
-
-
                                               <% end %>
 
                                               <% if userjobpjhunjah.mddt.present? or userjobpjhunjah.get1dt.present? %>
@@ -372,14 +454,14 @@
                             <% else %>
                                 <br>ᠰᠠᠷ᠎ᠠ ᠪᠦᠷᠢ <%= userjobpjhun.hune %><%= userjobpjhun.hunit %> ᠵᠣᠭᠤᠰ
                                 <% hhune = userjobpjhun.hune * tmonth.round(1) %>
-                                <br>ᠨᠡᠢᠲᠡ <%= hhune.round(0) %><%= userjobpjhun.hunit %> ᠵᠣᠭᠤᠰ ᠣᠷᠤᠨ᠎ᠠ᠃
+                                <br>ᠨᠡᠢᠲᠡ <%= hhune.round(0) %><%= userjobpjhun.hunit %> ᠵᠣᠭᠤᠰ᠃
                                 <% mysum = mysum + hhune.round(0) %>
                             <% end %>
                           <% else %>
                             <table height="100%">
                               <tr>
                                 <td>
-                                    ᠨᠡᠢᠲᠡ <%= userjobpjhun.hune %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ ᠃
+                                    ᠨᠡᠢᠲᠡ <%= userjobpjhun.hune %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
                                     <% mysum = mysum + userjobpjhun.hune %>
                                 </td>
                               </tr>
@@ -389,22 +471,23 @@
                         <% end %>
                     <% end %>
                     <li>
-                      <span style="background-color:pink;">ᠨᠡᠢᠲᠡ: </span>
-                      <%= mysum.round(0) %><%= myunit %> ᠵᠣᠭᠤᠰ \
+
+                      ᠨᠡᠢᠲᠡ ᠰᠦᠢᠳᠭᠡᠯ: <%= mysum.round(0) %><%= myunit %> ᠵᠣᠭᠤᠰ᠃ <br>
                       <% myasg = userjobpj.une - mysum %>
                       <% allsum = allsum + mysum %>
                       <% allasg = allasg + myasg %>
                       <% if myasg.round(0)>0 then %>
-                        ᠠᠰᠢᠭ: <%= myasg.round(0) %><%= myunit %> ᠵᠣᠭᠤᠰ᠃
+                        ᠠᠰᠢᠭ: <%= myasg.round(0) %><%= myunit %> ᠵᠣᠭᠤᠰ(ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ー ᠰᠦᠢᠳᠭᠡᠯ)᠃
                         <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
                         <% bune=myasg*0.18 %>
-                        <%= bune.round(0) %><%= myunit %> ᠵᠣᠭᠤᠰ᠃
+                        <%= bune.round(0) %><%= myunit %> ᠵᠣᠭᠤᠰ᠃<br>
                       <% else %>
                         <span class="Ankhaaruulga">
                           ᠠᠰᠢᠭ: <%= myasg.round(0) %><%= myunit %> ᠵᠣᠭᠤᠰ᠃
                           ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠤᠶᠤ ᠰᠦᠢᠳᠭᠡᠯ ᠢ᠋ᠢᠡᠨ ᠵᠠᠰᠠᠭᠠᠷᠠᠢ᠃
                         </span>
                       <% end %>
+
                     </li>
                     </ul>
                 <% end %>
@@ -549,32 +632,35 @@
           <% end %>
       <% end %>
       <li>
-        <table height="100%" bgcolor="#DEB887">
+        <table height="100%" bgcolor="#D2B48C">
             <tr>
               <td>
-        <span style="background-color:pink;">ᠨᠡᠢᠲᠡ: </span>
-          <%= @userjob.user_id %>ᠳ᠋ᠤᠭᠠᠷ
-          <%= link_to ' ᠳᠡᠯᠭᠡᠭᠦᠷ',user_path(@userjob.user_id),class:'command' %><br>
-          ᠲᠤᠰ ᠠᠵᠢᠯ ᠤ᠋ᠨ ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠠᠭ:<%= @userjob.f4 %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃<br>
-          ᠰᠦᠢᠳᠭᠡᠯ ᠤ᠋ᠨ ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠠᠭ:<%= sum.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+
+
+          ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ : <%= @userjob.f4.round(0) %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃<br>
+          ᠬᠤᠪᠢᠶᠠᠷᠢ ᠠᠵᠢᠯ : <%= sum.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+          <% allallsum = @userjob.f4.round(0) %>
           <% if sum.round(0)>@userjob.f4 then %>
+            <% allallsum = sum.round(0) %>
             <span class="Ankhaaruulga">
-              ᠪᠡᠯᠡᠳᠭᠡᠯ ᠠᠰᠢᠭ: <%= @userjob.f4.round(0)-sum.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+              ᠪᠡᠯᠡᠳᠭᠡᠯ ᠠᠰᠢᠭ : <%= @userjob.f4.round(0)-sum.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
               ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠨ ᠵᠠᠰᠠᠭᠠᠷᠠᠢ᠃
             </span>
           <% end %>
-              ᠰᠦᠢᠳᠭᠡᠯ ᠨᠡᠢᠲᠡ:<%= allsum.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ ᠣᠷᠤᠪᠠ᠃ <br>
-              <% if allasg.round(0)<=0 then %>
-                <span class="Ankhaaruulga">
-                  ᠠᠰᠢᠭ ᠨᠡᠢᠲᠡ:<%= allasg.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
-                  ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠤᠶᠤ ᠰᠦᠢᠳᠭᠡᠯ ᠢ᠋ᠢᠡᠨ ᠵᠠᠰᠠᠭᠠᠷᠠᠢ᠃
-                </span>
-              <% else %>
-              ᠠᠰᠢᠭ ᠨᠡᠢᠲᠡ:<%= allasg.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+            ᠰᠦᠢᠳᠭᠡᠯ : <%= allsum.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+            <% allasg = allallsum -allsum.round(0) %>
+            <% allasg = allasg.round(0) %>
+            <% if allasg.round(0)<=0 then %>
+              <span class="Ankhaaruulga">
+                ᠠᠰᠢᠭ : <%= allasg.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃ <br>
+                ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠤᠶᠤ ᠰᠦᠢᠳᠭᠡᠯ ᠢ᠋ᠢᠡᠨ ᠵᠠᠰᠠᠭᠠᠷᠠᠢ᠃
+              </span>
+            <% else %>
+              ᠠᠰᠢᠭ : <%= allasg.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃
               <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
               <% bune=allasg*0.18 %>
               ᠨᠡᠢᠲᠡ:<%= bune.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ᠃
-              <br>
+
                 <% payf4f5=0 %>
                 <% payf5=0 %>
                 <% payf6="" %>
@@ -601,29 +687,34 @@
 
                   <% end %>
                 <% end %>
-                <% if payf5>=bune %>
-                  <%= payf5.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
+                <% if payf5>=0 %>
+                  <br><%= payf5.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
                   <span class="mailfrom">
                     <%= payf6 %>
                   </span>
                   <br>
-                <% else %>
+                <% end %>
+                <% if bune.round(0)>payf5.round(0) then %>
                   <% bune=bune-payf5 %>
-                  <%= bune.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ 
-                  <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
-                        <%= fff.hidden_field :name, :value =>'ᠠᠵᠢᠯ:' + @userjob.name + ':ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
-                        <%= fff.hidden_field :f5, :value =>bune.round(0) %>
-                        <%= fff.hidden_field :unit, :value =>allunit %>
-                        <%= fff.hidden_field :userid, :value =>session[:user_id] %>
-                        <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
-                        <%= fff.hidden_field :f6, :value => Time.now %>
-                        <%= fff.hidden_field :f7, :value => Time.now %>
-                        <%= fff.hidden_field :f10, :value => 'site' %>
-                        <%= fff.hidden_field :typeid, :value => @userjob.id %>
-                        <p>
-                          <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
-                        </p>
-                      <% end %>
+                  <% if @user.id == session[:user_id] then %>
+                    ᠪᠠᠰᠠ <%= bune.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
+                    <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
+                          <%= fff.hidden_field :name, :value =>'ᠠᠵᠢᠯ:' + @userjob.name + ':ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                          <%= fff.hidden_field :f5, :value =>bune.round(0) %>
+                          <%= fff.hidden_field :unit, :value =>allunit %>
+                          <%= fff.hidden_field :userid, :value =>session[:user_id] %>
+                          <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
+                          <%= fff.hidden_field :f6, :value => Time.now %>
+                          <%= fff.hidden_field :f7, :value => Time.now %>
+                          <%= fff.hidden_field :f10, :value => 'site' %>
+                          <%= fff.hidden_field :typeid, :value => @userjob.id %>
+                          <p>
+                            <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
+                          </p>
+                    <% end %>
+                  <% else %>
+                    <%= bune.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠬᠤ ᠶ᠋ᠢ ᠬᠦᠯᠢᠶᠡᠵᠦ ᠪᠠᠢᠨ᠎ᠠ᠃
+                  <% end %>
                 <% end %>
             <% end %>
           </td>
@@ -631,6 +722,65 @@
       </table>
       </li>
       </ul>
+
+      <% if session[:user_id] == 1 then %>
+        <br>
+        <h2>ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠭᠠᠷᠭᠠᠬᠤ</h2>
+        <% if @user.userpays.any? %>
+          <ul>
+            <% @user.userpays.each do |userpay| %>
+              <% if userpay.f10=="jobcost" and userpay.unit.strip== @userjob.unit.strip and userpay.typeid==@userjob.id %>
+                <li>
+                  <%= userpay.name %>:
+                  <%= userpay.f5.round(0) %><%= userpay.unit %> ᠵᠣᠭᠤᠰ ᠭᠠᠷᠭᠠᠨ᠎ᠠ᠃
+                  <%= userpay.uname %>
+                  <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                  user_userpay_path(@user,userpay.id),
+                  method: :delete,
+                  class: 'command',
+                  data: { confirm: 'are you sure you want to delete?'}%>
+                  <br>
+                  <% if userpay.picture.present? %>
+                    <table>
+                      <tr>
+                        <td>
+                          <span class="img">
+                            <%= image_tag userpay.picture.url,:oncontextmenu=>"return false", :class => "img" %>
+                          </span>
+                        </td>
+                      </tr>
+                    </table>
+
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+        <%= form_for([@user, @user.userpays.build]) do |f| %>
+            <%= f.radio_button :name, :ᠳᠡᠳᠬᠡᠮᠵᠢ, checked: "checked" %>
+            <%= f.label :name, 'ᠳᠡᠳᠬᠡᠮᠵᠢ' %><br>
+            <%= f.radio_button :name, :ᠵᠢᠭᠡᠯᠡᠯᠭᠡ %>
+            <%= f.label :name, 'ᠵᠢᠭᠡᠯᠡᠯᠭᠡ' %><br>
+            <%= f.radio_button :name, :ᠬᠤᠳᠠᠯᠳᠤᠬᠤ %>
+            <%= f.label :name, 'ᠬᠤᠳᠠᠯᠳᠤᠬᠤ' %><br>
+            <%= f.radio_button :name, :ᠠᠰᠢᠭ %>
+            <%= f.label :name, 'ᠠᠰᠢᠭ ᠬᠤᠪᠢᠶᠠᠯᠴᠠᠬᠤ' %><br>
+            <%= f.number_field :f5, step:0.001,placeholder: '*' %> <%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃<br>
+            <%= f.file_field :picture, :type=>"file", :id=>"file", :class=>"command"  %>
+            <%= f.hidden_field :unit, :value =>@userjob.unit %>
+            <%= f.hidden_field :userid, :value =>session[:user_id] %>
+            <%= f.hidden_field :uname, :value =>session[:user_funame] %>
+            <%= f.hidden_field :f6, :value => Time.now %>
+            <%= f.hidden_field :f7, :value => Time.now %>
+            <%= f.hidden_field :f10, :value => 'jobcost' %>
+            <%= f.hidden_field :typeid, :value => @userjob.id %>
+            <p>
+              <%= f.submit 'ᠭᠠᠷᠭᠠᠬᠤ', :class=>"btn" %>
+            </p>
+        <% end %>
+      <% end %>
+
   <% end %>
 
   <hr>
@@ -661,7 +811,7 @@
                 <%= f.date_select :enddate,:type=>"date", :use_month_numbers => true, datetime_separator:' ',:time_separator => ' ', :value => @userjob.ff9 %>
               </td>
               <td>
-                  ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠠᠭ<br>
+                  ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ <br>
                   <%=f.number_field :une, step:0.001,placeholder: '1000' %><br><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
               </td>
             </tr>
@@ -688,8 +838,8 @@
       <ul>
       <% @userjob.userjobpjs.each do |userjobpj| %>
         <% if userjobpj.name.present? %>
-            <hr>
             <li>
+            <h2><%= userjobpj.name %></h2>
             <%= userjobpj.startdate.strftime('%Y.%m.%d') %>ー
             <%= userjobpj.enddate.strftime('%Y.%m.%d') %>
 
@@ -707,13 +857,13 @@
             <% else %>
               (<%= myday.round(1) %>ᠡᠳᠤᠷ)
             <% end %>
-            <h2><%= userjobpj.name %></h2>
+
             <% if userjobpj.from.present? %>
-              <%= userjobpj.from %>
+              <br><%= userjobpj.from %>
             <% end %>
 
             <span class="mailfrom">
-              <%= userjobpj.updated_at.strftime('%Y.%m.%d') %>&ensp;
+              <%= userjobpj.created_at.strftime('%Y.%m.%d') %>&ensp;
             </span>
 
             <% mysum = 0 %>
@@ -724,6 +874,7 @@
                 <% userjobpj.userjobpjhuns.each do |userjobpjhun| %>
                   <% if userjobpjhun.hcount.present? and userjobpjhun.hcount>0 %>
                       <li>
+                      <h2><%= userjobpjhun.hname %></h2>
                       <%= userjobpjhun.hstartdate.strftime('%Y.%m.%d') %>ー
                       <%= userjobpjhun.henddate.strftime('%Y.%m.%d') %>
                       <% myyear = userjobpjhun.henddate.year-userjobpjhun.hstartdate.year %>
@@ -737,50 +888,60 @@
                       <% else %>
                         (<%= myday.round(1) %>ᠡᠳᠤᠷ)
                       <% end %>
-                      <br>
-                      <%= userjobpjhun.hname %>
                       <% if userjobpjhun.hfrom.present? %>
-                        \<%= userjobpjhun.hfrom %>
+                        <br><%= userjobpjhun.hfrom %>
                       <% end %>
+                      <span class="mailfrom">
+                        <%= userjobpjhun.created_at.strftime('%Y.%m.%d') %>&ensp;
+                      </span>
                       <% if userjobpjhun.hcount.present? %>
                         <% if userjobpjhun.hcount>0 %>
                             <table height="100%" bgcolor="#FFFACD">
                               <tr>
                                 <td>
                                   <%= userjobpjhun.hcount %> ᠬᠥᠮᠦᠨ
-                                  \ᠬᠥᠮᠦᠨ ᠪᠦᠷᠢ ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ <%= userjobpjhun.hune %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ ᠃
-                                  <table height="100%" bgcolor="#F5DEB3">
-                                    <tr>
-                                      <td>
-                                      ᠮᠢᠨᠤ ᠵᠠᠬᠢᠶᠠᠯᠠᠭ᠎ᠠ:
+                                  \ᠬᠥᠮᠦᠨ ᠪᠦᠷᠢ ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ <%= userjobpjhun.hune %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
+
                                       <% hun=0 %>
                                       <% jah=0 %>
                                       <% md=0 %>
                                       <% get1=0 %>
                                       <% if userjobpjhun.userjobpjhunjahs.any? %>
+                                      <table height="100%" bgcolor="#F5DEB3">
+                                        <tr>
+                                          <td>
+                                          <ul>
                                           <% userjobpjhun.userjobpjhunjahs.each do |userjobpjhunjah| %>
-                                            <% if userjobpjhunjah.userid==session[:user_id] %>
+                                            <li>
                                                 <% jah=1 %>
                                                 ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃
                                                 <span class="mailfrom">
+                                                  <%= link_to userjobpjhunjah.uname,user_path(userjobpjhunjah.userid),class:'command' %>
                                                   <%= userjobpjhunjah.jahdt.strftime('%Y.%m.%d') %>
                                                 </span>
-                                                <% if !userjobpjhunjah.get1dt.present? %>
-                                                    <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
-                                                    user_userjob_userjobpj_userjobpjhun_userjobpjhunjah_path(@user,@userjob,userjobpj,userjobpjhun,userjobpjhunjah),
-                                                    method: :delete,
-                                                    class: 'command',
-                                                    data: { confirm: 'are you sure you want to delete?'}%>
+
+                                                <% if userjobpjhunjah.userid==session[:user_id] %>
+                                                  <% if !userjobpjhunjah.get1dt.present? %>
+                                                      <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
+                                                      user_userjob_userjobpj_userjobpjhun_userjobpjhunjah_path(@user,@userjob,userjobpj,userjobpjhun,userjobpjhunjah),
+                                                      method: :delete,
+                                                      class: 'command',
+                                                      data: { confirm: 'are you sure you want to delete?'}%>
+                                                  <% end %>
                                                 <% end %>
+                                                <br>
                                                 <% if userjobpjhunjah.mddt.present? %>
                                                   ᠮᠡᠳᠡᠯ᠎ᠡ᠃
                                                   <span class="mailfrom">
+                                                    <%= link_to @user.nickname,user_path(@user.id),class:'command' %>
                                                     <%= userjobpjhunjah.mddt.strftime('%Y.%m.%d') %>
                                                   </span>
+                                                  <br>
                                                 <% end %>
                                                 <% if userjobpjhunjah.get1dt.present? %>
                                                   ᠲᠣᠭᠲᠠᠪᠠ᠃
                                                   <span class="mailfrom">
+                                                    <%= link_to @user.nickname,user_path(@user.id),class:'command' %>
                                                     <%= userjobpjhunjah.get1dt.strftime('%Y.%m.%d') %>
                                                   </span>
                                                   <br>
@@ -796,6 +957,7 @@
                                                     \<% userjobpjhunjah.jfrom %>
                                                     <br>
                                                   <% end %>
+
                                                   <% if userjobpjhun.hune != userjobpjhunjah.june %>
                                                     ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ <%= userjobpjhunjah.june %><%= @userjob.unit %> ᠵᠣᠭᠤᠰ᠃
                                                     <br>
@@ -842,7 +1004,11 @@
 
                                                     <% payf4f5 = payf4f5.round(0) %>
                                                     <% payf5 = payf5.round(0) %>
-                                                    <% bune = userjobpjhunjah.june.round(0) %>
+                                                    <% if myday >= 28 %>
+                                                      <% bune = tmonth.round(1) * userjobpjhunjah.june.round(0) %>
+                                                    <% else %>
+                                                      <% bune = userjobpjhunjah.june.round(0) %>
+                                                    <% end %>
 
                                                     <% if payf5.round(0) > 0 %>
                                                         ᠴᠠᠯᠢᠩ:<%= payf5.round(0) %><%= @userjob.unit.strip %> ᠵᠣᠭᠤᠰ ᠬᠠᠰᠤᠪᠠ᠃
@@ -929,16 +1095,15 @@
                                                               <%= fff.hidden_field :f10, :value => job %>
                                                               <%= fff.hidden_field :typeid, :value => userjobpjhunjah.id %>
                                                               <p>
-                                                                <%= fff.submit 'ᠬᠠᠰᠠᠬᠤ', :class=>"btn" %>
+                                                                <%= fff.submit 'ᠬᠠᠰᠤᠬᠤ', :class=>"btn" %>
                                                               </p>
                                                         <% end %>
-
+                                                      </li>
                                                     <% end %>
+                                                    </ul>
                                                   </td>
                                                   </tr>
                                                   </table>
-                                                  <% end %>
-
                                                 <% end %>
                                             <% end %>
 
@@ -953,11 +1118,11 @@
                                             <% end %>
 
                                           <% end %>
+                                        </td>
+                                      </tr>
+                                    </table>
                                       <% end %>
 
-                                      </td>
-                                    </tr>
-                                  </table>
                                   <% if hun>0 %>
                                     ᠨᠡᠢᠲᠡ<%= hun %> ᠬᠥᠮᠦᠨ ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃ <br>
                                   <% end %>
@@ -983,7 +1148,7 @@
                       <%= f.hidden_field :userid, :value => session[:user_id] %>
                       <%= f.hidden_field :uname, :value => session[:user_funame] %>
                       <%= f.hidden_field :jahdt, :value => Time.now %>
-                      <%= f.submit "ᠵᠠᠬᠢᠶᠠᠯᠠᠨ᠎ᠠ", :class=>"btn" %>
+                      <%= f.submit "ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ", :class=>"btn" %>
                   <% end %>
                 <% end %>
 

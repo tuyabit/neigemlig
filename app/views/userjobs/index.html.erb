@@ -11,9 +11,9 @@
     <div class="hidden_show">
 
       <% if @user.userjobs.any? %>
-          <% @user.userjobs.each do |userjob| %>
+          <% @user.userjobs.each_with_index do |userjob,i| %>
             <% if userjob.name.present? %>
-                <br>
+                <h2><%= i+1 %>. <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob),class:'command' %></h2>
                 <table height="100%">
                   <tr>
                     <% if userjob.picture? %>
@@ -27,11 +27,12 @@
                     <td>
                       <%= userjob.f9.strftime('%Y.%m.%d') %>ー
                       <%= userjob.ff9.strftime('%Y.%m.%d') %><br>
-                      <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob),class:'command' %>
-                      <br> <%= userjob.from %><br>
-                      ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠤᠭ:<br><%= userjob.f4 %><%= userjob.unit %> ᠵᠣᠭᠤᠰ᠃
+                      ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ :<%= userjob.f4 %><%= userjob.unit %> ᠵᠣᠭᠤᠰ᠃
+                      <% if userjob.from.present? %>
+                        <br><%= userjob.from %>
+                      <% end %>
                       <% if userjob.job.present? %>
-                        <br><br><%= userjob.job %>
+                        <br><%= userjob.job %>
                       <% end %>
                       <span class="mailfrom">
                         <%= userjob.updated_at.strftime('%Y.%m.%d') %>&ensp;
@@ -99,7 +100,7 @@
               </tr>
               <tr>
                 <td>
-                    ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ ᠪᠠᠷᠤᠭ<br>
+                    ᠪᠡᠯᠡᠳᠭᠡᠯ ᠮᠥᠩᠭᠦ <br>
                     <%=f.number_field :f4, step:0.001,placeholder: '1000' %>
                     <br>
                     <%=f.text_area :unit,placeholder: '* ᠤᠯᠤᠰ', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
@@ -134,16 +135,17 @@
         <% @userjobpjhunjahs.each do |userjobpjhunjah| %>
           <% if userjobpjhunjah.jahdt.present? %>
           <li>
-
+            <h2>
             <% if userjobpjhunjah.name.present? %>
-              <%= userjobpjhunjah.name %><br>
+              <%= userjobpjhunjah.name %>
             <% end %>
             <% if userjobpjhunjah.pjname.present? %>
-              <h2><%= userjobpjhunjah.pjname %></h2>
+              \<%= userjobpjhunjah.pjname %>
             <% end %>
             <% if userjobpjhunjah.hname.present? %>
-              <%= userjobpjhunjah.hname %><br>
+              \<%= userjobpjhunjah.hname %>
             <% end %>
+            </h2>
             <% if userjobpjhunjah.jstartdate.present? %>
               <%= userjobpjhunjah.jstartdate %>ᠠ᠋ᠴᠠ<%= userjobpjhunjah.jenddate %><br>
             <% else %>
@@ -155,6 +157,7 @@
               ᠰᠠᠷ᠎ᠠ ᠪᠦᠷᠢ:<%= userjobpjhunjah.june %><%= userjobpjhunjah.junit %> ᠵᠣᠭᠤᠰ᠃<br>
             <% end %>
             <span class="mailfrom">
+
               <% if userjobpjhunjah.jahdt.present? %>
                 <%= link_to 'ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ',user_userjob_path(userjobpjhunjah.user_id,userjobpjhunjah.userjob_id),class:'command' %>:
                 <%= userjobpjhunjah.jahdt.strftime('%Y.%m.%d') %>&ensp;<br>
@@ -181,7 +184,7 @@
   <label for="alljob">ᠠᠵᠢᠯ</label>
   <input type="checkbox" id="alljob" checked="checked"/>
   <div class="hidden_show">
-
+    <ul>
       <% @alljobs.each do |userjob| %>
 
         <% alla1="" %>
@@ -207,7 +210,8 @@
         <% end %>
 
         <% if userjob.name.present? and userjob.user_id!=session[:user_id] and alljah==1 %>
-            <br>
+            <li>
+            <h2><%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob),class:'command' %></h2>
             <table height="100%">
               <tr>
                 <% if userjob.picture? %>
@@ -220,9 +224,10 @@
                 <% end %>
                 <td>
                   <%= userjob.f9.strftime('%Y.%m.%d') %>ー
-                  <%= userjob.ff9.strftime('%Y.%m.%d') %><br>
-                  <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob),class:'command' %>
-                  <br> <%= userjob.from %><br>
+                  <%= userjob.ff9.strftime('%Y.%m.%d') %>
+                  <% if userjob.from.present? %>
+                    <br><%= userjob.from %>
+                  <% end %>
                   <% if userjob.job.present? %>
                     <br><%= userjob.job %>
                   <% end %>
@@ -236,8 +241,10 @@
                 </td>
               </tr>
             </table>
+            </li>
           <% end %>
-      <% end %>
+        <% end %>
+      </ul>
     </div>
     </div>
   <% end %>

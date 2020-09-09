@@ -1,17 +1,19 @@
 <br>
 <% if session[:user_id] %>
 
-  <% if @myuser.id == session[:user_id] and session[:user_id] != 1 then %>
+  <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
     <div class="hidden_box">
-    <label for="arilja">ᠮᠢᠨᠤ ᠳᠡᠯᠭᠡᠭᠦᠷ</label>
+    <label for="arilja">
+      <%= @user.id %>ᠳ᠋ᠤᠭᠠᠷ
+      <%= link_to ' ᠳᠡᠯᠭᠡᠭᠦᠷ',user_path(@user.id),class:'command' %>
+    </label>
     <input type="checkbox" id="arilja" checked="checked"/>
     <div class="hidden_show">
-      <% if @myuser.usershops.any? %>
+      <% if @user.usershops.any? %>
           <ul>
-          <% @myuser.usershops.each do |usershop| %>
+          <% @user.usershops.each do |usershop| %>
                 <li>
                   <span class="text"><%= link_to usershop.name2,user_usershop_path(@user,usershop),class:'command' %>\<%= usershop.name1 %></span>
-                  <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
                       <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_usershop_path(@user,usershop),class:'command' %>&ensp;
                       <% if usershop.usershopimgs.any? or usershop.usershopunes.any? %>
                       <% else %>
@@ -21,8 +23,6 @@
                         class: 'command',
                         data: { confirm: 'are you sure you want to delete?'}%>
                       <% end %>
-
-                  <% end %>
                   <br>
                 </li>
             <% if usershop.name1? %>
@@ -34,7 +34,7 @@
         &ensp;&ensp;&ensp;
       <% end %>
 
-      <% if @myuser.sex=="ᠡᠷᠡᠭᠲᠡᠢ" and @myuser.age>=20 %>
+      <% if session[:user_id]!=1 and @myuser.sex=="ᠡᠷᠡᠭᠲᠡᠢ" and @myuser.age>=20 %>
         <div class="hidden_box">
         <label for="newarilja">
           <span style="color:#ff0000;font-weight:bold;">

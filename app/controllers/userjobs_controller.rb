@@ -17,7 +17,7 @@ class UserjobsController < ApplicationController
     @user = User.find(params[:user_id])
     @userjob = @user.userjobs.find(params[:id])
     @f10userpays = Userpay.where(userid: @user.id).order(updated_at:'asc')
-
+    @alluserpays = Userpay.all.order(updated_at:'asc')
     @adminuser = User.find(1)
 
     if session[:user_id]

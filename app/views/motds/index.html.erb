@@ -416,43 +416,38 @@
   <hr>
   <% jobname=[] %>
   <% jobhas=0 %>
-  <% if session[:user_id] %>
-    <% @userjobs.each do |userjob| %>
-      <% if @mymlqdbs.any? %>
-        <% @mymlqdbs.each do |mlqdb| %>
-          <% if mlqdb.a9<Time.now and mlqdb.f9>Time.now %>
-            <% if userjob.a1.strip==mlqdb.a1.strip and userjob.f1.strip==mlqdb.f1.strip and userjob.a2.strip==mlqdb.a2.strip %>
-              <% jobname.push(userjob.name) %>
-              <% jobhas=1 %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
 
   <div class="hidden_box">
   <label for="ajil">ᠠᠵᠢᠯ</label>
   <input type="checkbox" id="ajil" checked="checked"/>
   <div class="hidden_show">
 
-    <% if jobhas==1 then %>
+    <% if session[:user_id]==1 then %>
       <ul>
+        <% @alluserjobs.each do |userjob| %>
+            <li>
+              <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob.id),class:'command'  %>
+            </li>
+        <% end %>
+      </ul>
+    <% else %>
+        <ul>
           <% @userjobs.each do |userjob| %>
-            <% if @mymlqdbs.any? %>
-              <% @mymlqdbs.each do |mlqdb| %>
-                <% if mlqdb.a9<Time.now and mlqdb.f9>Time.now %>
-                  <% if userjob.a1.strip==mlqdb.a1.strip and userjob.f1.strip==mlqdb.f1.strip and userjob.a2.strip==mlqdb.a2.strip %>
-                    <li>
-                    <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob.id),class:'command'  %>
-                    </li>
+              <% if @mymlqdbs.any? %>
+                <% @mymlqdbs.each do |mlqdb| %>
+                  <% if mlqdb.a9<Time.now and mlqdb.f9>Time.now %>
+                    <% if userjob.a1.strip==mlqdb.a1.strip and userjob.f1.strip==mlqdb.f1.strip and userjob.a2.strip==mlqdb.a2.strip %>
+                      <li>
+                      <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob.id),class:'command'  %>
+                      </li>
+                    <% end %>
                   <% end %>
                 <% end %>
               <% end %>
-            <% end %>
           <% end %>
-      </ul>
+        </ul>
     <% end %>
+
 
     <% if @userjobpjhunjahs.any? %>
       <% ajlhra=0 %>
@@ -524,31 +519,24 @@
           <% end %>
           <%= userjobpjhunjah.jobname %>\
           <%= userjobpjhunjah.name %>\
-          <%= userjobpjhunjah.hname %>\
+          <%= link_to userjobpjhunjah.hname,user_userjob_path(userjobpjhunjah.user_id,userjobpjhunjah.userjob_id),class:'command' %>
+
           <% if userjobpjhunjah.june.present? and userjobpjhunjah.junit.present? %>
-            ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ <%= userjobpjhunjah.june %><%= userjobpjhunjah.junit %> ᠵᠣᠭᠤᠰ\
+            \ᠰᠠᠷ᠎ᠠ ᠳ᠋ᠤ <%= userjobpjhunjah.june %><%= userjobpjhunjah.junit %> ᠵᠣᠭᠤᠰ᠃
           <% end %>
-          <span class="mailfrom">
-            <% if userjobpjhunjah.uname.present? %>
-              <%= userjobpjhunjah.uname %>
-            <% else %>
-              <% if userjobpjhunjah.userid.present? %>
-                <%= userjobpjhunjah.userid %>
-              <% end %>
-            <% end %>
-            ᠠ᠋ᠴᠠ
-            <%= link_to 'ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ',user_userjob_path(userjobpjhunjah.user_id,userjobpjhunjah.userjob_id),class:'command' %>᠃
-          </span>
           <% if userjobpjhunjah.jahdt.present? %>
+            \
             <span class="mailfrom">
+              ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃
               <%= userjobpjhunjah.jahdt.strftime('%Y.%m.%d %H:%M') %>
-            </span>\
+            </span>
           <% end %>
           <% if userjobpjhunjah.get1dt.present? %>
-            ᠲᠣᠭᠲᠠᠪᠠ᠃
+            \
             <span class="mailfrom">
+              ᠲᠣᠭᠲᠠᠪᠠ᠃
               <%= userjobpjhunjah.get1dt.strftime('%Y.%m.%d %H:%M') %>
-            </span>\
+            </span>
           <% end %>
 
 
@@ -576,7 +564,7 @@
         <% end %>
 
         <% if userjob.name.present? %>
-          <% if jobshow==1 %>
+          <% if jobshow==1 or session[:user_id]==1  %>
             <% job=job+1 %>
             <% if userjob.picture? %>
               <%= link_to image_tag(userjob.picture.url,:id=>userjob.id,:oncontextmenu=>"return false", :class => "bigimg"),user_userjob_path(userjob.user_id,userjob) %>

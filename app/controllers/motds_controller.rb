@@ -15,8 +15,8 @@ class MotdsController < ApplicationController
         end
         @usermotds = Motd.where(f3: session[:user_id]).order(updated_at:'desc')
         @mlqdbs = Mlqdb.joins("LEFT OUTER JOIN users ON mlqdbs.user_id=users.id ").select("mlqdbs.*,users.nickname").order(a9:'desc')
-        @userjobs = Userjob.joins("LEFT OUTER JOIN mlqdbs ON userjobs.user_id=mlqdbs.user_id ").select("userjobs.*,mlqdbs.a1,mlqdbs.f1,mlqdbs.a2,mlqdbs.a9,mlqdbs.f9").order(updated_at:'desc')
-
+        @userjobs = Userjob.joins("LEFT OUTER JOIN mlqdbs ON userjobs.user_id=mlqdbs.user_id ").select("userjobs.*,mlqdbs.a1,mlqdbs.f1,mlqdbs.a2,mlqdbs.a9,mlqdbs.f9").order(created_at:'desc')
+        @alluserjobs = Userjob.all.order(created_at:'asc')
 
         # @motds = Motd.joins("LEFT OUTER JOIN 'users' ON 'users'.'id' = 'motds'.'f3' ").select("motds.*,users.nickname").order(updated_at:'desc')
         # @mottimages = Mottimage.joins("LEFT OUTER JOIN 'motts' ON 'motts'.'id' = 'mottimages'.'mott_id' LEFT OUTER JOIN 'motds' ON 'motds'.'id' = 'motts'.'motd_id'").select("mottimages.*,MAX(mottimages.updated_at),motts.motd_id,motts.f1").group("motd_id,motts.f1").order(updated_at:'desc')
@@ -44,7 +44,7 @@ class MotdsController < ApplicationController
         @maxcoms = Comment.joins("right outer join (select mott_id,max(id) as id from comments group by mott_id order by id desc) as maxcom on comments.mott_id=maxcom.mott_id and comments.id= maxcom.id ").select("comments.*").order(updated_at:'desc')
         @comments = @maxcoms.joins("LEFT OUTER JOIN motts ON  comments.mott_id = motts.id LEFT OUTER JOIN motds ON motts.motd_id = motds.id WHERE motts.f6<=SYSDATE() and motts.f7>=SYSDATE() AND motts.Mdid is not null AND motts.f4 is null").select("comments.*,motts.motd_id,motts.f1")
 
-        @usershops = Usershop.all.order(updated_at:'desc')
+        @usershops = Usershop.all.order(created_at:'desc')
 
         @payunitjahs = Payunitjah.joins("LEFT OUTER JOIN payunits ON payunitjahs.payunit_id = payunits.id LEFT OUTER JOIN motts ON payunits.mott_id = motts.id LEFT OUTER JOIN motds ON motts.motd_id = motds.id").select("payunitjahs.*,payunits.f7,motts.f1,motts.motd_id,motds.f3").order(updated_at:'desc')
         @payunits = Payunit.joins("LEFT OUTER JOIN motts ON payunits.mott_id = motts.id LEFT OUTER JOIN motds ON motts.motd_id = motds.id").select("payunits.*,motts.f7 as mtf7,motts.f1,motts.motd_id,motds.f3").order(f4:'desc',created_at:'asc')

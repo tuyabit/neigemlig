@@ -784,7 +784,7 @@
   <% inoutsum=[] %>
   <% inoutunit=[] %>
 
-  <% if session[:user_id] and session[:user_id]!=1 then %>
+  <% if session[:user_id] then %>
     <hr>
     <h2>ᠳᠠᠩᠰᠠ</h2>
 
@@ -1071,17 +1071,18 @@
     <% end %>
   <% end %>
 
+  <h2>&ensp;ᠨᠡᠢᠲᠡ</h2>
   <% inunit.each_with_index do |inunit, i| %>
-      <br>
+
       <% if insum[i].round(0)>0 %>
         <%= @user.nickname %> ᠠ᠋ᠴᠠ ᠨᠡᠢᠲᠡ:
-        <span class="Ankhaaruulga"><%= insum[i].round(0) %></span>
-        <%= inunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠬᠤᠷᠢᠶᠠᠪᠠ᠃
+        <span class="Ankhaaruulga"><%= insum[i].round(0) %>
+        <%= inunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠬᠤᠷᠢᠶᠠᠪᠠ᠃</span>
         <% hvraa=1 %>
       <% else %>
         <%= @user.nickname %> ᠳ᠋ᠤ ᠨᠡᠢᠲᠡ:
-        <span class="Ankhaaruulga"><%= 0-insum[i].round(0) %></span>
-        <%= inunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃
+        <span class="Ankhaaruulga"><%= 0-insum[i].round(0) %>
+        <%= inunit %> ᠵᠣᠭᠤᠰ ᠳᠤᠲᠠᠭᠤ ᠲᠤᠰᠢᠶᠠᠪᠠ᠃</span>
       <% end %>
       <br><br>
   <% end %>

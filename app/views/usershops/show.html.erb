@@ -1,18 +1,22 @@
 
 <% if session[:user_id] then %>
-
-  <div class="hidden_box">
-      <h2><label for="minidelguur">ᠮᠢᠨᠦ ᠳᠡᠯᠭᠡᠭᠦᠷ&ensp;</label></h2>
+  <% if @user.id == session[:user_id] or session[:user_id]==1 then %>
+    <div class="hidden_box">
+      <h2><label for="minidelguur">
+          <%= @user.id %> ᠳ᠋ᠤᠭᠠᠷ ᠳᠡᠯᠭᠡᠭᠦᠷ
+          <%= link_to '（' + @user.nickname + '）',user_path(@user.id),class:'command' %>
+      </label></h2>
       <input type="checkbox" id="minidelguur" checked="checked"/>
       <div class="hidden_show">
 
-        <% if @myusershops.any? %>
+      <% if @usershops.any? %>
 
-        <% sumbu1=[] %>
-        <% sumunitbu1=[] %>
+      <% sumau1=[] %>
+      <% sumbu1=[] %>
+      <% sumunitbu1=[] %>
 
     <ul>
-      <% @myusershops.each do |usershop| %>
+      <% @usershops.each do |usershop| %>
         <li>
           <% if @usershop.id == usershop.id then %>
             <span :class="text"><%= usershop.name2 %>\<%= usershop.name1%><span>
@@ -53,25 +57,28 @@
                   <% end %>
                 <% end %>
             <% end %>
-            <div class="hidden_box">
-            <label for="newpic">
-              <span style="color:#ff0000;font-weight:bold;">
-              &ensp;ᠵᠢᠷᠤᠭ ᠨᠡᠮᠡᠬᠦ
-              </span>
-            </label>
-            <input type="checkbox" id="newpic"/>
-            <div class="hidden_show">
-              <%= form_for([@user,usershop, usershop.usershopimgs.build]) do |f| %>
-                  <p>
-                    <%= f.file_field :picture, :type=>"file" , :id=>"file", :class=>"command"  %>
-                    <%=f.text_area :name,placeholder: 'ᠵᠢᠷᠤᠭ',:class=>"gaarea" %>
-                  </p>
-                  <p>
-                    <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
-                  </p>
-              <% end %>
-            </div>
-            </div>
+
+            <% if @user.id == session[:user_id] %>
+              <div class="hidden_box">
+              <label for="newpic">
+                <span style="color:#ff0000;font-weight:bold;">
+                &ensp;ᠵᠢᠷᠤᠭ ᠨᠡᠮᠡᠬᠦ
+                </span>
+              </label>
+              <input type="checkbox" id="newpic"/>
+              <div class="hidden_show">
+                <%= form_for([@user,usershop, usershop.usershopimgs.build]) do |f| %>
+                    <p>
+                      <%= f.file_field :picture, :type=>"file" , :id=>"file", :class=>"command"  %>
+                      <%=f.text_area :name,placeholder: 'ᠵᠢᠷᠤᠭ',:class=>"gaarea" %>
+                    </p>
+                    <p>
+                      <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                    </p>
+                <% end %>
+              </div>
+              </div>
+            <% end %>
 
             <div class="hidden_box">
                 <h2><label for="une">ᠦᠨ᠎ᠡ&ensp;</label></h2>
@@ -146,25 +153,28 @@
                               <% end %>
                             <% end %>
                         <% end %>
-                        <div class="hidden_box">
-                        <label for="newpic<%=usershopune.id %>">
-                          <span style="color:#ff0000;font-weight:bold;">
-                            &ensp;ᠵᠢᠷᠤᠭ ᠨᠡᠮᠡᠬᠦ
-                          </span>
-                        </label>
-                        <input type="checkbox" id="newpic<%=usershopune.id %>"/>
-                        <div class="hidden_show">
-                          <%= form_for([@user,usershop, usershopune,usershopune.usershopuneimgs.build]) do |f| %>
-                              <p>
-                                <%= f.file_field :picture, :type=>"file" , :id=>"file", :class=>"command"  %>
-                                <%=f.text_area :name,placeholder: 'ᠵᠢᠷᠤᠭ',:class=>"gaarea" %>
-                              </p>
-                              <p>
-                                <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
-                              </p>
-                          <% end %>
-                        </div>
-                        </div>
+
+                        <% if @user.id == session[:user_id] %>
+                          <div class="hidden_box">
+                          <label for="newpic<%=usershopune.id %>">
+                            <span style="color:#ff0000;font-weight:bold;">
+                              &ensp;ᠵᠢᠷᠤᠭ ᠨᠡᠮᠡᠬᠦ
+                            </span>
+                          </label>
+                          <input type="checkbox" id="newpic<%=usershopune.id %>"/>
+                          <div class="hidden_show">
+                            <%= form_for([@user,usershop, usershopune,usershopune.usershopuneimgs.build]) do |f| %>
+                                <p>
+                                  <%= f.file_field :picture, :type=>"file" , :id=>"file", :class=>"command"  %>
+                                  <%=f.text_area :name,placeholder: 'ᠵᠢᠷᠤᠭ',:class=>"gaarea" %>
+                                </p>
+                                <p>
+                                  <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                                </p>
+                            <% end %>
+                          </div>
+                          </div>
+                        <% end %>
 
                         <% if usershopune.usershopunejahs.any? %>
                         <table height="100%" bgcolor="#EEE8AA">
@@ -276,8 +286,8 @@
             <% payf10=0 %>
             <% payf6="" %>
 
-            <% if @myuser.userpays.any? %>
-              <% @myuser.userpays.each do |userpay| %>
+            <% if @user.userpays.any? %>
+              <% @user.userpays.each do |userpay| %>
 
                 <% if userpay.userid.present? %>
                     <% if userpay.userid==usershopunejah.userid and userpay.unit.strip== usershopunejah.unit2.strip %>
@@ -308,9 +318,9 @@
 
             <% if payf10 != usershopunejah.id %>
 
-                <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_usershop_usershopune_usershopunejah_path(@myuser,usershop,usershopune,usershopunejah),class:'command' %>&ensp;
+                <%= link_to ' ᠵᠠᠰᠠᠬᠤ',edit_user_usershop_usershopune_usershopunejah_path(@user,usershop,usershopune,usershopunejah),class:'command' %>&ensp;
                 <%= link_to ' ᠬᠠᠰᠤᠬᠤ',
-                user_usershop_usershopune_usershopunejah_path(@myuser,usershop,usershopune,usershopunejah),
+                user_usershop_usershopune_usershopunejah_path(@user,usershop,usershopune,usershopunejah),
                 method: :delete,
                 class: 'command',
                 data: { confirm: 'are you sure you want to delete?'}%>
@@ -320,41 +330,44 @@
                   ᠲᠤᠰᠢᠶᠠᠭᠰᠠᠨ ᠵᠣᠭᠤᠰ:<%= payf4f5 %><%= usershopunejah.unit2.strip %>&ensp;ᠵᠣᠭᠤᠰ᠃
                 </span>
 
-                <% strname="ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ:" %>
-                <% if usershopunejah.name.present? %>
-                  <% strname=strname + usershopunejah.name %>
+                <% if @user.id == session[:user_id] %>
+                  <% strname="ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ:" %>
+                  <% if usershopunejah.name.present? %>
+                    <% strname=strname + usershopunejah.name %>
+                    <% strname=strname + " " %>
+                  <% end %>
+                  <% strname=strname + usershopunejah.name1 %>
                   <% strname=strname + " " %>
-                <% end %>
-                <% strname=strname + usershopunejah.name1 %>
-                <% strname=strname + " " %>
-                <% strname=strname + usershop.name1 %>
-                <% strname=strname + " ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ " %>
-                <% shopp="shopp" %>
-                <%= form_for([@myuser, @myuser.userpays.build]) do |fff| %>
-                      <%= fff.hidden_field :name, :value =>strname %>
-                      <%= fff.hidden_field :f5, :value =>usershopunejah.une2 %>
-                      <%= fff.hidden_field :unit, :value =>usershopune.unit2 %>
-                      <%= fff.hidden_field :userid, :value =>usershopunejah.userid %>
-                      <%= fff.hidden_field :uname, :value =>usershopunejah.uname %>
-                      <%= fff.hidden_field :f6, :value => Time.now %>
-                      <%= fff.hidden_field :f7, :value => Time.now %>
-                      <%= fff.hidden_field :f10, :value => shopp %>
-                      <%= fff.hidden_field :typeid, :value => usershopunejah.id %>
-                      <p>
-                        <%= fff.submit 'ᠬᠤᠳᠠᠯᠳᠠᠬᠤ', :class=>"btn" %>
-                      </p>
-                <% end %>
+                  <% strname=strname + usershop.name1 %>
+                  <% strname=strname + " ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ " %>
+                  <% shopp="shopp" %>
+                  <%= form_for([@myuser, @myuser.userpays.build]) do |fff| %>
+                        <%= fff.hidden_field :name, :value =>strname %>
+                        <%= fff.hidden_field :f5, :value =>usershopunejah.une2 %>
+                        <%= fff.hidden_field :unit, :value =>usershopune.unit2 %>
+                        <%= fff.hidden_field :userid, :value =>usershopunejah.userid %>
+                        <%= fff.hidden_field :uname, :value =>usershopunejah.uname %>
+                        <%= fff.hidden_field :f6, :value => Time.now %>
+                        <%= fff.hidden_field :f7, :value => Time.now %>
+                        <%= fff.hidden_field :f10, :value => shopp %>
+                        <%= fff.hidden_field :typeid, :value => usershopunejah.id %>
+                        <p>
+                          <%= fff.submit 'ᠬᠤᠳᠠᠯᠳᠠᠬᠤ', :class=>"btn" %>
+                        </p>
+                  <% end %>
 
-                <%= form_for usershopunejah, url: user_usershop_usershopune_usershopunejah_path(@myuser,usershop,usershopune,usershopunejah) do |ff| %>
-                      <%= ff.hidden_field :ujdt, :value =>"nil" %>
-                      <%= ff.hidden_field :get2dt, :value =>"nil" %>
-                      <%= ff.hidden_field :une2, :value =>"nil" %>
-                      <%= ff.hidden_field :unit2, :value =>"nil" %>
-                      <p>
-                        <%= ff.submit "ᠪᠤᠴᠠᠭᠠᠬᠤ", :class=>"btn" %>
-                      </p>
+                  <%= form_for usershopunejah, url: user_usershop_usershopune_usershopunejah_path(@myuser,usershop,usershopune,usershopunejah) do |ff| %>
+                        <%= ff.hidden_field :ujdt, :value =>"nil" %>
+                        <%= ff.hidden_field :get2dt, :value =>"nil" %>
+                        <%= ff.hidden_field :une2, :value =>"nil" %>
+                        <%= ff.hidden_field :unit2, :value =>"nil" %>
+                        <p>
+                          <%= ff.submit "ᠪᠤᠴᠠᠭᠠᠬᠤ", :class=>"btn" %>
+                        </p>
+                  <% end %>
+                <% else %>
+                  ᠬᠤᠳᠠᠯᠳᠠᠬᠤ ᠪᠤᠶᠤ ᠪᠤᠴᠠᠭᠠᠬᠤ ᠶ᠋ᠢ ᠬᠦᠯᠢᠶᠡᠵᠤ ᠪᠠᠢᠨ᠎ᠠ᠃
                 <% end %>
-
             <% else %>
               <table height="100%" bgcolor="#999966">
                 <tr>
@@ -366,16 +379,22 @@
                        <%= usershopunejah.get2dt.strftime('%Y.%m.%d %H:%M') %>
                      </span>
 
-                     <% sumbu1.push((usershopunejah.bay1 - usershopunejah.une1) * usershopunejah.count) %>
+
+                     <% sumau1.push(usershopunejah.une1 * usershopunejah.count) %>
+                     <% sumbu1.push(usershopunejah.bay1 * usershopunejah.count) %>
                      <% sumunitbu1.push(usershopunejah.unit1.strip) %>
 
                  <% else %>
+                   <% if @user.id == session[:user_id] %>
                      <%= form_for usershopunejah, url: user_usershop_usershopune_usershopunejah_path(@myuser,usershop,usershopune,usershopunejah) do |ff| %>
                          <%= ff.hidden_field :get2dt, :value => Time.now %>
-                            <p>
-                              <%= ff.submit "ᠰᠣᠯᠢᠯᠴᠠᠬᠤ", :class=>"btn" %>
-                            </p>
+                          <p>
+                            <%= ff.submit "ᠰᠣᠯᠢᠯᠴᠠᠬᠤ", :class=>"btn" %>
+                          </p>
                      <% end %>
+                   <% else %>
+                     ᠰᠣᠯᠢᠯᠴᠠᠬᠤ ᠶ᠋ᠢ ᠬᠦᠯᠢᠶᠡᠵᠤ ᠪᠠᠢᠨ᠎ᠠ᠃
+                   <% end %>
                  <% end %>
                  </td>
                </tr>
@@ -387,6 +406,7 @@
       </table>
 
         <% else %>
+          <% if @user.id == session[:user_id] %>
             <%= form_for usershopunejah, url: user_usershop_usershopune_usershopunejah_path(@myuser,usershop,usershopune,usershopunejah) do |ff| %>
                 <%= ff.hidden_field :ujdt, :value => Time.now %>
                 <%= ff.hidden_field :get1dt, :value => Time.now %>
@@ -403,6 +423,9 @@
                   <%= ff.submit "ᠮᠡᠳᠡᠯ᠎ᠡ", :class=>"btn" %>
                 </p>
             <% end %>
+          <% else %>
+            ᠬᠠᠷᠢᠭᠤ ᠬᠦᠯᠢᠶᠡᠵᠤ ᠪᠠᠢᠨ᠎ᠠ᠃
+          <% end %>
         <% end %>
 
 
@@ -424,81 +447,84 @@
                     </ul>
                     <% end %>
 
-                    <div class="hidden_box">
-                    <label for="newune<%= usershop.id %>">
-                      <span style="color:#ff0000;font-weight:bold;">
-                      &ensp;ᠦᠨ᠎ᠡ ᠨᠡᠮᠡᠬᠦ
-                      </span>
-                    </label>
-                    <input type="checkbox" id="newune<%= usershop.id %>"/>
-                    <div class="hidden_show">
+                    <% if @user.id == session[:user_id] %>
+                      <div class="hidden_box">
+                      <label for="newune<%= usershop.id %>">
+                        <span style="color:#ff0000;font-weight:bold;">
+                        &ensp;ᠦᠨ᠎ᠡ ᠨᠡᠮᠡᠬᠦ
+                        </span>
+                      </label>
+                      <input type="checkbox" id="newune<%= usershop.id %>"/>
+                      <div class="hidden_show">
 
-                    <%= form_for([@myuser,usershop, usershop.usershopunes.build]) do |f| %>
-                          <table>
-                            <tr>
-                              <td>
-                                ᠠᠭᠤᠯᠠᠭᠳᠠᠭᠴᠢ ᠬᠡᠮᠵᠢᠶ᠎ᠡ (ᠵᠢᠰᠢᠶᠡᠯᠡᠪᠡᠯ120ml)
-                              </td>
-                              <td>
-                                ᠣᠷᠤᠭᠤᠯᠤᠭᠰᠠᠨ ᠭᠠᠵᠠᠷ
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <%=f.text_area :name,placeholder:'', :class=>"bgarea" %>
-                              </td>
-                              <td>
-                                <%=f.text_area :from,placeholder:'', :class=>"bgarea" %>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                １ᠤᠤᠯ ᠦᠨ᠎ᠡ<br>
-                                ２ᠬᠤᠳᠠᠯᠳᠠᠬᠤ ᠦᠨ᠎ᠡ <br>
-                                ３ᠪᠤᠰᠤᠳ ᠰᠦᠢᠳᠬᠡᠯ <br>
-                              </td>
-                              <td>
-                                ４ᠬᠠᠷᠢᠴᠠᠯ<br>
-                                ５ᠨᠡᠢᠲᠡ
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p>
-                                <%=f.number_field :une1, step:0.001,placeholder: '*1' %>
-                                <%=f.number_field :bay1, step:0.001,placeholder: '*2' %>
-                                <%=f.number_field :jah1, step:0.001,placeholder: '3' %>
-                                </p>
-                               </td>
-                              <td>
-                                <%=f.number_field :une3, step:0.001,placeholder: '4=(5÷(2+3))', :size=>"100x10" %>
-                                <%=f.number_field :une2, step:0.001 ,placeholder: '*5=(4×(2+3))', :size=>"100x10" %>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <%=f.text_area :unit1,placeholder: 'ᠤᠯᠤᠰ１*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
-                              </td>
-                              <td>
-                                <%=f.text_area :unit2,placeholder: 'ᠤᠯᠤᠰ２*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
-                              </td>
-                            </tr>
-                          </table>
-                          <p>
-                            <%= f.hidden_field :dune, :value =>Time.now %>
-                            <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
-                            &ensp;&ensp;<span class="Ankhaaruulga">* ᠵᠠᠪᠠᠯ ᠪᠢᠴᠢᠬᠦ ᠠᠭᠤᠯᠭ᠎ᠠ</span>
-                          </p>
+                      <%= form_for([@myuser,usershop, usershop.usershopunes.build]) do |f| %>
+                            <table>
+                              <tr>
+                                <td>
+                                  ᠠᠭᠤᠯᠠᠭᠳᠠᠭᠴᠢ ᠬᠡᠮᠵᠢᠶ᠎ᠡ (ᠵᠢᠰᠢᠶᠡᠯᠡᠪᠡᠯ120ml)
+                                </td>
+                                <td>
+                                  ᠣᠷᠤᠭᠤᠯᠤᠭᠰᠠᠨ ᠭᠠᠵᠠᠷ
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <%=f.text_area :name,placeholder:'', :class=>"bgarea" %>
+                                </td>
+                                <td>
+                                  <%=f.text_area :from,placeholder:'', :class=>"bgarea" %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  １ᠤᠤᠯ ᠦᠨ᠎ᠡ<br>
+                                  ２ᠬᠤᠳᠠᠯᠳᠠᠬᠤ ᠦᠨ᠎ᠡ <br>
+                                  ３ᠪᠤᠰᠤᠳ ᠰᠦᠢᠳᠬᠡᠯ <br>
+                                </td>
+                                <td>
+                                  ４ᠬᠠᠷᠢᠴᠠᠯ<br>
+                                  ５ᠨᠡᠢᠲᠡ
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>
+                                  <%=f.number_field :une1, step:0.001,placeholder: '*1' %>
+                                  <%=f.number_field :bay1, step:0.001,placeholder: '*2' %>
+                                  <%=f.number_field :jah1, step:0.001,placeholder: '3' %>
+                                  </p>
+                                 </td>
+                                <td>
+                                  <%=f.number_field :une3, step:0.001,placeholder: '4=(5÷(2+3))', :size=>"100x10" %>
+                                  <%=f.number_field :une2, step:0.001 ,placeholder: '*5=(4×(2+3))', :size=>"100x10" %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <%=f.text_area :unit1,placeholder: 'ᠤᠯᠤᠰ１*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+                                </td>
+                                <td>
+                                  <%=f.text_area :unit2,placeholder: 'ᠤᠯᠤᠰ２*', :class=>"bgarea" %><br>ᠵᠣᠭᠤᠰ
+                                </td>
+                              </tr>
+                            </table>
+                            <p>
+                              <%= f.hidden_field :dune, :value =>Time.now %>
+                              <%= f.submit " ᠨᠡᠮᠡᠬᠦ", :class=>"btn" %>
+                              &ensp;&ensp;<span class="Ankhaaruulga">* ᠵᠠᠪᠠᠯ ᠪᠢᠴᠢᠬᠦ ᠠᠭᠤᠯᠭ᠎ᠠ</span>
+                            </p>
 
+                      <% end %>
+                      </div>
+                      </div>
                     <% end %>
-                    </div>
-                    </div>
-
                       <% unitbune="" %>
                       <% bune=0 %>
+                      <% aune=0 %>
 
                       <% unitbu=[] %>
                       <% bu=[] %>
+                      <% au=[] %>
 
                       <% sumunitbu1.each_with_index do |bu1, i| %>
 
@@ -507,17 +533,21 @@
                           <% if unitbune !="" %>
                             <% unitbu.push(unitbune) %>
                             <% bu.push(bune) %>
+                            <% au.push(aune) %>
                           <% end %>
 
                           <% unitbune = bu1 %>
                           <% bune = sumbu1[i] %>
+                          <% aune = sumau1[i] %>
                         <% else %>
                           <% bune = bune + sumbu1[i] %>
+                          <% aune = aune + sumau1[i] %>
                         <% end %>
                       <% end %>
 
                       <% unitbu.push(unitbune) %>
                       <% bu.push(bune.round(0)) %>
+                      <% au.push(aune.round(0)) %>
 
                       <% payf4f5=0 %>
                       <% payf10=0 %>
@@ -528,13 +558,13 @@
                           <tr>
                             <td>
 
-                                ᠠᠰᠢᠭ:
                                 <% unitbu.each_with_index do |unit, i| %>
-                                    <%= bu[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃
-                                    <% if bu[i]!=0 %>
-                                        <br>
+                                  ᠭᠠᠷᠤᠯᠭ᠎ᠠ:<%= au[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃ <br>
+                                  ᠣᠷᠤᠯᠭ᠎ᠠ:<%= bu[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃ <br>
+                                  ᠠᠰᠢᠭ :<%= bu[i]-au[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃ <br>
+                                    <% if bu[i]>au[i] %>
                                         <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
-                                        <% bune=bu[i]*0.18 %>
+                                        <% bune=(bu[i]-au[i])*0.18 %>
                                         <%= bune.round(0) %><%= unit %> ᠵᠣᠭᠤᠰ
 
                                         <% payf5=0 %>
@@ -571,24 +601,27 @@
                                           </span>
                                           <br>
                                         <% else %>
-                                            <% bune = bune - payf5 %>
-
-                                            <% strname="ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ:" %>
-                                            <% strname=strname + usershop.name1 %>
-                                            <% strname=strname + " ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ " %>
-                                            <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
-                                                  <%= fff.hidden_field :name, :value =>strname+'ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
-                                                  <%= fff.hidden_field :f5, :value =>bune.round(0) %>
-                                                  <%= fff.hidden_field :unit, :value =>unit %>
-                                                  <%= fff.hidden_field :userid, :value =>session[:user_id] %>
-                                                  <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
-                                                  <%= fff.hidden_field :f6, :value => Time.now %>
-                                                  <%= fff.hidden_field :f7, :value => Time.now %>
-                                                  <%= fff.hidden_field :f10, :value => 'site' %>
-                                                  <%= fff.hidden_field :typeid, :value => usershop.id %>
-                                                  <p>
-                                                    <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
-                                                  </p>
+                                          <% bune = bune - payf5 %>
+                                            <% if @user.id == session[:user_id] %>
+                                              <% strname="ᠠᠷᠠᠯᠵᠢᠶ᠎ᠠ:" %>
+                                              <% strname=strname + usershop.name1 %>
+                                              <% strname=strname + " ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ " %>
+                                              <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
+                                                    <%= fff.hidden_field :name, :value =>strname+'ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                                                    <%= fff.hidden_field :f5, :value =>bune.round(0) %>
+                                                    <%= fff.hidden_field :unit, :value =>unit %>
+                                                    <%= fff.hidden_field :userid, :value =>session[:user_id] %>
+                                                    <%= fff.hidden_field :uname, :value =>session[:user_funame] %>
+                                                    <%= fff.hidden_field :f6, :value => Time.now %>
+                                                    <%= fff.hidden_field :f7, :value => Time.now %>
+                                                    <%= fff.hidden_field :f10, :value => 'site' %>
+                                                    <%= fff.hidden_field :typeid, :value => usershop.id %>
+                                                    <p>
+                                                      <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
+                                                    </p>
+                                              <% end %>
+                                            <% else %>
+                                              ᠲᠤᠰᠢᠶᠠᠬᠤ ᠶ᠋ᠢ ᠬᠦᠯᠢᠶᠡᠵᠦ ᠪᠠᠢᠨ᠎ᠠ᠃
                                             <% end %>
                                         <% end %>
                                     <% end %>
@@ -615,7 +648,7 @@
     </ul>
     </div>
   </div>
-
+  <% end %>
   <% if @usershopunejahs.any? %>
 
     <div class="hidden_box">

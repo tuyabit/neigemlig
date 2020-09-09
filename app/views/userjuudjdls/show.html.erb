@@ -268,7 +268,7 @@
                         <%= bu[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃
                         <% if bu[i]!=0 %>
                             <br>
-                            <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠲ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ
+                            <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ
                             <% bune=bu[i]*0.18 %>
                             <%= bune.round(0) %><%= unit %> ᠵᠣᠭᠤᠰ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
 
@@ -321,7 +321,7 @@
                                     </span>
                                     <% if session[:user_id]!=1 %>
                                     <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
-                                          <%= fff.hidden_field :name, :value =>'ᠶᠡᠷᠦᠩᠬᠡᠢ ᠡᠷᠬᠢᠯᠡᠭᠴᠢ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
+                                          <%= fff.hidden_field :name, :value =>'ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
                                           <%= fff.hidden_field :f5, :value =>bune.round(0) %>
                                           <%= fff.hidden_field :unit, :value =>unit %>
                                           <%= fff.hidden_field :userid, :value =>session[:user_id] %>

@@ -62,46 +62,49 @@
 
 <% if session[:user_id] and @allmotds.any? %>
 
-  <div class="hidden_box">
-  <h2><label for="mysoyol">ᠮᠢᠨᠦ ᠵᠠᠬᠢᠶᠠᠯᠠᠭ᠎ᠠ</label></h2>
-  <input type="checkbox" id="mysoyol" checked="checked"/>
-  <div class="hidden_show">
-    <ul>
+
       <% @allmotds.each_with_index do |motd,i| %>
         <% if motd.motts.any? %>
-        <% motd.motts.each do |mott| %>
-        <% if mott.payunits.any? %>
-        <% mott.payunits.each do |payunit| %>
-        <% if payunit.payunitjahs.any? %>
-        <% payunit.payunitjahs.each do |payunitjah| %>
-          <% jah=0 %>
-          <% if payunitjah.jf7.present? then %>
-            <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i>Time.now.strftime('%Y%m%d%H%M').to_i then %>
-              <% jah=1 %>
+          <% motd.motts.each do |mott| %>
+          <% if mott.payunits.any? %>
+            <% mott.payunits.each do |payunit| %>
+            <% if payunit.payunitjahs.any? and session[:user_id]!=1 %>
+            <div class="hidden_box">
+            <h2><label for="mysoyol">ᠮᠢᠨᠦ ᠵᠠᠬᠢᠶᠠᠯᠠᠭ᠎ᠠ</label></h2>
+            <input type="checkbox" id="mysoyol" checked="checked"/>
+            <div class="hidden_show">
+              <ul>
+              <% payunit.payunitjahs.each do |payunitjah| %>
+                <% jah=0 %>
+
+                <% if payunitjah.jf7.present? then %>
+                  <% if payunitjah.jf7.strftime('%Y%m%d%H%M').to_i>Time.now.strftime('%Y%m%d%H%M').to_i then %>
+                    <%= jah=1 %>
+                  <% end %>
+                <% end %>
+                <% if jah==1 and payunitjah.userid==session[:user_id] %>
+                  <li>
+                  <%= motd.f1 %>\
+                  <%= link_to mott.f1,motd_path(motd),class:'command' %>\
+                  <% if payunitjah.jff7.present? %>
+                    <span class="mailfrom">
+                      ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃<%= payunitjah.jff7.strftime('%Y.%m.%d %H:%M') %>
+                    </span>
+                  <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+              <% end %>
+              <% end %>
+            </ul>
+          </div>
+          </div>
             <% end %>
           <% end %>
-          <% if jah==1 and payunitjah.userid==session[:user_id] %>
-            <li>
-            <%= motd.f1 %>\
-            <%= link_to mott.f1,motd_path(motd),class:'command' %>\
-            <% if payunitjah.jff7.present? %>
-              <span class="mailfrom">
-                ᠵᠠᠬᠢᠶᠠᠯᠠᠪᠠ᠃<%= payunitjah.jff7.strftime('%Y.%m.%d %H:%M') %>
-              </span>
-            <% end %>
-            </li>
-          <% end %>
-        <% end %>
-        <% end %>
-        <% end %>
-        <% end %>
-        <% end %>
         <% end %>
       <% end %>
-    </ul>
-  </div>
-  </div>
 
+  <br>
   <div class="hidden_box">
   <h2><label for="soyol">ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ &ensp;</label></h2>
   <input type="checkbox" id="soyol" checked="checked"/>

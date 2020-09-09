@@ -18,8 +18,9 @@
   </head>
   <body>
     <section class="container">
-      <div class="noprint">
-        <div id="target1" class="box">
+
+      <div id="target1" class="box">
+
         <table>
           <tr>
             <td rowspan="2">
@@ -61,13 +62,25 @@
             target1.classList.toggle('win');
             })
         </script>
+        <h3></h3>
+
       </div>
-    </div>
 
       <%= yield %>
 
+      <section class="mgltig">
+
+      </section>
+
     </section>
-
+    <footer>
+      <table width="310px">
+        <tr>
+          <td>
+            <p>&nbsp;&copy; malchid.com</p>
+          </td>
+        </tr>
+      </table>　　
+    </footer>
   </body>
-
 </html>

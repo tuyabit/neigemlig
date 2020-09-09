@@ -443,7 +443,7 @@
                           <%= @mott.f4.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
                         </span>
                          <br>
-                         <% if session[:user_id]== @mott.Motdid %>
+                         <% if session[:user_id]!=1 and session[:user_id]== @mott.Motdid %>
                            <table height="100%" bgcolor="#EEE8AA">
                              <tr>
                                <td>
@@ -492,7 +492,7 @@
                           <%= @mott.f5.round(0) %><%= @mott.mob.strip %> ᠵᠣᠭᠤᠰ᠃
                         </span>
                          <br>
-                         <% if session[:user_id]== @mott.Mdid %>
+                         <% if session[:user_id]!=1 and session[:user_id]== @mott.Mdid %>
                            <table height="100%" bgcolor="#EEE8AA">
                              <tr>
                                <td>
@@ -542,7 +542,7 @@
                         <%= @mott.f4.round(0) %><%= @mott.moa.strip %> ᠵᠣᠭᠤᠰ᠃
                       </span>
                        <br>
-                       <% if session[:user_id]== @mott.Motdid %>
+                       <% if session[:user_id]!=1 and session[:user_id]== @mott.Motdid %>
                          <table height="100%" bgcolor="#EEE8AA">
                            <tr>
                              <td>
