@@ -63,3 +63,11 @@ gem 'mini_magick'
 
 gem 'therubyracer', platforms: :ruby
 gem 'rails_12factor', group: :production
+
+gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
+gem 'aws-sdk-resources', '~> 3.82'
+gem 'aws-sdk-s3', '~> 1.80'
+gem 'aws-sdk-s3control', '~> 1.22'
+gem 'aws-sdk-dynamodb', '~> 1.52'
+gem 'aws-sdk-dynamodbstreams', '~> 1.22'
+gem 'aws-sdk-docdb', '~> 1.21'
