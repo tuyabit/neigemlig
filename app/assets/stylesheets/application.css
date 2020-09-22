@@ -51,7 +51,7 @@
 /* safari */
  @media screen and (-webkit-min-device-pixel-ratio:0){
 
-     body {
+      body {
          font-family: "myfontaa";
          oncontextmenu: "return false";
          font-size: 54pt;

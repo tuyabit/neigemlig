@@ -340,7 +340,7 @@
                                                     <% adminpayf5 = adminpayf5.round(0) %>
 
                                                     <% if adminune.round(0) - adminpayf5 >0 %>
-                                                      <%= adminune.round(0) - adminpayf5.round(0) %><%= @userjob.unit.strip %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
+                                                      <br><%= adminune.round(0) - adminpayf5.round(0) %><%= @userjob.unit.strip %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
                                                     <% end %>
 
                                                     <% if bune.round(0)>payf5.round(0) %>
@@ -708,7 +708,7 @@
                           </p>
                     <% end %>
                   <% else %>
-                    <%= bune.round(0)-payf5.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
+                    <br><%= bune.round(0)-payf5.round(0) %><%= allunit %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
                   <% end %>
                 <% end %>
             <% end %>

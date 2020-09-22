@@ -3,14 +3,13 @@
 <% jobf1="" %>
 <% joba2="" %>
 <% jah=0 %>
-<% if session[:user_id]  %>
-    <br>
-    <div class="hidden_box">
-    <label for="job">ᠮᠢᠨᠦ ᠠᠵᠢᠯ</label>
-    <input type="checkbox" id="job" checked="checked"/>
-    <div class="hidden_show">
-
-      <% if @user.userjobs.any? %>
+<% if session[:user_id] %>
+    <% if @user.userjobs.any? %>
+      <br>
+      <div class="hidden_box">
+      <label for="job">ᠮᠢᠨᠦ ᠠᠵᠢᠯ</label>
+      <input type="checkbox" id="job" checked="checked"/>
+      <div class="hidden_show">
           <% @user.userjobs.each_with_index do |userjob,i| %>
             <% if userjob.name.present? %>
                 <h2><%= i+1 %>. <%= link_to userjob.name,user_userjob_path(userjob.user_id,userjob),class:'command' %></h2>
@@ -120,10 +119,10 @@
         <% end %>
         </div>
         </div>
-      <% end %>
 
-    </div>
-    </div>
+      </div>
+      </div>
+    <% end %>
 
     <% if @userjobpjhunjahs.any? %>
       <br>

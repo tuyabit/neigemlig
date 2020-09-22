@@ -176,7 +176,7 @@
   <% end %>
 
   <% @mottimages.first(1).each do |mottimage| %>
-    <br>
+    <br><br>
     <div class="johiogq">
       <%= link_to @motd.nickname,user_path(@motd.f3),class:'command' %> ᠵᠣᠬᠢᠶᠠᠪᠠ᠃
       <%= mottimage.created_at.strftime('%Y.%m.%d') %>
