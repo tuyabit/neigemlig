@@ -35,12 +35,13 @@
     </section>
 </div>
 </div>
+<hr>
 <% end %>
 
 <% if session[:user_id] %>
 
   <% if @inmails.any? %>
-    <hr>
+
     <div class="hidden_box">
       <label for="label7">ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label>
       <input type="checkbox" id="label7" checked="checked"/>
@@ -59,10 +60,11 @@
             </ul>
         </div>
     </div>
+    <hr>
   <% end %>
 
   <% if @inrmails.any? %>
-    <hr>
+
     <div class="hidden_box">
       <label for="label8">ᠬᠠᠷᠢᠭᠤ ᠵᠠᠬᠢᠲᠠᠯ &ensp;</label>
       <input type="checkbox" id="label8" checked="checked"/>
@@ -82,22 +84,15 @@
         </div>
     </div>
   <% end %>
+  <hr>
 <% end %>
 
 <% if @motds.any? %>
-  <hr>
+
   <div class="hidden_box">
   <label for="soyol">ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ</label>
   <input type="checkbox" id="soyol" checked="checked"/>
   <div class="hidden_show">
-    <ul>
-    <li>
-    <% @motds.each_with_index do |motd,i| %>
-      <%= link_to motd.f1,motd_path(motd),class:'command' %>\
-    <% end %>
-    </li>
-
-    </ul>
 
     <% if @payunits.any? %>
       <ul>
@@ -412,7 +407,7 @@
 <% end %>
 <br>
 
-<% if @userjobs.any? %>
+<% if @userjobs.any? and session[:user_id] %>
   <hr>
   <% jobname=[] %>
   <% jobhas=0 %>
@@ -421,6 +416,7 @@
   <label for="ajil">ᠠᠵᠢᠯ</label>
   <input type="checkbox" id="ajil" checked="checked"/>
   <div class="hidden_show">
+
 
     <% if session[:user_id]==1 then %>
       <ul>
@@ -579,66 +575,36 @@
 
 <% end %>
 
-
-
-  <% juud='ᠡᠷᠡᠭᠦᠯ' %>
-  <% jdlah='ᠡᠪᠡᠳᠴᠢᠨ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
-  <% if @userjuudjdls.any? %>
-    <hr>
-    <div class="hidden_box">
-    <label for="eruul">ᠡᠷᠡᠭᠦᠯ</label>
-    <input type="checkbox" id="eruul" checked="checked"/>
-    <div class="hidden_show">
-    <ul>
-    <% myname = "" %>
-    <% @userjuudjdls.each do |userjuudjdl| %>
-      <% if userjuudjdl.jrotate==juud %>
-        <li>
-          <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl.id),class:'command' %>
-          <% if userjuudjdl.june.present? and userjuudjdl.junit.present? %>
-            <span class="mailfrom" style="background-color:#FFE4E1;">
-              <%= userjuudjdl.june %><%= userjuudjdl.junit %>&ensp;ᠵᠣᠭᠤᠰ᠃
-            </span>
-          <% end %>
-          <span class="mailfrom">
-            <%= userjuudjdl.updated_at.strftime('%Y.%m.%d') %>
+  <hr>
+<% juud='ᠦᠭᠡᠰ' %>
+<% jdlah='ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠲᠠᠢᠯᠪᠤᠷᠢ' %>
+<% if @userjuudjdls.any? %>
+  <div class="hidden_box">
+  <label for="uges"><%= juud %></label>
+  <input type="checkbox" id="uges" checked="checked"/>
+  <div class="hidden_show">
+  <ul>
+  <% myname = "" %>
+  <% @userjuudjdls.each do |userjuudjdl| %>
+    <% if userjuudjdl.jrotate==juud %>
+      <li>
+        <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl.id),class:'command' %>
+        <% if userjuudjdl.june.present? and userjuudjdl.junit.present? %>
+          <span class="mailfrom" style="background-color:#FFE4E1;">
+            <%= userjuudjdl.june %><%= userjuudjdl.junit %>&ensp;ᠵᠣᠭᠤᠰ᠃
           </span>
-        </li>
-      <% end %>
+        <% end %>
+        <span class="mailfrom">
+          <%= userjuudjdl.updated_at.strftime('%Y.%m.%d') %>
+        </span>
+      </li>
     <% end %>
-    </ul>
-    </div>
-    </div>
   <% end %>
+  </ul>
+</div>
+</div>
+<% end %>
 
-  <% juud='ᠵᠡᠭᠦᠳᠤ' %>
-  <% jdlah='ᠵᠡᠭᠦᠳᠤ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
-  <% if @userjuudjdls.any? %>
-    <div class="hidden_box">
-    <label for="juud"><%= juud %></label>
-    <input type="checkbox" id="juud" checked="checked"/>
-    <div class="hidden_show">
-    <ul>
-    <% myname = "" %>
-    <% @userjuudjdls.each do |userjuudjdl| %>
-      <% if userjuudjdl.jrotate==juud %>
-        <li>
-          <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl.id),class:'command' %>
-          <% if userjuudjdl.june.present? and userjuudjdl.junit.present? %>
-            <span class="mailfrom" style="background-color:#FFE4E1;">
-              <%= userjuudjdl.june %><%= userjuudjdl.junit %>&ensp;ᠵᠣᠭᠤᠰ᠃
-            </span>
-          <% end %>
-          <span class="mailfrom">
-            <%= userjuudjdl.updated_at.strftime('%Y.%m.%d') %>
-          </span>
-        </li>
-      <% end %>
-    <% end %>
-    </ul>
-    </div>
-    </div>
-  <% end %>
 
   <% juud='ᠪᠤᠬᠢᠨᠢᠲᠤᠯ' %>
   <% jdlah='ᠬᠠᠤᠯᠢ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
@@ -669,33 +635,66 @@
     </div>
   <% end %>
 
-  <% juud='ᠦᠭᠡᠰ' %>
-  <% jdlah='ᠦᠭᠡᠰ ᠤ᠋ᠨ ᠲᠠᠢᠯᠪᠤᠷᠢ' %>
-  <% if @userjuudjdls.any? %>
-    <div class="hidden_box">
-    <label for="uges"><%= juud %></label>
-    <input type="checkbox" id="uges" checked="checked"/>
-    <div class="hidden_show">
-    <ul>
-    <% myname = "" %>
-    <% @userjuudjdls.each do |userjuudjdl| %>
-      <% if userjuudjdl.jrotate==juud %>
-        <li>
-          <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl.id),class:'command' %>
-          <% if userjuudjdl.june.present? and userjuudjdl.junit.present? %>
-            <span class="mailfrom" style="background-color:#FFE4E1;">
-              <%= userjuudjdl.june %><%= userjuudjdl.junit %>&ensp;ᠵᠣᠭᠤᠰ᠃
+
+    <% juud='ᠡᠷᠡᠭᠦᠯ' %>
+    <% jdlah='ᠡᠪᠡᠳᠴᠢᠨ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
+    <% if @userjuudjdls.any? %>
+      <div class="hidden_box">
+      <label for="eruul">ᠡᠷᠡᠭᠦᠯ</label>
+      <input type="checkbox" id="eruul" checked="checked"/>
+      <div class="hidden_show">
+      <ul>
+      <% myname = "" %>
+      <% @userjuudjdls.each do |userjuudjdl| %>
+        <% if userjuudjdl.jrotate==juud %>
+          <li>
+            <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl.id),class:'command' %>
+            <% if userjuudjdl.june.present? and userjuudjdl.junit.present? %>
+              <span class="mailfrom" style="background-color:#FFE4E1;">
+                <%= userjuudjdl.june %><%= userjuudjdl.junit %>&ensp;ᠵᠣᠭᠤᠰ᠃
+              </span>
+            <% end %>
+            <span class="mailfrom">
+              <%= userjuudjdl.updated_at.strftime('%Y.%m.%d') %>
             </span>
-          <% end %>
-          <span class="mailfrom">
-            <%= userjuudjdl.updated_at.strftime('%Y.%m.%d') %>
-          </span>
-        </li>
+          </li>
+        <% end %>
       <% end %>
+      </ul>
+      </div>
+      </div>
     <% end %>
-  </ul>
-  <% end %>
-  </div>
-  </div>
+
+
+
+      <% juud='ᠵᠡᠭᠦᠳᠤ' %>
+      <% jdlah='ᠵᠡᠭᠦᠳᠤ ᠵᠠᠳᠠᠯᠠᠬᠤ' %>
+      <% if @userjuudjdls.any? %>
+        <div class="hidden_box">
+        <label for="juud"><%= juud %></label>
+        <input type="checkbox" id="juud" checked="checked"/>
+        <div class="hidden_show">
+        <ul>
+        <% myname = "" %>
+        <% @userjuudjdls.each do |userjuudjdl| %>
+          <% if userjuudjdl.jrotate==juud %>
+            <li>
+              <%= link_to userjuudjdl.jname,user_userjuudjdl_path(userjuudjdl.user_id,userjuudjdl.id),class:'command' %>
+              <% if userjuudjdl.june.present? and userjuudjdl.junit.present? %>
+                <span class="mailfrom" style="background-color:#FFE4E1;">
+                  <%= userjuudjdl.june %><%= userjuudjdl.junit %>&ensp;ᠵᠣᠭᠤᠰ᠃
+                </span>
+              <% end %>
+              <span class="mailfrom">
+                <%= userjuudjdl.updated_at.strftime('%Y.%m.%d') %>
+              </span>
+            </li>
+          <% end %>
+        <% end %>
+        </ul>
+        </div>
+        </div>
+      <% end %>
+
 <% if session[:user_id] %>
 <% end %>

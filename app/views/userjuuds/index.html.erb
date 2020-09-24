@@ -218,7 +218,7 @@
 
         <% if unitbune !="" %>
           <% unitbu.push(unitbune) %>
-          <% bu.push(bune) %>
+          <% bubune.push(bune) %>
         <% end %>
 
         <% unitbune = bu1 %>
@@ -240,10 +240,10 @@
           <td>
               ᠠᠰᠢᠭ:
               <% unitbu.each_with_index do |unit, i| %>
-                  <%= buf5[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃
+                  <%= bubune[i] %><%= unit %> ᠵᠣᠭᠤᠰ᠃
                   <br>
                   <%= link_to 'ᠲᠤᠰ ᠰᠠᠢᠳ',user_path(1),class:'command' %> ᠵᠠᠭᠤᠨ ᠤ᠋ ᠠᠷᠪᠠᠨ ᠨᠠᠢ᠍ᠮᠠ ᠢ᠋ᠢᠨ ᠠᠰᠢᠭ ᠬᠦᠷᠲᠡᠨ᠎ᠠ᠃
-                  <% bune=buf5[i]*0.18 %>
+                  <% bune=bubune[i]*0.18 %>
                   <%= bune.round(0) %><%= unit %> ᠵᠣᠭᠤᠰ
 
                   <% payf4f5=0 %>

@@ -517,13 +517,8 @@
                           </span>
                       <% end %>
                       <% if bune.round(0)>payf5.round(0)  %>
-                          <span class="Ankhaaruulga">
-                            <br><%= bune.round(0)-payf5.round(0) %><%= unitbu[i] %> ᠵᠣᠭᠤᠰ ᠲᠤᠰᠢᠶᠠᠭᠠᠷᠠᠢ᠃
-                          </span>
-                      <% end %>
-
-                      <% if payf5.round(0) < bune.round(0) %>
-                        <% if session[:user_id]==1 then %>
+                        <br>
+                        <% if session[:user_id]==@user.id then %>
                           <%= form_for([@adminuser, @adminuser.userpays.build]) do |fff| %>
                             <p>
                               <%= fff.hidden_field :name, :value => 'ᠰᠣᠶᠤᠯ ᠤᠷᠠᠯᠢᠭ:' + @motd.f1+' ᠵᠠᠬᠢᠶᠠᠯᠠᠬᠤ ᠳ᠋ᠤ ᠲᠤᠰ ᠰᠠᠢᠳ ᠳ᠋ᠤ 18% ᠲᠤᠰᠢᠶᠠᠬᠤ' %>
@@ -537,7 +532,8 @@
                               <%= fff.hidden_field :typeid, :value => @motd.id %>
                             </p>
                             <p>
-                              <%= fff.submit 'ᠬᠠᠰᠤᠬᠤ', :class=>"btn" %>
+                              <%= bune.round(0)-payf5.round(0) %><%= unitbu[i] %> ᠵᠣᠭᠤᠰ
+                              <%= fff.submit 'ᠲᠤᠰᠢᠶᠠᠬᠤ', :class=>"btn" %>
                             </p>
                           <% end %>
                         <% end %>

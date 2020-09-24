@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_122648) do
+ActiveRecord::Schema.define(version: 2020_09_23_054706) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "tt"
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(version: 2020_08_21_122648) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "a4"
     t.text "a5"
     t.index ["user_id"], name: "index_mlqdfs_on_user_id"
   end

@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>malchid.com</title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,7 +19,7 @@
   </head>
   <body>
     <section class="container">
-
+      <br>
       <div id="target1" class="box">
 
         <table>
@@ -40,9 +41,9 @@
                     &nbsp;<%= link_to 'ᠠᠵᠢᠯ',user_userjobs_path(session[:user_id]),class:'command' %>
                     &nbsp;<%= link_to 'ᠠᠰᠠᠭᠤᠯᠲᠠ',user_userjuuds_path(session[:user_id]),class:'command' %>
                     &nbsp;<%= link_to 'ᠪᠦᠷᠢᠳᠭᠡᠯ',user_usermals_path(session[:user_id]),class:'command' %>
-                    &nbsp;<%= link_to 'ᠶᠠᠷᠢᠯᠴᠠᠬᠤ',user_mlqdfs_path(session[:user_id]),class:'command' %>
                   <% end %>
                   &nbsp;<%=link_to 'ᠬᠦᠰᠡᠯ',user_usergets_path(session[:user_id]),class:'command' %>
+                  &nbsp;<%= link_to 'ᠶᠠᠷᠢᠯᠴᠠᠬᠤ',user_mlqdfs_path(session[:user_id]),class:'command' %>
                   &nbsp;<%= link_to 'ᠵᠠᠬᠢᠲᠠᠯ',mails_path,class:'command' %>&nbsp;
                   &nbsp;<%= link_to 'ᠳᠠᠬᠢᠵᠤ ᠬᠢᠨᠠᠭᠤᠯᠠᠬᠤ',logout_path,class:'command'%>&nbsp;
                   &nbsp;<% if session[:user_fname] %>

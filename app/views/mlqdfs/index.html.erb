@@ -16,10 +16,6 @@
           <%= link_to "ᠶᠠᠷᠢᠯᠴᠠᠬᠤ",user_mlqdf_path(mlqdf.user_id,mlqdf),class:'command' %>
           </span>
 
-          <% if !mlqdf.mlqdfchats.any? %>
-            <%= link_to ' ᠬᠠᠰᠤᠬᠤ',user_mlqdf_path(@user,mlqdf),method: :delete,class: 'command', data:{confirm: 'are you sure you want to delete?',
-                                                         "class" => "mgltig"} %>
-          <% end %>
         </li>
 
       <% end %>
@@ -60,6 +56,7 @@
                   ᠠᠳᠠᠯᠢᠬᠠᠨ ᠨᠠᠷᠡᠲᠤ:
                   <%= link_to theuser.nickname,user_path(theuser.id),class:'command' %>
                   ᠲᠤᠰ ᠬᠥᠮᠦᠨ
+                  <%= mlqdf.a1.strip %>
                   <%= form_for mlqdf, url: user_mlqdf_path(@user,mlqdf) do |f| %>
                     <%= f.hidden_field :a3, :value => theuser.id %>
                     <%= f.hidden_field :a4, :value => mlqdf.a1.strip %>

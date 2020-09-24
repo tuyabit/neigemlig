@@ -8,8 +8,8 @@ class MotdsController < ApplicationController
         if session[:user_id]
           @user = User.find(session[:user_id])
           @mymlqdbs = @user.mlqdbs.all.order(a9:'desc')
-          @inmails = Mail.joins("LEFT OUTER JOIN users ON users.id = mails.f3 ").where(a1: @user.email.downcase).select("mails.*,users.nickname").order(updated_at:'desc')
-          @inrmails = Rmail.joins("LEFT OUTER JOIN users ON users.id = rmails.ff3 LEFT OUTER JOIN mails ON mails.id = rmails.mail_id ").where(aa1: @user.email.downcase).select("rmails.*,users.nickname").order(updated_at:'desc')
+          @inmails = Mail.joins("LEFT OUTER JOIN users ON users.id = mails.f3 ").where(a1: @user.email.downcase).select("mails.*,users.nickname").order(created_at:'desc')
+          @inrmails = Rmail.joins("LEFT OUTER JOIN users ON users.id = rmails.ff3 LEFT OUTER JOIN mails ON mails.id = rmails.mail_id ").where(aa1: @user.email.downcase).select("rmails.*,users.nickname").order(created_at:'desc')
 
           # @userjobs = Userjob.all.order(updated_at:'desc')
         end

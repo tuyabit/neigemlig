@@ -1171,8 +1171,8 @@
 
   .img {
     width: auto;
+    max-width: 260px;
     min-height: 260px;
-    /* max-width: 260px; */
     max-height:260px;
     float:left;
     margin-bottom: 10px;
